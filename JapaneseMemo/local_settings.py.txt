@@ -1,0 +1,15 @@
+# Database
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+
+# change database name, user and password for your database, then change file name to local_settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'database name',
+        'USER': 'username',
+        'PASSWORD': 'username password',
+        'HOST': 'localhost'
+    }
+}
