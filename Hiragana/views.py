@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserAdvancedCreationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from Hiragana.models import Stats, Levels, Hiragana, level
-from django.contrib.auth.models import User
+from Hiragana.models import Levels, level
+from django.contrib.auth.models import Permission
 import random
 
 
@@ -31,7 +31,6 @@ class SignUp(CreateView):
     success_url = reverse_lazy('landing-page')
 
 
-# exclude id hiragany ktora juz byla zeby sie nie powtarzaly
 class PresetEasy(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'easy'
@@ -49,11 +48,14 @@ class PresetEasy(LoginRequiredMixin, View):
             points = request.session.get('points', 0)
             points += 1
             request.session['points'] = points
-            if points > 5:
+            if points >= 5:
                 user = request.user
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
+                if user.stats.completed == 5:
+                    perm = Permission.objects.get(codename='medium_level')
+                    user.user_permissions.add(perm)
                 return redirect('home')
         return redirect('easy')
 
@@ -78,11 +80,14 @@ class PresetMedium(LoginRequiredMixin, View):
             points = request.session.get('points', 0)
             points += 1
             request.session['points'] = points
-            if points > 5:
+            if points >= 5:
                 user = request.user
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
+                if user.stats.completed == 10:
+                    perm = Permission.objects.get(codename='hard_level')
+                    user.user_permissions.add(perm)
                 return redirect('home')
         return redirect('medium')
 
@@ -92,10 +97,13 @@ class PresetHard(LoginRequiredMixin, View):
     redirect_field_name = 'hard'
 
     def get(self, request):
-        hard = Levels.objects.filter(preset=2)
-        shuffle = random.sample(list(hard), 5)
-        question = random.choice(shuffle)
-        return render(request, "hard.html", {'shuffle': shuffle, "question": question})
+        user = request.user
+        if user.has_perm('Hiragana.hard_level'):
+            hard = Levels.objects.filter(preset=2)
+            shuffle = random.sample(list(hard), 5)
+            question = random.choice(shuffle)
+            return render(request, "hard.html", {'shuffle': shuffle, "question": question})
+        return redirect('home')
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -104,7 +112,7 @@ class PresetHard(LoginRequiredMixin, View):
             points = request.session.get('points', 0)
             points += 1
             request.session['points'] = points
-            if points > 5:
+            if points >= 5:
                 user = request.user
                 user.stats.completed += 1
                 user.stats.save()

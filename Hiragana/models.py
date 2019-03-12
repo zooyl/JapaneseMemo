@@ -29,5 +29,3 @@ class Hiragana(models.Model):
 class Levels(models.Model):
     preset = models.IntegerField(choices=level)
     memo = models.ForeignKey(Hiragana, on_delete=models.DO_NOTHING)
-
-    # answer = models.ForeignKey(Stats, on_delete=models.CASCADE)
