@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import Hiragana.views
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Hiragana.views.landing_page, name='landing-page'),
-    path('signup/', Hiragana.views.SignUp.as_view()),
+    path('signup/', Hiragana.views.SignUp.as_view(), name="signup"),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('home/', Hiragana.views.Dashboard.as_view(), name='home'),
 ]

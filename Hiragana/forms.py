@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from Hiragana.models import Stats
 
 
 class UserAdvancedCreationForm(UserCreationForm):
@@ -15,4 +16,5 @@ class UserAdvancedCreationForm(UserCreationForm):
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
+            Stats.objects.create(user=user)
         return user

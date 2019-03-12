@@ -17,8 +17,8 @@ class Stats(models.Model):
 
 
 class Hiragana(models.Model):
-    sign = models.CharField()
-    pronunciation = models.CharField()
+    sign = models.CharField(max_length=5)
+    pronunciation = models.CharField(max_length=5)
 
 
 class Levels(models.Model):
