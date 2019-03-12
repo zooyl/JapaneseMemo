@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import Hiragana.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', Hiragana.views.landing_page, name='landing-page'),
+    path('signup/', Hiragana.views.SignUp.as_view()),
 ]
