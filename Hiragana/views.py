@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.views import View
 from .forms import UserAdvancedCreationForm
 from django.urls import reverse_lazy
@@ -63,10 +63,13 @@ class PresetMedium(LoginRequiredMixin, View):
     redirect_field_name = 'medium'
 
     def get(self, request):
-        medium = Levels.objects.filter(preset=1)
-        shuffle = random.sample(list(medium), 5)
-        question = random.choice(shuffle)
-        return render(request, "medium.html", {'shuffle': shuffle, "question": question})
+        user = request.user
+        if user.has_perm('Hiragana.medium_level'):
+            medium = Levels.objects.filter(preset=1)
+            shuffle = random.sample(list(medium), 5)
+            question = random.choice(shuffle)
+            return render(request, "medium.html", {'shuffle': shuffle, "question": question})
+        return redirect('home')
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']

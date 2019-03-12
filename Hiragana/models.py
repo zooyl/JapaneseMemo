@@ -14,6 +14,12 @@ class Stats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     completed = models.IntegerField(default=0)
 
+    class Meta:
+        permissions = (
+            ('medium_level', "Can start medium level"),
+            ('hard_level', "Can start hard level")
+        )
+
 
 class Hiragana(models.Model):
     sign = models.CharField(max_length=5)
