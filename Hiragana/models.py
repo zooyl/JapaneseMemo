@@ -7,7 +7,6 @@ level = (
     (0, 'Easy'),
     (1, 'Medium'),
     (2, 'Hard'),
-    (3, 'Very Hard'),
 )
 
 
@@ -22,6 +21,7 @@ class Hiragana(models.Model):
 
 
 class Levels(models.Model):
-    memo = models.ForeignKey(Hiragana, on_delete=models.DO_NOTHING)
     preset = models.IntegerField(choices=level)
-    answer = models.ForeignKey(Stats, on_delete=models.CASCADE)
+    memo = models.ForeignKey(Hiragana, on_delete=models.DO_NOTHING)
+
+    # answer = models.ForeignKey(Stats, on_delete=models.CASCADE)

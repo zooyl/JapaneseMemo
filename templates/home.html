@@ -5,5 +5,9 @@
     <p>ZALOGOWAUUU</p>
     <p>User: {{ stats.user }}</p>
     <p>Completed memos: {{ stats.completed }}</p>
+    <p>Levels:<br>
+            <a href="{% url 'easy' %}">{{ level.0.1 }}</a><br>
+            <a href="{% url 'medium' %}">{{ level.1.1 }}</a><br>
+            <a href="{% url 'hard' %}">{{ level.2.1 }}</a><br>
 </div>
 {% endblock %}
