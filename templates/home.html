@@ -8,24 +8,15 @@
   <div class="card-body">
     <h5 class="card-title">Exercises done:</h5>
     <p class="card-text">{{ stats.completed }}</p>
-{#    <a href="#" class="btn btn-primary">Go somewhere</a>#}
   </div>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted" id="hiragana">
     <a href="{% url 'hiragana' %}" class="btn btn-outline-danger">Hiragana</a>
   </div>
-    <div class="card-footer text-muted">
+    <div class="card-footer text-muted" id="katakana">
     <a href="{% url 'medium' %}" class="btn btn-primary btn-outline-danger disabled">Katakana</a>
   </div>
-    <div class="card-footer text-muted ">
+    <div class="card-footer text-muted " id="kanji">
     <a href="{% url 'hard' %}" class="btn btn-primary btn-outline-danger disabled">Kanji</a>
-  </div>
-</div>
-    <br>
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
 {% endblock content %}

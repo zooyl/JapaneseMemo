@@ -48,10 +48,12 @@ class PresetEasy(LoginRequiredMixin, View):
     redirect_field_name = 'easy'
 
     def get(self, request):
+        check = request.session['points']
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
-        return render(request, "easy.html", {'shuffle': shuffle, "question": question})
+        return render(request, "easy.html", {'shuffle': shuffle, "question": question,
+                                             'check': check})
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']

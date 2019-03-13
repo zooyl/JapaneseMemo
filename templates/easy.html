@@ -1,72 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-{#    <div class="container">#}
-{#        <p>Selected signs:</p>#}
-{#        <p>{% for i in shuffle %}</p>#}
-{#            <h1 class="display-6">{{ i.memo.sign }}</h1>#}
-{#        {% endfor %}#}
-{#        <form method="POST">#}
-{#        {% csrf_token %}#}
-{#            <p>CHOOSEN:</p>#}
-{#            <h1 class="display-2">{{ question.memo.sign }}</h1>#}
-{#            <h1 class="display-2">{{ question.memo.pronunciation }}</h1>#}
-{#            {% for j in shuffle %}#}
-{#                <input type="submit" name="pronunciation" value="{{ j.memo.pronunciation }}">#}
-{#            {% endfor %}#}
-{#            <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">#}
-{#        </form>#}
-{#    {{ wrong }}#}
-{#    </div>#}
-
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="display-2 d-block w-100">{{ question.memo.sign }}
-    </div>
+    <br>
+    {{ check }}
     <form method="POST">
         {% csrf_token %}
-        {% for j in shuffle %}
-        <input type="submit" name="pronunciation" value="{{ j.memo.pronunciation }}">
-        <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">
-        {% endfor %}
+        <div align="center">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header" align="center" style="font-size: 200px">{{ question.memo.sign }}</div>
+                <div class="card-body text-danger">
+                    <h5 class="card-title" align="center">Pronunciation:</h5>
+                    <p class="card-text" align="center">{% for j in shuffle %}
+                        <input class="btn btn-outline-danger" type="submit" name="pronunciation"
+                               value="{{ j.memo.pronunciation }}">
+                        <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">
+                    {% endfor %}</p>
+                </div>
+            </div>
+        </div>
     </form>
-{#    <div class="carousel-item">#}
-{#      <img class="d-block w-100" src="..." alt="Second slide">#}
-{#    </div>#}
-{#    <div class="carousel-item">#}
-{#      <img class="d-block w-100" src="..." alt="Third slide">#}
-{#    </div>#}
-  </div>
-</div>
-{#        <section class="padding-large bg-light">#}
-{#        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">#}
-{#            <div class="carousel-inner">#}
-{#                <div class="carousel-item active">#}
-{#                    <div class="d-block w-100">{{ question.memo.sign }}</div>#}
-{#                    <div class="container w-75 d-flex">#}
-{#                        <div class="carousel-caption d-block">#}
-{#                            <h1>{{ question.memo.sign }}</h1>#}
-{#                            <h3> {{ losuj0 }}</h3>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="carousel-item">#}
-{#                    <div class="container w-75 d-flex">#}
-{#                        <div class="carousel-caption d-block">#}
-{#                            <h1>{{ question.memo.sign }}</h1>#}
-{#                            <h3> {{ losuj1 }}.</h3>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="carousel-item">#}
-{#                    <div class="container w-75 d-flex">#}
-{#                        <div class="carousel-caption d-block">#}
-{#                            <h1>{{ title2 }}</h1>#}
-{#                            <h3> {{ losuj2 }}</h3>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        </section>#}
 {% endblock %}
