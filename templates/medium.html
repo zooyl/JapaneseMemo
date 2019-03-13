@@ -1,20 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-        <p>Selected signs:</p>
-        <p>{% for i in shuffle %}</p>
-            <h1 class="display-6">{{ i.memo.sign }}</h1>
-        {% endfor %}
-        <form method="POST">
-        {% csrf_token %}
-            <p>CHOOSEN:</p>
-            <h1 class="display-2">{{ question.memo.sign }}</h1>
-{#            <h1 class="display-2">{{ question.memo.pronunciation }}</h1>#}
-            {% for j in shuffle %}
-                <input type="submit" name="pronunciation" value="{{ j.memo.pronunciation }}">
-            {% endfor %}
-            <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">
-        </form>
-    {{ wrong }}
+    <br>
+    <div align="center">
+        <div class="card border-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header" align="center" style="font-size: 30px">Level points:</div>
+            <div class="card-body text-danger">
+                <h3 class="card-title" align="center">{{ points }} / 5</h3>
+            </div>
+        </div>
     </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div align="center">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header" align="center" style="font-size: 200px">{{ question.memo.sign }}</div>
+                <div class="card-body text-danger">
+                    <h5 class="card-title" align="center">Pronunciation:</h5>
+                    <p class="card-text" align="center">{% for j in shuffle %}
+                        <input class="btn btn-outline-danger" type="submit" name="pronunciation"
+                               value="{{ j.memo.pronunciation }}">
+                        <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">
+                    {% endfor %}</p>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

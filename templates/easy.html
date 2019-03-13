@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
     <br>
-    {{ check }}
+    <div align="center">
+        <div class="card border-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header" align="center" style="font-size: 30px">Level points:</div>
+            <div class="card-body text-danger">
+                <h3 class="card-title" align="center">{{ points }} / 5</h3>
+            </div>
+        </div>
+    </div>
     <form method="POST">
         {% csrf_token %}
         <div align="center">

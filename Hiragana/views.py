@@ -48,12 +48,12 @@ class PresetEasy(LoginRequiredMixin, View):
     redirect_field_name = 'easy'
 
     def get(self, request):
-        check = request.session['points']
+        points = request.session.get('points', 0)
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
         return render(request, "easy.html", {'shuffle': shuffle, "question": question,
-                                             'check': check})
+                                             'points': points})
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -81,10 +81,12 @@ class PresetMedium(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         if user.has_perm('Hiragana.medium_level'):
+            points = request.session.get('points', 0)
             medium = Levels.objects.filter(preset=1)
             shuffle = random.sample(list(medium), 5)
             question = random.choice(shuffle)
-            return render(request, "medium.html", {'shuffle': shuffle, "question": question})
+            return render(request, "medium.html", {'shuffle': shuffle, "question": question,
+                                                   'points': points})
         return redirect('hiragana')
 
     def post(self, request):
@@ -113,10 +115,12 @@ class PresetHard(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         if user.has_perm('Hiragana.hard_level'):
+            points = request.session.get('points', 0)
             hard = Levels.objects.filter(preset=2)
             shuffle = random.sample(list(hard), 5)
             question = random.choice(shuffle)
-            return render(request, "hard.html", {'shuffle': shuffle, "question": question})
+            return render(request, "hard.html", {'shuffle': shuffle, "question": question,
+                                                 'points': points})
         return redirect('hiragana')
 
     def post(self, request):
