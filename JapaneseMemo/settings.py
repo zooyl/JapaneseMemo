@@ -109,6 +109,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 15
 }
 
+LOGOUT_REDIRECT_URL = "login"
+
 try:
     from JapaneseMemo.local_settings import DATABASES, SECRET_KEY
 except ModuleNotFoundError:

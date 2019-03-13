@@ -4,15 +4,14 @@ from .forms import UserAdvancedCreationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Permission, User
 from Hiragana.models import Levels, level, Hiragana
-from django.contrib.auth.models import Permission
 import random
 from rest_framework import viewsets
-from django.contrib.auth.models import User
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 
 
-# TODO password reset, email verification
+# TODO password reset, auto fill db
 
 # Create your views here.
 
