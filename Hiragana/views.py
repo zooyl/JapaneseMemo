@@ -9,6 +9,8 @@ from django.contrib.auth.models import Permission
 import random
 
 
+# TODO password reset, email verification
+
 # Create your views here.
 
 def landing_page(request):
@@ -29,6 +31,16 @@ class SignUp(CreateView):
     form_class = UserAdvancedCreationForm
     template_name = 'auth/user_form.html'
     success_url = reverse_lazy('landing-page')
+
+
+class Hiragana(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'home'
+
+    def get(self, request):
+        user = request.user
+        stats = user.stats
+        return render(request, "hiragana.html", {'stats': stats, 'level': level})
 
 
 class PresetEasy(LoginRequiredMixin, View):
@@ -56,7 +68,7 @@ class PresetEasy(LoginRequiredMixin, View):
                 if user.stats.completed == 5:
                     perm = Permission.objects.get(codename='medium_level')
                     user.user_permissions.add(perm)
-                return redirect('home')
+                return redirect('hiragana')
         return redirect('easy')
 
 
@@ -71,7 +83,7 @@ class PresetMedium(LoginRequiredMixin, View):
             shuffle = random.sample(list(medium), 5)
             question = random.choice(shuffle)
             return render(request, "medium.html", {'shuffle': shuffle, "question": question})
-        return redirect('home')
+        return redirect('hiragana')
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -88,7 +100,7 @@ class PresetMedium(LoginRequiredMixin, View):
                 if user.stats.completed == 10:
                     perm = Permission.objects.get(codename='hard_level')
                     user.user_permissions.add(perm)
-                return redirect('home')
+                return redirect('hiragana')
         return redirect('medium')
 
 
@@ -103,7 +115,7 @@ class PresetHard(LoginRequiredMixin, View):
             shuffle = random.sample(list(hard), 5)
             question = random.choice(shuffle)
             return render(request, "hard.html", {'shuffle': shuffle, "question": question})
-        return redirect('home')
+        return redirect('hiragana')
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -117,5 +129,5 @@ class PresetHard(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
-                return redirect('home')
+                return redirect('hiragana')
         return redirect('hard')

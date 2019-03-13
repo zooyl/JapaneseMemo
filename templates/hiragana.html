@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+{% block content %}
+<div class="card text-center">
+  <div class="card-header">
+    Hiragana
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Hiragana done:</h5>
+    <p class="card-text">{{ stats.completed }}</p>
+{#    <a href="#" class="btn btn-primary">Go somewhere</a>#}
+  </div>
+  <div class="card-footer text-muted">
+    <a href="{% url 'easy' %}" class="btn btn-outline-danger">Easy Level</a>
+  </div>
+    <div class="card-footer text-muted">
+    <a href="{% url 'medium' %}" class="btn btn-outline-danger">Medium Level</a>
+  </div>
+    <div class="card-footer text-muted ">
+    <a href="{% url 'hard' %}" class="btn btn-outline-danger">Hard Level</a>
+  </div>
+</div>
+{% endblock content %}
+{##}
+{#<div class="card text-left" style="width: 18rem;">#}
+{#  <div class="card-body">#}
+{#    <h5 class="card-title">Special title treatment</h5>#}
+{#    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>#}
+{#    <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#  </div>#}
+{#</div>#}
+{##}
+{#<div class="card text-right" style="width: 18rem;">#}
+{#  <div class="card-body">#}
+{#    <h5 class="card-title">Special title treatment</h5>#}
+{#    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>#}
+{#    <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#  </div>#}
+{#</div>#}
+{#    <div class="align-items-lg-start">#}
+{#        <p>ZALOGOWAUUU</p>#}
+{#        <p>User: {{ stats.user }}</p>#}
+{#        <p>Completed memos: {{ stats.completed }}</p>#}
+{#            <p>Levels:<br>#}
+{#                <a href="{% url 'easy' %}">{{ level.0.1 }}</a><br>#}
+{#                <a href="{% url 'medium' %}">{{ level.1.1 }}</a><br>#}
+{#                <a href="{% url 'hard' %}">{{ level.2.1 }}</a><br>#}
+{#    </div>#}
