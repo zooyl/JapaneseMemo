@@ -3,20 +3,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PhoneBook</title>
+    <title>Memorize Japanese</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-danger">
   <div class="container">
     <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
-    <a class="navbar-brand" href="{% url 'signup' %}">Sign up</a>
     <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
+    <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
   </div>
 </nav>
-<br>
 {% block content %}
 {# -- content here -- #}
 {% endblock content %}
@@ -29,5 +28,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="{% static 'js/app.js' %}"></script>
+<footer class="fixed-bottom">
+    <div class="footer-copyright text-center py-3 bg-danger">
+        <a href="https://github.com/zooyl" target="_blank" class="btn btn-outline-danger">Antka kobity brata syn</a>
+    </div>
+</footer>
 </body>
 </html>

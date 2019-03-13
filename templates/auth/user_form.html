@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+    <br>
 <form class="container" method="post">
 {{ form.errors }}
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="btn btn-dark" type="submit" value="Sign up">
+    <input class="btn btn-outline-danger" type="submit" value="Sign up">
   </form>
+    <br>
 {% endblock %}

@@ -9,6 +9,8 @@ from django.contrib.auth.models import Permission
 import random
 
 
+# TODO password reset, email verification
+
 # Create your views here.
 
 def landing_page(request):
@@ -31,15 +33,27 @@ class SignUp(CreateView):
     success_url = reverse_lazy('landing-page')
 
 
+class Hiragana(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'home'
+
+    def get(self, request):
+        user = request.user
+        stats = user.stats
+        return render(request, "hiragana.html", {'stats': stats, 'level': level})
+
+
 class PresetEasy(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'easy'
 
     def get(self, request):
+        points = request.session.get('points', 0)
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
-        return render(request, "easy.html", {'shuffle': shuffle, "question": question})
+        return render(request, "easy.html", {'shuffle': shuffle, "question": question,
+                                             'points': points})
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -56,7 +70,7 @@ class PresetEasy(LoginRequiredMixin, View):
                 if user.stats.completed == 5:
                     perm = Permission.objects.get(codename='medium_level')
                     user.user_permissions.add(perm)
-                return redirect('home')
+                return redirect('hiragana')
         return redirect('easy')
 
 
@@ -67,11 +81,13 @@ class PresetMedium(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         if user.has_perm('Hiragana.medium_level'):
+            points = request.session.get('points', 0)
             medium = Levels.objects.filter(preset=1)
             shuffle = random.sample(list(medium), 5)
             question = random.choice(shuffle)
-            return render(request, "medium.html", {'shuffle': shuffle, "question": question})
-        return redirect('home')
+            return render(request, "medium.html", {'shuffle': shuffle, "question": question,
+                                                   'points': points})
+        return redirect('hiragana')
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -88,7 +104,7 @@ class PresetMedium(LoginRequiredMixin, View):
                 if user.stats.completed == 10:
                     perm = Permission.objects.get(codename='hard_level')
                     user.user_permissions.add(perm)
-                return redirect('home')
+                return redirect('hiragana')
         return redirect('medium')
 
 
@@ -99,11 +115,13 @@ class PresetHard(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         if user.has_perm('Hiragana.hard_level'):
+            points = request.session.get('points', 0)
             hard = Levels.objects.filter(preset=2)
             shuffle = random.sample(list(hard), 5)
             question = random.choice(shuffle)
-            return render(request, "hard.html", {'shuffle': shuffle, "question": question})
-        return redirect('home')
+            return render(request, "hard.html", {'shuffle': shuffle, "question": question,
+                                                 'points': points})
+        return redirect('hiragana')
 
     def post(self, request):
         pronunciation = request.POST['pronunciation']
@@ -117,5 +135,5 @@ class PresetHard(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
-                return redirect('home')
+                return redirect('hiragana')
         return redirect('hard')

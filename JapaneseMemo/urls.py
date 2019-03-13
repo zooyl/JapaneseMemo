@@ -28,4 +28,5 @@ urlpatterns = [
     path('home/easy', Hiragana.views.PresetEasy.as_view(), name='easy'),
     path('home/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
     path('home/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
+    path('home/hiragana', Hiragana.views.Hiragana.as_view(), name='hiragana'),
 ]
