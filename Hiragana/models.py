@@ -17,7 +17,8 @@ class Stats(models.Model):
     class Meta:
         permissions = (
             ('medium_level', "Can start medium level"),
-            ('hard_level', "Can start hard level")
+            ('hard_level', "Can start hard level"),
+            ('mixed_level', "Can start mixed level")
         )
 
 

@@ -2,22 +2,32 @@
 {% load static %}
 <!DOCTYPE html>
 {% block content %}
-<div class="card text-center">
-  <div class="card-header">
-    Hiragana
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Hiragana done:</h5>
-    <p class="card-text">{{ stats.completed }}</p>
-  </div>
-  <div class="card-footer text-muted">
-    <a href="{% url 'easy' %}" class="btn btn-outline-danger">Easy Level</a>
-  </div>
-    <div class="card-footer text-muted">
-    <a href="{% url 'medium' %}" class="btn btn-outline-danger">Medium Level</a>
-  </div>
-    <div class="card-footer text-muted ">
-    <a href="{% url 'hard' %}" class="btn btn-outline-danger">Hard Level</a>
-  </div>
-</div>
+    <div class="card text-center">
+        <div class="card-header">
+            Hiragana
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Hiragana done:</h5>
+            <p class="card-text">{{ stats.completed }}</p>
+        </div>
+
+        <div class="card-footer text-muted">
+            <a href="{% url 'easy' %}" class="btn btn-outline-danger">Easy Level</a>
+        </div>
+        {% if perms.Hiragana.medium_level %}
+            <div class="card-footer text-muted">
+                <a href="{% url 'medium' %}" class="btn btn-outline-danger">Medium Level</a>
+            </div>
+        {% endif %}
+        {% if perms.Hiragana.hard_level %}
+            <div class="card-footer text-muted ">
+                <a href="{% url 'hard' %}" class="btn btn-outline-danger">Hard Level</a>
+            </div>
+        {% endif %}
+        {% if perms.Hiragana.mixed_level %}
+            <div class="card-footer text-muted">
+                <a href="{% url 'mixed' %}" class="btn btn-outline-danger">Mixed Level</a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock content %}

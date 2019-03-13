@@ -4,9 +4,12 @@ from .forms import UserAdvancedCreationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from Hiragana.models import Levels, level
+from Hiragana.models import Levels, level, Hiragana
 from django.contrib.auth.models import Permission
 import random
+from rest_framework import viewsets
+from django.contrib.auth.models import User
+from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 
 
 # TODO password reset, email verification
@@ -33,7 +36,7 @@ class SignUp(CreateView):
     success_url = reverse_lazy('landing-page')
 
 
-class Hiragana(LoginRequiredMixin, View):
+class HiraganaMain(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'home'
 
@@ -86,7 +89,7 @@ class PresetMedium(LoginRequiredMixin, View):
             shuffle = random.sample(list(medium), 5)
             question = random.choice(shuffle)
             return render(request, "medium.html", {'shuffle': shuffle, "question": question,
-                                                   'points': points})
+                                                   'points': points, 'user': user})
         return redirect('hiragana')
 
     def post(self, request):
@@ -135,5 +138,54 @@ class PresetHard(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
+                if user.stats.completed == 15:
+                    perm = Permission.objects.get(codename='mixed_level')
+                    user.user_permissions.add(perm)
                 return redirect('hiragana')
         return redirect('hard')
+
+
+class PresetMixed(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'mixed'
+
+    def get(self, request):
+        user = request.user
+        if user.has_perm('Hiragana.mixed_level'):
+            points = request.session.get('points', 0)
+            mixed = Levels.objects.all()
+            shuffle = random.sample(list(mixed), 5)
+            question = random.choice(shuffle)
+            return render(request, "mixed.html", {'shuffle': shuffle, "question": question,
+                                                  'points': points})
+        return redirect('hiragana')
+
+    def post(self, request):
+        pronunciation = request.POST['pronunciation']
+        answer = request.POST['answer']
+        if pronunciation == answer:
+            points = request.session.get('points', 0)
+            points += 1
+            request.session['points'] = points
+            if points >= 10:
+                user = request.user
+                user.stats.completed += 1
+                user.stats.save()
+                request.session['points'] = 0
+                return redirect('hiragana')
+        return redirect('mixed')
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('id')
+    serializer_class = UserSerializer
+
+
+class HiraganaViewSet(viewsets.ModelViewSet):
+    queryset = Hiragana.objects.all().order_by('id')
+    serializer_class = HiraganaSerializer
+
+
+class LevelsViewSet(viewsets.ModelViewSet):
+    queryset = Levels.objects.all().order_by('preset')
+    serializer_class = LevelsSerializer
