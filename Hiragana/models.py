@@ -13,6 +13,7 @@ level = (
 class Stats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     completed = models.IntegerField(default=0)
+    attempts = models.IntegerField(default=0)
 
     class Meta:
         permissions = (

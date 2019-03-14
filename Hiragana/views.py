@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
-from Hiragana.models import Levels, level, Hiragana,Stats
+from Hiragana.models import Levels, level, Hiragana, Stats
 import random
 from rest_framework import viewsets
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
@@ -62,6 +62,9 @@ class PresetEasy(LoginRequiredMixin, View):
     def post(self, request):
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
+        user = request.user
+        user.stats.attempts += 1
+        user.stats.save()
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
@@ -96,6 +99,9 @@ class PresetMedium(LoginRequiredMixin, View):
     def post(self, request):
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
+        user = request.user
+        user.stats.attempts += 1
+        user.stats.save()
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
@@ -130,6 +136,9 @@ class PresetHard(LoginRequiredMixin, View):
     def post(self, request):
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
+        user = request.user
+        user.stats.attempts += 1
+        user.stats.save()
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
@@ -164,6 +173,9 @@ class PresetMixed(LoginRequiredMixin, View):
     def post(self, request):
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
+        user = request.user
+        user.stats.attempts += 1
+        user.stats.save()
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1

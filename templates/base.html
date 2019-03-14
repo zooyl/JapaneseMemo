@@ -11,14 +11,14 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-danger">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
-    <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
-    <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
-  </div>
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
+        <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+    </div>
 </nav>
 {% block content %}
-{# -- content here -- #}
+    {# -- content here -- #}
 {% endblock content %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

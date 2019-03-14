@@ -10,21 +10,21 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-danger">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
-    <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
-  </div>
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
+    </div>
 </nav>
-    <br>
+<br>
 <form class="container" method="post">
     <div class="form-check">
-    {{ form.errors }}
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-outline-danger" type="submit" value="Sign up">
+        {{ form.errors }}
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-outline-danger" type="submit" value="Sign up">
     </div>
-  </form>
-    <br>
+</form>
+<br>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -4,7 +4,7 @@ $(document).ready(function () {
             $(this).removeClass("hov-border");
         } else {
             $(this).addClass("hov-border");
-            }
+        }
     });
     $('[data-toggle="popover"]').popover();
 });
