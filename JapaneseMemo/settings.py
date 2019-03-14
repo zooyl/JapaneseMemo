@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Hiragana',
     'rest_framework',
+    'ionics',
 ]
 
 MIDDLEWARE = [

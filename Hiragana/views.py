@@ -42,7 +42,7 @@ class HiraganaMain(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         stats = user.stats
-        users = User.objects.all().order_by('stats__completed')
+        users = User.objects.all().order_by('stats')
         return render(request, "hiragana.html", {'stats': stats, 'level': level,
                                                  'users': users})
 

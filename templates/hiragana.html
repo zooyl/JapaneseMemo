@@ -30,20 +30,20 @@
             </div>
         {% endif %}
     </div>
-    <br>
-    <div class="display-3" align="center">
+    <div class="display-4 p-3 mb-2 bg-danger text-white" align="center">
         Leaderboards
     </div>
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-      {% for i in users %}
-    <div class="carousel-item">
-        <div class="d-block w-100" align="center">
-            {{ i.username }}<br>
-            {{ i.stats.completed }}
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+    {% for i in users %}
+        <div class="carousel-item">
+        <div class="d-block w-100" align="center" style="font-size: xx-large;
+        margin-top: 40px;">
+        <span class="display-3">{{ i.username }}</span><br>
+        <span class="display-4">{{ i.stats.completed }}</span>
         </div>
+        </div>
+    {% endfor %}
     </div>
-        {% endfor %}
     </div>
-  </div>
 {% endblock content %}
