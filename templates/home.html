@@ -1,22 +1,59 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="card text-center">
-  <div class="card-header">
-    Welcome, {{ stats.user }}
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Exercises done:</h5>
-    <p class="card-text">{{ stats.completed }}</p>
-  </div>
-  <div class="card-footer text-muted" id="hiragana">
-    <a href="{% url 'hiragana' %}" class="btn btn-outline-danger">Hiragana</a>
-  </div>
-    <div class="card-footer text-muted" id="katakana">
-    <a href="{% url 'medium' %}" class="btn btn-primary btn-outline-danger disabled">Katakana</a>
-  </div>
-    <div class="card-footer text-muted " id="kanji">
-    <a href="{% url 'hard' %}" class="btn btn-primary btn-outline-danger disabled">Kanji</a>
-  </div>
-</div>
+    <div class="card text-center">
+        <div class="card-header">
+            Welcome, {{ stats.user }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Exercises done:</h5>
+            <p class="card-text">{{ stats.completed }}</p>
+        </div>
+        <div class="card-footer text-muted" id="hiragana">
+            <a href="{% url 'hiragana' %}" class="btn btn-outline-danger">Hiragana</a>
+        </div>
+        <div class="card-footer text-muted">
+            <button class="btn btn-primary btn-outline-danger disabled" id="katakana"
+                    data-container="body" data-toggle="popover" data-placement="right"
+                    data-content="Coming soon!">Katakana
+            </button>
+        </div>
+        <div class="card-footer text-muted">
+            <button class="btn btn-primary btn-outline-danger disabled" id="kanji"
+                    data-container="body" data-toggle="popover" data-placement="right"
+                    data-content="Coming soon!">Kanji
+            </button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-body" style="margin-top: 20%;">
+                    <h5 class="card-title" align="center">Level system</h5>
+                    <p class="card-text" align="center">Every five exercises done, you will unlock new level</p>
+                </div>
+            </div>
+            <div class="card" align="center">
+                <img align="" class="card-img-top" src="{% static 'img/flag.png' %}" alt="japan-flag"
+                     style="width: 50%;">
+                <div class="card-body">
+                    <h5 class="card-title">Japan</h5>
+                    <p class="card-text">The Japanese language uses three different systems for writing.</p>
+                    <p class="card-text">Try them for yourself</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" align="center">Test your knowledge</h5>
+                    <p class="card-text" align="center">"おはよう"</p>
+                    <p class="card-text" align="center">"こんにちは"</p>
+                    <p class="card-text" align="center">"さようなら"</p>
+                    <p class="card-text" align="center">"ありがとう"</p>
+                    <footer class="blockquote-footer" style="text-align: end">Common sentences</footer>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

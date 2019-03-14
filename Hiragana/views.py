@@ -5,13 +5,13 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
-from Hiragana.models import Levels, level, Hiragana
+from Hiragana.models import Levels, level, Hiragana,Stats
 import random
 from rest_framework import viewsets
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 
 
-# TODO password reset, auto fill db
+# TODO carousel leaderboard in /hiragana, infos at home
 
 # Create your views here.
 
@@ -37,12 +37,14 @@ class SignUp(CreateView):
 
 class HiraganaMain(LoginRequiredMixin, View):
     login_url = 'login'
-    redirect_field_name = 'home'
+    redirect_field_name = 'hiragana'
 
     def get(self, request):
         user = request.user
         stats = user.stats
-        return render(request, "hiragana.html", {'stats': stats, 'level': level})
+        users = User.objects.all().order_by('stats__completed')
+        return render(request, "hiragana.html", {'stats': stats, 'level': level,
+                                                 'users': users})
 
 
 class PresetEasy(LoginRequiredMixin, View):

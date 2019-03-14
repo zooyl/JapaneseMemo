@@ -30,4 +30,20 @@
             </div>
         {% endif %}
     </div>
+    <br>
+    <div class="display-3" align="center">
+        Leaderboards
+    </div>
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      {% for i in users %}
+    <div class="carousel-item">
+        <div class="d-block w-100" align="center">
+            {{ i.username }}<br>
+            {{ i.stats.completed }}
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+  </div>
 {% endblock content %}
