@@ -6,8 +6,7 @@ $(document).ready(function () {
             $(this).addClass("hov-border");
             }
     });
-    $('#katakana').popover();
-    $('#kanji').popover();
+    $('[data-toggle="popover"]').popover();
 });
 
 document.querySelector('.carousel-item').classList.add('active');
