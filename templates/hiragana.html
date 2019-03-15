@@ -2,22 +2,54 @@
 {% load static %}
 <!DOCTYPE html>
 {% block content %}
-<div class="card text-center">
-  <div class="card-header">
-    Hiragana
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Hiragana done:</h5>
-    <p class="card-text">{{ stats.completed }}</p>
-  </div>
-  <div class="card-footer text-muted">
-    <a href="{% url 'easy' %}" class="btn btn-outline-danger">Easy Level</a>
-  </div>
-    <div class="card-footer text-muted">
-    <a href="{% url 'medium' %}" class="btn btn-outline-danger">Medium Level</a>
-  </div>
-    <div class="card-footer text-muted ">
-    <a href="{% url 'hard' %}" class="btn btn-outline-danger">Hard Level</a>
-  </div>
-</div>
+    <div class="card text-center">
+        <div class="card-header">
+            Hiragana
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Hiragana done:</h5>
+            <p class="card-text">{{ stats.completed }}</p>
+        </div>
+
+        <div class="card-footer text-muted">
+            <a href="{% url 'easy' %}" class="btn btn-outline-danger" data-toggle="popover"
+               title="Basic" data-trigger="hover" data-content="Every five exercises you unlock new level">Easy Level</a>
+        </div>
+        {% if perms.Hiragana.medium_level %}
+            <div class="card-footer text-muted">
+                <a href="{% url 'medium' %}" class="btn btn-outline-danger" data-toggle="popover"
+               title="Advanced" data-trigger="hover" data-content="You are halfway through">Medium Level</a>
+            </div>
+        {% endif %}
+        {% if perms.Hiragana.hard_level %}
+            <div class="card-footer text-muted ">
+                <a href="{% url 'hard' %}" class="btn btn-outline-danger"  data-toggle="popover"
+               title="Intermediate" data-content="Last pieces of signs" data-trigger="hover">Hard Level</a>
+            </div>
+        {% endif %}
+        {% if perms.Hiragana.mixed_level %}
+            <div class="card-footer text-muted">
+                <a href="{% url 'mixed' %}" class="btn btn-outline-danger"  data-toggle="popover"
+               title="Every single sign of Hiragana" data-trigger="hover" data-content="More challenging, requires 10 signs to complete">Mixed Level</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="display-4 p-3 mb-2 bg-danger text-white" align="center">
+        Leaderboards
+    </div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for i in users %}
+                <div class="carousel-item">
+                    <div class="d-block w-100" align="center" style="font-size: large;">
+                        <span class="display-4">{{ i.username }}</span><br>
+                        <span class="display-6">Done:</span><br>
+                        <span class="display-4">{{ i.stats.completed }}</span><br>
+                        <span class="display-5">Attempts:</span><br>
+                        <span class="display-4">{{ i.stats.attempts }}</span><br>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

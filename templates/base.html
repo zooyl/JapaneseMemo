@@ -7,17 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
 <body>
 <nav class="navbar navbar-dark bg-danger">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
-    <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
-    <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
-  </div>
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
+        <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+    </div>
 </nav>
 {% block content %}
-{# -- content here -- #}
+    {# -- content here -- #}
 {% endblock content %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -31,7 +32,7 @@
 <script src="{% static 'js/app.js' %}"></script>
 <footer class="fixed-bottom">
     <div class="footer-copyright text-center py-3 bg-danger">
-        <a href="https://github.com/zooyl" target="_blank" class="btn btn-outline-danger">Antka kobity brata syn</a>
+        <a href="https://github.com/zooyl" target="_blank" class="text-white">GitHub</a>
     </div>
 </footer>
 </body>
