@@ -12,21 +12,25 @@
         </div>
 
         <div class="card-footer text-muted">
-            <a href="{% url 'easy' %}" class="btn btn-outline-danger">Easy Level</a>
+            <a href="{% url 'easy' %}" class="btn btn-outline-danger" data-toggle="popover"
+               title="Basic" data-trigger="hover" data-content="Every five exercises you unlock new level">Easy Level</a>
         </div>
         {% if perms.Hiragana.medium_level %}
             <div class="card-footer text-muted">
-                <a href="{% url 'medium' %}" class="btn btn-outline-danger">Medium Level</a>
+                <a href="{% url 'medium' %}" class="btn btn-outline-danger" data-toggle="popover"
+               title="Advanced" data-trigger="hover" data-content="You are halfway through">Medium Level</a>
             </div>
         {% endif %}
         {% if perms.Hiragana.hard_level %}
             <div class="card-footer text-muted ">
-                <a href="{% url 'hard' %}" class="btn btn-outline-danger">Hard Level</a>
+                <a href="{% url 'hard' %}" class="btn btn-outline-danger"  data-toggle="popover"
+               title="Intermediate" data-content="Last pieces of signs" data-trigger="hover">Hard Level</a>
             </div>
         {% endif %}
         {% if perms.Hiragana.mixed_level %}
             <div class="card-footer text-muted">
-                <a href="{% url 'mixed' %}" class="btn btn-outline-danger">Mixed Level</a>
+                <a href="{% url 'mixed' %}" class="btn btn-outline-danger"  data-toggle="popover"
+               title="Every single sign of Hiragana" data-trigger="hover" data-content="More challenging, requires 10 signs to complete">Mixed Level</a>
             </div>
         {% endif %}
     </div>

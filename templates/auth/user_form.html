@@ -16,14 +16,16 @@
     </div>
 </nav>
 <br>
-<form class="container" method="post">
-    <div class="form-check">
-        {{ form.errors }}
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn btn-outline-danger" type="submit" value="Sign up">
-    </div>
-</form>
+<div class="container">
+    <form method="post">
+        <div class="form-check">
+            {{ form.errors }}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-outline-danger" type="submit" value="Sign up">
+        </div>
+    </form>
+</div>
 <br>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

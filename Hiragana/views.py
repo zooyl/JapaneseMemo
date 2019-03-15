@@ -83,8 +83,6 @@ class PresetEasy(LoginRequiredMixin, View):
                                                     'session': session})
 
 
-# TODO CORRECT ANSWER FOR OTHER LEVELS
-
 class PresetMedium(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'medium'
