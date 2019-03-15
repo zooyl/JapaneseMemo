@@ -5,13 +5,11 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
-from Hiragana.models import Levels, level, Hiragana, Stats
+from Hiragana.models import Levels, level, Hiragana
 import random
 from rest_framework import viewsets
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 
-
-# TODO carousel leaderboard in /hiragana, infos at home
 
 # Create your views here.
 
@@ -42,7 +40,7 @@ class HiraganaMain(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         stats = user.stats
-        users = User.objects.all().order_by('stats')
+        users = User.objects.all().order_by('-stats__completed')
         return render(request, "hiragana.html", {'stats': stats, 'level': level,
                                                  'users': users})
 
@@ -60,6 +58,7 @@ class PresetEasy(LoginRequiredMixin, View):
                                              'points': points})
 
     def post(self, request):
+        session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         user = request.user
@@ -78,8 +77,13 @@ class PresetEasy(LoginRequiredMixin, View):
                     perm = Permission.objects.get(codename='medium_level')
                     user.user_permissions.add(perm)
                 return redirect('hiragana')
-        return redirect('easy')
+            return redirect('easy')
+        sign = request.POST['sign']
+        return render(request, 'answer-easy.html', {'sign': sign, 'answer': answer,
+                                                    'session': session})
 
+
+# TODO CORRECT ANSWER FOR OTHER LEVELS
 
 class PresetMedium(LoginRequiredMixin, View):
     login_url = 'login'
@@ -97,6 +101,7 @@ class PresetMedium(LoginRequiredMixin, View):
         return redirect('hiragana')
 
     def post(self, request):
+        session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         user = request.user
@@ -115,7 +120,10 @@ class PresetMedium(LoginRequiredMixin, View):
                     perm = Permission.objects.get(codename='hard_level')
                     user.user_permissions.add(perm)
                 return redirect('hiragana')
-        return redirect('medium')
+            return redirect('medium')
+        sign = request.POST['sign']
+        return render(request, 'answer-medium.html', {'sign': sign, 'answer': answer,
+                                                      'session': session})
 
 
 class PresetHard(LoginRequiredMixin, View):
@@ -134,6 +142,7 @@ class PresetHard(LoginRequiredMixin, View):
         return redirect('hiragana')
 
     def post(self, request):
+        session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         user = request.user
@@ -152,7 +161,10 @@ class PresetHard(LoginRequiredMixin, View):
                     perm = Permission.objects.get(codename='mixed_level')
                     user.user_permissions.add(perm)
                 return redirect('hiragana')
-        return redirect('hard')
+            return redirect('hard')
+        sign = request.POST['sign']
+        return render(request, 'answer-hard.html', {'sign': sign, 'answer': answer,
+                                                    'session': session})
 
 
 class PresetMixed(LoginRequiredMixin, View):
@@ -171,6 +183,7 @@ class PresetMixed(LoginRequiredMixin, View):
         return redirect('hiragana')
 
     def post(self, request):
+        session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         user = request.user
@@ -186,7 +199,10 @@ class PresetMixed(LoginRequiredMixin, View):
                 user.stats.save()
                 request.session['points'] = 0
                 return redirect('hiragana')
-        return redirect('mixed')
+            return redirect('mixed')
+        sign = request.POST['sign']
+        return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
+                                                     'session': session})
 
 
 class UserViewSet(viewsets.ModelViewSet):

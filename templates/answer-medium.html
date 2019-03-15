@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <br>
+    <div align="center">
+        <div class="card border-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header" align="center" style="font-size: 30px">Level points:</div>
+            <div class="card-body text-danger">
+                <h3 class="card-title" align="center">{{ session }} / 5</h3>
+            </div>
+        </div>
+    </div>
+    <div align="center">
+        <form method="get">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header" align="center" style="font-size: 200px">{{ sign }}</div>
+                <div class="card-body text-danger">
+                    <h5 class="card-title" align="center">Correct answer:</h5>
+                    <p class="card-text" align="center">
+                    <p class="btn btn-outline-danger">{{ answer }}</p><br>
+                    <input type="submit" href="{% url 'medium' %}"
+                           class="btn btn-outline-danger" value="Continue">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
