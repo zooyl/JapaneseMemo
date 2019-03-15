@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <br>
+    <div align="center">
+        <div class="card border-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header" align="center" style="font-size: 30px">Level points:</div>
+            <div class="card-body text-danger">
+                <h3 class="card-title" align="center">{{ points }} / 5</h3>
+            </div>
+        </div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div align="center">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header" align="center" style="font-size: 200px">{{ question.memo.sign }}</div>
+                <div class="card-body text-danger">
+                    <h5 class="card-title" align="center">Pronunciation:</h5>
+                    <p class="card-text" align="center">{% for j in shuffle %}
+                        <input class="btn btn-outline-danger" type="submit" name="pronunciation"
+                               value="{{ j.memo.pronunciation }}">
+                        <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">
+                        <input type="hidden" name="sign" value="{{ question.memo.sign }}">
+                    {% endfor %}</p>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

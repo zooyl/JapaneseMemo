@@ -14,8 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+import Hiragana.views
+from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('users', Hiragana.views.UserViewSet)
+router.register('hiragana', Hiragana.views.HiraganaViewSet)
+router.register('levels', Hiragana.views.LevelsViewSet)
 
 urlpatterns = [
+    path('api/', include(router.urls)),
+    path('api-test/', include('rest_framework.urls', namespace="rest_framework")),
     path('admin/', admin.site.urls),
+    path('', Hiragana.views.landing_page, name='landing-page'),
+    path('signup/', Hiragana.views.SignUp.as_view(), name="signup"),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('home/', Hiragana.views.Dashboard.as_view(), name='home'),
+    path('home/easy', Hiragana.views.PresetEasy.as_view(), name='easy'),
+    path('home/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
+    path('home/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
+    path('home/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
+    path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
 ]
