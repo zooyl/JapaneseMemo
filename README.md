@@ -21,14 +21,18 @@ After that, fill database using ```python manage.py loaddata HiraganaData```
 and start server by ```python manage.py runserver``` command.
 
 ### Preview
-Landing Page:
+## Landing Page:
+
 ![Landing](https://github.com/zooyl/JapaneseMemo/blob/master/Preview/Landing.png?raw=true)
 
-Home Page:
+## Home Page:
+
 ![Home](https://github.com/zooyl/JapaneseMemo/blob/master/Preview/Home.png?raw=true)
 
-Exercise:
+## Exercise:
+
 ![Exercise](https://github.com/zooyl/JapaneseMemo/blob/master/Preview/Level.png)
+
 ## Built With
 
 * [Django](https://www.djangoproject.com/) - The web framework used
