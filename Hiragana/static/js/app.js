@@ -6,7 +6,7 @@ $(document).ready(function () {
             $(this).addClass("hov-border");
         }
     });
-    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover({placement: 'top'});
 });
 
 document.querySelector('.carousel-item').classList.add('active');

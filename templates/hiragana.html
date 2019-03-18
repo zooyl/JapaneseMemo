@@ -10,9 +10,8 @@
             <h5 class="card-title">Hiragana done:</h5>
             <p class="card-text">{{ stats.completed }}</p>
         </div>
-
         <div class="card-footer text-muted">
-            <a href="{% url 'easy' %}" class="btn btn-outline-danger" data-toggle="popover"
+            <a href="{% url 'easy' %}" class="btn btn-outline-danger" data-toggle="popover" 
                title="Basic" data-trigger="hover" data-content="Every five exercises you unlock new level">Easy Level</a>
         </div>
         {% if perms.Hiragana.medium_level %}

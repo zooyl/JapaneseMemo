@@ -54,8 +54,8 @@ class PresetEasy(LoginRequiredMixin, View):
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
-        return render(request, "easy.html", {'shuffle': shuffle, "question": question,
-                                             'points': points})
+        return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                 'points': points})
 
     def post(self, request):
         session = request.session.get('points')
@@ -79,8 +79,8 @@ class PresetEasy(LoginRequiredMixin, View):
                 return redirect('hiragana')
             return redirect('easy')
         sign = request.POST['sign']
-        return render(request, 'answer-easy.html', {'sign': sign, 'answer': answer,
-                                                    'session': session})
+        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
+                                               'session': session})
 
 
 class PresetMedium(LoginRequiredMixin, View):
@@ -94,8 +94,8 @@ class PresetMedium(LoginRequiredMixin, View):
             medium = Levels.objects.filter(preset=1)
             shuffle = random.sample(list(medium), 5)
             question = random.choice(shuffle)
-            return render(request, "medium.html", {'shuffle': shuffle, "question": question,
-                                                   'points': points, 'user': user})
+            return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                     'points': points})
         return redirect('hiragana')
 
     def post(self, request):
@@ -120,8 +120,8 @@ class PresetMedium(LoginRequiredMixin, View):
                 return redirect('hiragana')
             return redirect('medium')
         sign = request.POST['sign']
-        return render(request, 'answer-medium.html', {'sign': sign, 'answer': answer,
-                                                      'session': session})
+        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
+                                               'session': session})
 
 
 class PresetHard(LoginRequiredMixin, View):
@@ -135,8 +135,8 @@ class PresetHard(LoginRequiredMixin, View):
             hard = Levels.objects.filter(preset=2)
             shuffle = random.sample(list(hard), 5)
             question = random.choice(shuffle)
-            return render(request, "hard.html", {'shuffle': shuffle, "question": question,
-                                                 'points': points})
+            return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                     'points': points})
         return redirect('hiragana')
 
     def post(self, request):
@@ -161,8 +161,8 @@ class PresetHard(LoginRequiredMixin, View):
                 return redirect('hiragana')
             return redirect('hard')
         sign = request.POST['sign']
-        return render(request, 'answer-hard.html', {'sign': sign, 'answer': answer,
-                                                    'session': session})
+        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
+                                               'session': session})
 
 
 class PresetMixed(LoginRequiredMixin, View):
@@ -176,8 +176,8 @@ class PresetMixed(LoginRequiredMixin, View):
             mixed = Levels.objects.all()
             shuffle = random.sample(list(mixed), 5)
             question = random.choice(shuffle)
-            return render(request, "mixed.html", {'shuffle': shuffle, "question": question,
-                                                  'points': points})
+            return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
+                                                           'points': points})
         return redirect('hiragana')
 
     def post(self, request):
