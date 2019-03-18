@@ -17,8 +17,8 @@ In ```JapaneseMemo``` folder, update ```local_settings.py.txt```  to your settin
 of a file.
 
 Open terminal in ```manage.py``` directory and type ```python manage.py migrate```.
-After that, fill database using ```python manage.py loaddata HiraganaData``` 
-and start server by ```python manage.py runserver``` command.
+After that, fill database using ```python manage.py loaddata HiraganaData``` .
+Run tests ```python -m unittest``` and finally start server by ```python manage.py runserver``` command.
 
 ### Preview
 ## Landing Page:
