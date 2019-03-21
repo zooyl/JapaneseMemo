@@ -40,7 +40,8 @@
         <br>
         <input class="btn btn-outline-danger" type="submit" value="Login">
         <input type="hidden" name="next" value="{% url "home" %}">
-        <a href="{% url 'signup' %}" class="btn btn-outline-danger">Sign up</a>
+        <a href="{% url 'signup' %}" class="btn btn-outline-danger">Sign up</a><br>
+        <a href="{% url 'password_reset' %}" class="text-muted"><small>Forgot your password?</small></a>
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

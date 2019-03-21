@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import Hiragana.views
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, \
+    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -38,4 +39,14 @@ urlpatterns = [
     path('home/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
     path('home/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
+    path('password/reset', PasswordResetView.as_view(template_name='registration/password_reset.html'),
+         name='password_reset'),
+    path('password/reset/done', PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
+         name='password_reset_done'),
+    path('password/reset/confirm/<uidb64>/<token>',
+         PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('password/reset/complete',
+         PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'),
+         name='password_reset_complete'),
 ]
