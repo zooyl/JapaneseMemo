@@ -115,24 +115,26 @@ REST_FRAMEWORK = {
 LOGOUT_REDIRECT_URL = "landing-page"
 LOGIN_REDIRECT_URL = "/api/"
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 # Instructions how to use it are in local_settings.py.txt file.
 
-try:
-    from JapaneseMemo.local_settings import DATABASES, SECRET_KEY
-except ModuleNotFoundError:
-    print("There is no database configuration in local_settings.py!")
-    print("Fill valid data and try again!")
-    exit(0)
+# try:
+#     from JapaneseMemo.local_settings import DATABASES
+# except ModuleNotFoundError:
+#     print("There is no database configuration in local_settings.py!")
+#     print("Fill valid data and try again!")
+#     exit(0)
 
 # Email Service:
 # It won't work until you setup your e-mail and password correctly and if user is not in database
 # Change "EMAIL_HOST" if you are using other services than google
 
-from JapaneseMemo.local_settings import email, email_pass
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = email
-EMAIL_HOST_PASSWORD = email_pass
+EMAIL_HOST_USER = os.environ.get('EMAIL')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
