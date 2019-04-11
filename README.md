@@ -4,6 +4,9 @@ Registration and login system with leaderboards.
 Rest API included for future usage.
 Using PostgreSQL
 
+# It's Live!
+You can check it by yourself at https://japanese-memo.herokuapp.com/
+
 ### Installing
 
 These instructions will get you a copy of the project up and running.
