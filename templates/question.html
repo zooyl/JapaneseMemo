@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <br>
-    <div align="center">
+    <div align="center" class="quest-fade-in-right">
         <div class="card border-danger mb-3" style="max-width: 18rem;">
             <div class="card-header" align="center" style="font-size: 30px">Level points:</div>
             <div class="card-body text-danger">
@@ -11,7 +11,7 @@
     </div>
     <form method="POST">
         {% csrf_token %}
-        <div align="center">
+        <div align="center" class="quest-fade-in-right">
             <div class="card border-danger mb-3" style="max-width: 18rem;">
                 <div class="card-header" align="center" style="font-size: 200px">{{ question.memo.sign }}</div>
                 <div class="card-body text-danger">

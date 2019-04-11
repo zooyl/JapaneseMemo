@@ -50,7 +50,10 @@ class PresetEasy(LoginRequiredMixin, View):
     redirect_field_name = 'easy'
 
     def get(self, request):
+        user = request.user
         points = request.session.get('points', 0)
+        if user.has_perm('Katakana.easy_level'):
+            easy_katakana = Levels.objects.filter(preset=1)
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
