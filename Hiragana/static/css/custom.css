@@ -11,3 +11,28 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
+.carousel-title {
+    color: #fff;
+    position: absolute;
+    z-index: 12;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+    text-shadow: -3px 0px 19px #000000;
+}
+
+.carousel-desc {
+    color: #fff;
+    position: absolute;
+    z-index: 12;
+    top: 60%;
+    left: 0;
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    text-shadow: -3px 0px 19px #000000;
+
+}
