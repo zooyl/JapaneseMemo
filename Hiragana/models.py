@@ -7,6 +7,7 @@ level = (
     (0, 'Easy'),
     (1, 'Medium'),
     (2, 'Hard'),
+    (3, 'Diacritics'),
 )
 
 
@@ -14,12 +15,14 @@ class Stats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     completed = models.IntegerField(default=0)
     attempts = models.IntegerField(default=0)
+    streak = models.IntegerField(default=1)
 
     class Meta:
         permissions = (
             ('medium_level', "Can start medium level"),
             ('hard_level', "Can start hard level"),
-            ('mixed_level', "Can start mixed level")
+            ('mixed_level', "Can start mixed level"),
+            ('diacritics', "Can start diacritics level")
         )
 
 

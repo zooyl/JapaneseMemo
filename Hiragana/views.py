@@ -5,8 +5,9 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
-from Hiragana.models import Levels, level, Hiragana
+from Hiragana.models import Levels, level, Hiragana, Stats
 import random
+import datetime
 from rest_framework import viewsets
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 
@@ -205,6 +206,8 @@ class PresetMixed(LoginRequiredMixin, View):
         return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
                                                      'session': session})
 
+
+# API VIEW
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('id')
