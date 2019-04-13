@@ -12,7 +12,11 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'landing-page' %}">Landing Page</a>
+        {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
+        {% else %}
+            <a class="navbar-brand" href="{% url 'landing-page' %}">Landing Page</a>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +25,7 @@
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'home' %}">Dashboard
+                        <a class="nav-link" href="{% url 'logout' %}">Logout
                             <span class="sr-only">(current)</span>
                         </a>
                         {% else %}
@@ -30,11 +34,7 @@
                         </a>
                     </li>
                 {% endif %}
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                {% else %}
+                {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
                     </li>
@@ -61,11 +61,19 @@
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('{% static 'img/shop2.jpg' %}')">
+                <div>
+                    <p class="carousel-title">Free now and ever</p>
+                    <p class="carousel-desc">by gaijin for gaijins</p>
+                </div>
                 <div class="carousel-caption d-none d-md-block">
                     <p class="lead">Photo by Clay Banks on Unsplash</p>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('{% static 'img/shop1.jpg' %}')">
+                <div>
+                    <p class="carousel-title">Hiragana, Katakana, Kanji</p>
+                    <p class="carousel-desc">divided into words and signs</p>
+                </div>
                 <div class="carousel-caption d-none d-md-block">
                     <p class="lead">Photo by Chun Yeung Lam on Unsplash</p>
                 </div>
@@ -81,10 +89,27 @@
         </a>
     </div>
 </header>
+<section>
+    <div class="stats-bg">
+        <div class="d-flex justify-content-start">
+            ASDASD
+        </div>
+        <div class="d-flex justify-content-center">
+            BUBUBU
+        </div>
+
+        <div class="d-flex justify-content-center">
+            BUBUBU
+        </div>
+        <div class="d-flex justify-content-end">
+            XXXS
+        </div>
+    </div>
+</section>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">Try Japanese</h1>
-        <p class="lead">Learn new language with simple memorize game, sorted by levels</p>
+        <h1 class="display-4">Give it a try</h1>
+        <p class="lead">Learn new language at your own pace</p>
         <br>
         <a href="{% url 'signup' %}">
             <button class="btn btn-outline-danger"><h2>Sign up</h2></button>
