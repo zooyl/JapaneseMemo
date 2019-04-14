@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserAdvancedCreationForm
+from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +16,9 @@ from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 # Create your views here.
 
 def landing_page(request):
-    return render(request, "landing_page.html")
+    users = User.objects.count()
+    completed = list(Stats.objects.aggregate(Sum('completed')).values())[0]
+    return render(request, "landing_page.html", {'completed': completed, 'users': users})
 
 
 class Dashboard(LoginRequiredMixin, View):

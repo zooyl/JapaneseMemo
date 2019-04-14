@@ -16,7 +16,7 @@
     color: #fff;
     position: absolute;
     z-index: 12;
-    top: 50%;
+    top: 50vh;
     left: 0;
     width: 100%;
     font-size: calc(2vw + 2vh);
@@ -29,7 +29,7 @@
     color: #fff;
     position: absolute;
     z-index: 12;
-    top: 60%;
+    top: 60vh;
     left: 0;
     width: 100%;
     font-size: calc(1.5vw + 1.5vh);
@@ -47,7 +47,25 @@
     height: 100%;
 }
 
+.stats-center {
+    padding-top: 50vh;
+    /*color: white;*/
+    /*font-size: calc(4vw + 4vh);*/
+    text-shadow: 2px 2px 20px #000000;
+}
+
+.stats-font-number {
+    color: white;
+    font-size: calc(3vw + 3vh);
+    text-shadow: 2px 2px 20px #000000;
+}
+
+.stats-font-text {
+    color: white;
+    font-size: calc(1vw + 1vh);
+    text-shadow: 2px 2px 20px #000000;
+}
+
 #fullpage {
     height: 100vh;
-    overflow: hidden;
 }
