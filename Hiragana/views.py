@@ -18,7 +18,8 @@ from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 def landing_page(request):
     users = User.objects.count()
     completed = list(Stats.objects.aggregate(Sum('completed')).values())[0]
-    return render(request, "landing_page.html", {'completed': completed, 'users': users})
+    attempts = list(Stats.objects.aggregate(Sum('attempts')).values())[0]
+    return render(request, "landing_page.html", {'completed': completed, 'users': users, 'attempts': attempts})
 
 
 class Dashboard(LoginRequiredMixin, View):

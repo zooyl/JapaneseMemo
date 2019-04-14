@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+
 .hov-border {
     box-shadow: 1px 1px 30px 0px rgba(255, 0, 0, 1);
 }
@@ -47,10 +49,10 @@
     height: 100%;
 }
 
+
 .stats-center {
-    padding-top: 50vh;
-    /*color: white;*/
-    /*font-size: calc(4vw + 4vh);*/
+    text-align: center;
+    padding-top: 30vh;
     text-shadow: 2px 2px 20px #000000;
 }
 
@@ -61,6 +63,7 @@
 }
 
 .stats-font-text {
+    font-family: 'Oxygen', sans-serif;
     color: white;
     font-size: calc(1vw + 1vh);
     text-shadow: 2px 2px 20px #000000;
