@@ -125,12 +125,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Instructions how to use it are in local_settings.py.txt file.
 
-try:
-    from JapaneseMemo.local_settings import DATABASES
-except ModuleNotFoundError:
-    print("There is no database configuration in local_settings.py!")
-    print("Fill valid data and try again!")
-    exit(0)
+# try:
+#     from JapaneseMemo.local_settings import DATABASES
+# except ModuleNotFoundError:
+#     print("There is no database configuration in local_settings.py!")
+#     print("Fill valid data and try again!")
+#     exit(0)
 
 # Email Service:
 # It won't work until you setup your e-mail and password correctly and if user is not in database
