@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300');
+
+.hov-border {
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    box-shadow: -1px 0px 118px 31px rgba(0, 0, 0, 0.48);
+    border-radius: 90px 90px 90px 90px;
+}
+
+
+/* Landing Page 1st slide */
+.carousel-item {
+    height: 100vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.carousel-title {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #fff;
+    position: absolute;
+    z-index: 12;
+    top: 50vh;
+    left: 0;
+    width: 100%;
+    font-size: calc(2vw + 2vh);
+    text-align: center;
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000,
+    2px 2px 20px #000000, 2px 2px 20px #000000;
+}
+
+.carousel-desc {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #fff;
+    position: absolute;
+    z-index: 12;
+    top: 60vh;
+    left: 0;
+    width: 100%;
+    font-size: calc(1.5vw + 1.5vh);
+    text-align: center;
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000,
+    2px 2px 20px #000000, 2px 2px 20px #000000;
+}
+
+/* Landing Page 2nd slide (stats) */
+.stats-bg {
+    background-image: url("../img/tori-gate.ede3e9a524ca.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+.stats-center {
+    text-align: center;
+    padding-top: 30vh;
+    text-shadow: 2px 2px 20px #000000;
+}
+
+.stats-font-number {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: white;
+    font-size: calc(3vw + 3vh);
+    text-shadow: 2px 2px 20px #000000;
+}
+
+.stats-font-text {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: white;
+    font-size: calc(1vw + 1vh);
+    text-shadow: 2px 2px 20px #000000;
+}
+
+/* Js script */
+#fullpage {
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* Landing Page 3rd slide */
+.try-bg {
+    background-image: url("../img/train.def393476fc3.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.try-font-title {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: white;
+    font-size: calc(3vw + 3vh);
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000;
+}
+
+.try-font-desc {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: white;
+    font-size: calc(2vw + 2vh);
+    text-shadow: 2px 2px 20px #000000;
+}
