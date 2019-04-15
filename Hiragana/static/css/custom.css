@@ -7,6 +7,9 @@
     border-radius: 90px 90px 90px 90px;
 }
 
+.hov-home {
+    box-shadow: 1px 1px 30px 0px rgba(255, 0, 0, 1);
+}
 
 /* Landing Page 1st slide */
 .carousel-item {

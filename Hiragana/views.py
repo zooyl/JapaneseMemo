@@ -8,7 +8,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
 from Hiragana.models import Levels, level, Hiragana, Stats
 import random
-import datetime
 from rest_framework import viewsets
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 

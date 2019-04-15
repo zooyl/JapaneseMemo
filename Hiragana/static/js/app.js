@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $('.hov').hover(function () {
-        if ($(this).hasClass("hov-border")) {
-            $(this).removeClass("hov-border");
+        if ($(this).hasClass("hov-home")) {
+            $(this).removeClass("hov-home");
         } else {
-            $(this).addClass("hov-border");
+            $(this).addClass("hov-home");
         }
     });
     $('[data-toggle="popover"]').popover({placement: 'top'});
