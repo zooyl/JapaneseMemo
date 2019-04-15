@@ -63,7 +63,6 @@
 				});
 
 				this.$el.on('touchmove',utils.throttle(function(){
-					console.log('move')
 					var e = arguments[0];
 					if (!x0 || !y0) return;
 					xDiff = e.touches[0].clientX - x0;

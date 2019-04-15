@@ -65,7 +65,7 @@
                     <div class="carousel-item" style="background-image: url('{% static 'img/shop2.jpg' %}')">
                         <div>
                             <p class="carousel-title">Free now and ever</p>
-                            <p class="carousel-desc">by gaijin for gaijins</p>
+                            <p class="carousel-desc">by gaijin for everyone</p>
                         </div>
                         <div class="carousel-caption d-none d-md-block">
                             <p class="lead">Photo by Clay Banks on Unsplash</p>
@@ -102,19 +102,27 @@
                 <p class="stats-font-text">Attempts:</p>
                 <p class="stats-font-number counter" data-count="{{ attempts }}">0</p>
             </div>
+            <div class="col">
+                <p class="stats-font-text">Signs:</p>
+                <p class="stats-font-number counter" data-count="{{ signs }}">0</p>
+                <p class="stats-font-text">Words:</p>
+                <p class="stats-font-number" data-count="">soon!</p>
+            </div>
+        </div>
+    </section>
+    <section class="try-bg">
+        <div class="row align-items-center stats-center">
+            <div class="container hov-border">
+                <p class="display-3 try-font-title">Give it a try</p>
+                <p class="stats-font-text try-font-desc">Learn new language at your own pace</p>
+                <br>
+                <a href="{% url 'signup' %}">
+                    <button class="btn btn-outline-danger"><h2>Sign up</h2></button>
+                </a>
+            </div>
         </div>
     </section>
 </div>
-{#<div class="jumbotron jumbotron-fluid">#}
-{#    <div class="container">#}
-{#        <h1 class="display-4">Give it a try</h1>#}
-{#        <p class="lead">Learn new language at your own pace</p>#}
-{#        <br>#}
-{#        <a href="{% url 'signup' %}">#}
-{#            <button class="btn btn-outline-danger"><h2>Sign up</h2></button>#}
-{#        </a>#}
-{#    </div>#}
-{#</div>#}
 <script
         src="https://code.jquery.com/jquery-3.4.0.js"
         integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
@@ -127,10 +135,5 @@
         crossorigin="anonymous"></script>
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static 'js/jquery.fullpage.js' %}"></script>
-<footer class="bottom">
-    <div class="footer-copyright text-center py-3 bg-danger">
-        <a href="https://github.com/zooyl" target="_blank" class="text-white">GitHub</a>
-    </div>
-</footer>
 </body>
 </html>

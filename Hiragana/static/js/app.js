@@ -20,7 +20,7 @@ $(document).ready(function () {
 
             {
 
-                duration: 5000,
+                duration: 8000,
                 easing: 'linear',
                 step: function () {
                     $this.text(Math.floor(this.countNum));
