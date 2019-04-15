@@ -98,9 +98,17 @@
                 <p class="stats-font-text">Users:</p>
                 <p class="stats-font-number counter" data-count="{{ users }}">0</p>
                 <p class="stats-font-text">Exercises completed:</p>
-                <p class="stats-font-number counter" data-count="{{ completed }}">0</p>
+                {% if completed == NaN %}
+                    <p class="stats-font-number counter" data-count="0">0</p>
+                {% else %}
+                    <p class="stats-font-number counter" data-count="{{ completed }}">0</p>
+                {% endif %}
                 <p class="stats-font-text">Attempts:</p>
-                <p class="stats-font-number counter" data-count="{{ attempts }}">0</p>
+                {% if attempts == NaN %}
+                    <p class="stats-font-number counter" data-count="0">0</p>
+                {% else %}
+                    <p class="stats-font-number counter" data-count="{{ attempts }}">0</p>
+                {% endif %}
             </div>
             <div class="col">
                 <p class="stats-font-text">Signs:</p>
