@@ -10,11 +10,38 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
 <body>
-<nav class="navbar navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'landing-page' %}">Home</a>
-        <a class="navbar-brand" href="{% url 'home' %}">Dashboard</a>
-        <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+        <a class="navbar-brand" href="{% url 'landing-page' %}">Landing Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Dashboard
+                            <span class="sr-only">(current)</span>
+                        </a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Login
+                            <span class="sr-only">(current)</span>
+                        </a>
+
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </nav>
 {% block content %}

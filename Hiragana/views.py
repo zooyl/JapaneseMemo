@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserAdvancedCreationForm
+from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +16,12 @@ from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 # Create your views here.
 
 def landing_page(request):
-    return render(request, "landing_page.html")
+    users = User.objects.count()
+    signs = Hiragana.objects.count()
+    completed = list(Stats.objects.aggregate(Sum('completed')).values())[0]
+    attempts = list(Stats.objects.aggregate(Sum('attempts')).values())[0]
+    return render(request, "landing_page.html",
+                  {'completed': completed, 'users': users, 'attempts': attempts, 'signs': signs})
 
 
 class Dashboard(LoginRequiredMixin, View):
@@ -51,10 +57,7 @@ class PresetEasy(LoginRequiredMixin, View):
     redirect_field_name = 'easy'
 
     def get(self, request):
-        user = request.user
         points = request.session.get('points', 0)
-        if user.has_perm('Katakana.easy_level'):
-            easy_katakana = Levels.objects.filter(preset=1)
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
@@ -200,6 +203,9 @@ class PresetMixed(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
+                if user.stats.completed == 20:
+                    perm = Permission.objects.get(codename='diacritics')
+                    user.user_permissions.add(perm)
                 return redirect('hiragana')
             return redirect('mixed')
         sign = request.POST['sign']
