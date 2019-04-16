@@ -122,12 +122,12 @@ LOGIN_REDIRECT_URL = "/api/"
 # ----------------------------------------------------------------------------------
 # Instructions how to use it are in local_settings.py.txt file.
 # (Comment DB for deployment)
-try:
-    from JapaneseMemo.local_settings import DATABASES
-except ModuleNotFoundError:
-    print("There is no database configuration in local_settings.py!")
-    print("Fill valid data and try again!")
-    exit(0)
+# try:
+#     from JapaneseMemo.local_settings import DATABASES
+# except ModuleNotFoundError:
+#     print("There is no database configuration in local_settings.py!")
+#     print("Fill valid data and try again!")
+#     exit(0)
 
 # from .local_settings import SECRET_KEY
 # from JapaneseMemo.local_settings import email, email_pass

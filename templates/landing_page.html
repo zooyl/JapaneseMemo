@@ -92,11 +92,9 @@
             </div>
         </header>
     </section>
-    <section class="stats-bg">
+    <section class="stats-bg hidden-x">
         <div class="row align-items-center stats-font-text stats-center">
             <div class="col">
-                {#                <p class="stats-font-text">Users:</p>#}
-                {#                <p class="stats-font-number counter" data-count="{{ users }}">0</p>#}
                 <p class="stats-font-text">Exercises completed:</p>
                 {% if completed == NaN %}
                     <p class="stats-font-number counter" data-count="0">0</p>
@@ -119,10 +117,10 @@
         </div>
     </section>
     <section class="try-bg">
-        <div class="row align-items-center stats-center">
+        <div class="stats-center">
             <div class="container hov-border">
-                <p class="display-3 try-font-title">Give it a try</p>
-                <p class="stats-font-text try-font-desc">Learn new language at your own pace</p>
+                <p class="try-font-title">Give it a try</p>
+                <p class="try-font-desc">Learn new language at your own pace</p>
                 <br>
                 <a href="{% url 'signup' %}">
                     <button class="btn btn-outline-danger"><h2>Sign up</h2></button>

@@ -81,10 +81,14 @@
     text-shadow: 2px 2px 20px #000000;
 }
 
+/* Landing Page settings */
 #fullpage {
     height: 100vh;
 }
 
+.hidden-x {
+    overflow-x: hidden;
+}
 
 /* Landing Page 3rd slide */
 .try-bg {
