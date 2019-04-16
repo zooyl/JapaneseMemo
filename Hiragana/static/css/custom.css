@@ -81,10 +81,8 @@
     text-shadow: 2px 2px 20px #000000;
 }
 
-/* Js script */
 #fullpage {
     height: 100vh;
-    overflow: hidden;
 }
 
 

@@ -9,7 +9,6 @@ $(document).ready(function () {
     $('[data-toggle="popover"]').popover({placement: 'top'});
     $(".quest-answer-fade").css({"position": "relative", "opacity": 0});
     $(".quest-answer-fade").animate({left: 0, opacity: 1}, 2000);
-    $('#fullpage').fullpage();
     $('.counter').each(function () {
         var $this = $(this),
             countTo = $this.attr('data-count');

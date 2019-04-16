@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'testserver', 'japanese-memo.herokuapp.com']
 
@@ -125,12 +125,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Instructions how to use it are in local_settings.py.txt file.
 
-# try:
-#     from JapaneseMemo.local_settings import DATABASES
-# except ModuleNotFoundError:
-#     print("There is no database configuration in local_settings.py!")
-#     print("Fill valid data and try again!")
-#     exit(0)
+# Comment for deployment
+try:
+    from JapaneseMemo.local_settings import DATABASES
+except ModuleNotFoundError:
+    print("There is no database configuration in local_settings.py!")
+    print("Fill valid data and try again!")
+    exit(0)
 
 # Email Service:
 # It won't work until you setup your e-mail and password correctly and if user is not in database
