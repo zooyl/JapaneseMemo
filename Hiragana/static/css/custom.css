@@ -117,7 +117,7 @@
 
 /* Home Page */
 .home-bg {
-    background-image: url("../img/osaka-uncompressed.jpg");
+    background-image: url("../img/osaka.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -159,7 +159,7 @@
 
 .card-signin .card-img-left {
     width: 45%;
-    background: scroll center url('../img/geisha-uncompressed.jpg');
+    background: scroll center url('../img/geisha.jpg');
     background-size: cover;
 }
 
