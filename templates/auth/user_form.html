@@ -1,51 +1,53 @@
-{# FIX PADDING (NAVBAR OVERFLOW #}
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container" style="padding-top: 3.5vh">
-        <div class="row">
-            <div class="col-lg-10 col-xl-9 mx-auto">
-                <div class="card card-signin flex-row my-5">
-                    <div class="card-img-left d-none d-md-flex">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Register</h5>
-                        <div class="form-label-group">
-                            {{ form.errors }}
+    <div class="bg-danger">
+        <div class="container" style="padding-top: 2.5vh; padding-bottom: 2.5vh">
+            <div class="row">
+                <div class="col-lg-10 col-xl-9 mx-auto">
+                    <div class="card card-signin flex-row my-5">
+                        <div class="card-img-left d-none d-md-flex">
                         </div>
-                        <form class="form-signin" method="post">
-                            {% csrf_token %}
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Register</h5>
                             <div class="form-label-group">
-                                <input type="text" name="username" id="inputUserame" class="form-control"
-                                       placeholder="Username" required autofocus>
-                                <label for="inputUserame">Username</label>
+                                {{ form.errors }}
                             </div>
-                            <div class="form-label-group">
-                                <input type="email" name="email" id="inputEmail" class="form-control"
-                                       placeholder="Email address" required>
-                                <label for="inputEmail">Email address</label>
-                            </div>
-                            <hr>
-                            <div class="form-label-group">
-                                <input type="password" name="password1" id="inputPassword" class="form-control"
-                                       placeholder="Password" required>
-                                <label for="inputPassword">Password</label>
-                            </div>
-                            <div class="form-label-group">
-                                <input type="password" name="password2" id="inputConfirmPassword" class="form-control"
-                                       placeholder="Password" required>
-                                <label for="inputConfirmPassword">Confirm password</label>
-                            </div>
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register
-                            </button>
-                            <a class="d-block text-center mt-2 small" href="#">Sign In</a>
-                            <hr class="my-4">
-                            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
-                                    class="fab fa-google mr-2"></i> Sign up with Google
-                            </button>
-                            <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i
-                                    class="fab fa-facebook-f mr-2"></i> Sign up with Facebook
-                            </button>
-                        </form>
+                            <form class="form-signin" method="post">
+                                {% csrf_token %}
+                                <div class="form-label-group">
+                                    <input type="text" name="username" id="inputUserame" class="form-control"
+                                           placeholder="Username" required autofocus>
+                                    <label for="inputUserame">Username</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="email" name="email" id="inputEmail" class="form-control"
+                                           placeholder="Email address" required>
+                                    <label for="inputEmail">Email address</label>
+                                </div>
+                                <hr>
+                                <div class="form-label-group">
+                                    <input type="password" name="password1" id="inputPassword" class="form-control"
+                                           placeholder="Password" required>
+                                    <label for="inputPassword">Password</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="password" name="password2" id="inputConfirmPassword"
+                                           class="form-control"
+                                           placeholder="Password" required>
+                                    <label for="inputConfirmPassword">Confirm password</label>
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register
+                                </button>
+                                <a class="d-block text-center mt-2 small" href="{% url 'login' %}">Sign In</a>
+                                <hr class="my-4">
+                                <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
+                                        class="fab fa-google mr-2"></i> Sign up with Google
+                                </button>
+                                <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i
+                                        class="fab fa-facebook-f mr-2"></i> Sign up with Facebook
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

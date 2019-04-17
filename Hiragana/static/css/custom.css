@@ -143,10 +143,6 @@
     --input-padding-y: .75rem;
 }
 
-body {
-    background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);
-}
 
 .card-signin {
     border: 0;
@@ -163,7 +159,6 @@ body {
 
 .card-signin .card-img-left {
     width: 45%;
-    /* Link to your background image using in the property below! */
     background: scroll center url('../img/geisha-uncompressed.jpg');
     background-size: cover;
 }
