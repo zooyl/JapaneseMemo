@@ -7,30 +7,23 @@
                 Welcome, {{ stats.user }}<br>
                 <p style="font-size: calc(1vh + 1vw)">Which alphabet do you want to learn today?</p>
             </div>
-            <div>
-                <ul class="text-center list-group">
-                    <li>Hiragana</li>
-                    <li>Katakana</li>
-                    <li>Kanji</li>
-                </ul>
+            <div class="padd-3">
+                <div class="padd-3" id="hiragana">
+                    <a href="{% url 'hiragana' %}" class="btn btn-outline-danger btn-lg">Hiragana</a>
+                </div>
+                <div class="text-muted padd-3">
+                    <button class="btn btn-primary btn-outline-danger disabled btn-lg" data-toggle="popover"
+                            data-trigger="hover"
+                            data-content="Coming Soon">Katakana
+                    </button>
+                </div>
+                <div class="text-muted padd-3">
+                    <button class="btn btn-primary btn-outline-danger disabled btn-lg" data-toggle="popover"
+                            data-trigger="hover"
+                            data-content="Coming Soon">Kanji
+                    </button>
+                </div>
             </div>
-            {#            <div class="card-body">#}
-            {#                <h5 class="card-title">Exercises done:</h5>#}
-            {#                <p class="card-text">{{ stats.completed }}</p>#}
-            {#            </div>#}
-            {#            <div class="card-footer text-muted" id="hiragana">#}
-            {#                <a href="{% url 'hiragana' %}" class="btn btn-outline-danger">Hiragana</a>#}
-            {#            </div>#}
-            {#            <div class="card-footer text-muted">#}
-            {#                <button class="btn btn-primary btn-outline-danger disabled" data-toggle="popover" data-trigger="hover"#}
-            {#                        data-content="Coming Soon">Katakana#}
-            {#                </button>#}
-            {#            </div>#}
-            {#            <div class="card-footer text-muted">#}
-            {#                <button class="btn btn-primary btn-outline-danger disabled" data-toggle="popover" data-trigger="hover"#}
-            {#                        data-content="Coming Soon">Kanji#}
-            {#                </button>#}
-            {#            </div>#}
         </div>
     </section>
 {% endblock content %}

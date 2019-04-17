@@ -1,11 +1,4 @@
 $(document).ready(function () {
-    $('.hov').hover(function () {
-        if ($(this).hasClass("hov-home")) {
-            $(this).removeClass("hov-home");
-        } else {
-            $(this).addClass("hov-home");
-        }
-    });
     $('[data-toggle="popover"]').popover({placement: 'top'});
     $(".quest-answer-fade").css({"position": "relative", "opacity": 0});
     $(".quest-answer-fade").animate({left: 0, opacity: 1}, 2000);
