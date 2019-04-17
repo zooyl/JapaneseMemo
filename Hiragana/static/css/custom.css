@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 .hov-border {
     padding-top: 3vh;
@@ -56,8 +57,8 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 
@@ -96,8 +97,8 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 .try-font-title {
@@ -112,4 +113,22 @@
     color: white;
     font-size: calc(2vw + 2vh);
     text-shadow: 2px 2px 20px #000000;
+}
+
+/* Home Page */
+.home-bg {
+    background-image: url("../img/osaka-uncompressed.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.home-text {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    font-size: calc(2vw + 2vh);
+    text-shadow: 2px 2px 20px #000000;
+
 }
