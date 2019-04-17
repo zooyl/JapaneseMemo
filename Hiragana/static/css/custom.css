@@ -129,10 +129,9 @@
     font-family: 'Roboto', sans-serif;
     color: white;
     font-size: calc(2vw + 2vh);
-    text-shadow: 2px 2px 20px #000000;
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000;
 
 }
-
 .padd-3 {
     padding-top: 3vh;
 }
