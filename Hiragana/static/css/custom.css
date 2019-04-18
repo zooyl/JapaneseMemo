@@ -259,7 +259,7 @@
 }
 
 .bg-image {
-    background-image: url('..');
+    background-image: url('../img/kyoto.jpg');
     background-size: cover;
     background-position: center;
 }
