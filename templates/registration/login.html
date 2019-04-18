@@ -1,37 +1,76 @@
+{#{% extends 'base.html' %}#}
+{#{% block content %}#}
+{#    <div class="container" align="center">#}
+{#        <br>#}
+{#        <br>#}
+{#        <br>#}
+{#        <br>#}
+{#        {% if form.errors %}#}
+{#            <p>Your username and password didn't match. Please try again.</p>#}
+{#        {% endif %}#}
+{##}
+{#        {% if next %}#}
+{#            {% if user.is_authenticated %}#}
+{#                <p>Your account doesn't have access to this page. To proceed,#}
+{#                    please login with an account that has access.</p>#}
+{#            {% else %}#}
+{#                <p>Please login to see this page.</p>#}
+{#            {% endif %}#}
+{#        {% endif %}#}
+{##}
+{#        <form method="post" action="{% url 'login' %}">#}
+{#            {% csrf_token %}#}
+{#            <table>#}
+{#                <tr>#}
+{#                    <td>{{ form }}</td>#}
+{#                </tr>#}
+{#            </table>#}
+{#            <br>#}
+{#            <input class="btn btn-outline-danger" type="submit" value="Login">#}
+{#            <input type="hidden" name="next" value="{% url "home" %}">#}
+{#            <a href="{% url 'signup' %}" class="btn btn-outline-danger">Sign up</a><br>#}
+{#            <a href="{% url 'password_reset' %}" class="text-muted">#}
+{#                <small>Forgot your password?</small>#}
+{#            </a>#}
+{#        </form>#}
+{#    </div>#}
+{#{% endblock content %}#}
+
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container" align="center">
-        <br>
-        <br>
-        <br>
-        <br>
-        {% if form.errors %}
-            <p>Your username and password didn't match. Please try again.</p>
-        {% endif %}
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Welcome back!</h3>
+              <form>
+                <div class="form-label-group">
+                  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                  <label for="inputEmail">Email address</label>
+                </div>
 
-        {% if next %}
-            {% if user.is_authenticated %}
-                <p>Your account doesn't have access to this page. To proceed,
-                    please login with an account that has access.</p>
-            {% else %}
-                <p>Please login to see this page.</p>
-            {% endif %}
-        {% endif %}
+                <div class="form-label-group">
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                  <label for="inputPassword">Password</label>
+                </div>
 
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <td>{{ form }}</td>
-                </tr>
-            </table>
-            <br>
-            <input class="btn btn-outline-danger" type="submit" value="Login">
-            <input type="hidden" name="next" value="{% url "home" %}">
-            <a href="{% url 'signup' %}" class="btn btn-outline-danger">Sign up</a><br>
-            <a href="{% url 'password_reset' %}" class="text-muted">
-                <small>Forgot your password?</small>
-            </a>
-        </form>
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">Remember password</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                <div class="text-center">
+                  <a class="small" href="#">Forgot password?</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock content %}
