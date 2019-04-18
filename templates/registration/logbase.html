@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        {{ form.errors }}
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                {% block login %}
+                                    {# login content #}
+                                {% endblock login %}
+                                {% block password_reset %}
+                                    {# password reset content #}
+                                {% endblock password_reset %}
+                                {% block password_done %}
+                                    {# password reset done content #}
+                                {% endblock password_done %}
+                                {% block password_confirm %}
+                                    {# password confirm content #}
+                                {% endblock password_confirm %}
+                                {% block password_complete %}
+                                    {# password complete content #}
+                                {% endblock password_complete %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

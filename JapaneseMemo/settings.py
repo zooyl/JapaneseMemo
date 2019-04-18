@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'testserver', 'japanese-memo.herokuapp.com']
 
@@ -115,19 +115,19 @@ REST_FRAMEWORK = {
 }
 
 LOGOUT_REDIRECT_URL = "landing-page"
-LOGIN_REDIRECT_URL = "/api/"
+LOGIN_REDIRECT_URL = "home"
 
 # ----------------------------------------------------------------------------------
 # LOCAL SETTINGS
 # ----------------------------------------------------------------------------------
 # Instructions how to use it are in local_settings.py.txt file.
 # (Comment DB for deployment)
-try:
-    from JapaneseMemo.local_settings import DATABASES
-except ModuleNotFoundError:
-    print("There is no database configuration in local_settings.py!")
-    print("Fill valid data and try again!")
-    exit(0)
+# try:
+#     from JapaneseMemo.local_settings import DATABASES
+# except ModuleNotFoundError:
+#     print("There is no database configuration in local_settings.py!")
+#     print("Fill valid data and try again!")
+#     exit(0)
 
 # from .local_settings import SECRET_KEY
 # from JapaneseMemo.local_settings import email, email_pass
