@@ -115,7 +115,7 @@ REST_FRAMEWORK = {
 }
 
 LOGOUT_REDIRECT_URL = "landing-page"
-LOGIN_REDIRECT_URL = "/api/"
+LOGIN_REDIRECT_URL = "home"
 
 # ----------------------------------------------------------------------------------
 # LOCAL SETTINGS
