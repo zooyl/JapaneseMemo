@@ -2,8 +2,9 @@
 import os
 import sys
 
-import dotenv
-dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+# comment for local
+# import dotenv
+# dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JapaneseMemo.settings')
