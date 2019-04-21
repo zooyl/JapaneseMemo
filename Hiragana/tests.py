@@ -1,18 +1,71 @@
-import django
-import os
+# django imports
 import unittest
+import django
 from django.test import Client
 from django.urls import reverse
+from django.contrib.auth.models import User
 
-# Preparing environment for test purposes
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'JapaneseMemo.settings')
-django.setup()
-# Hiragana app models
+# app imports
 from Hiragana.forms import UserAdvancedCreationForm
-from Hiragana.models import Hiragana
 
 
 # Create your tests here.
+
+class RegistrationViewTestCase(django.test.TestCase):
+
+    def test_registration_view_get(self):
+        response = self.client.get(reverse('signup'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,
+                                'auth/user_form.html')
+        self.failUnless(isinstance(response.context['form'],
+                                   UserAdvancedCreationForm))
+
+    def test_registration_view_post_success(self):
+        response = self.client.post(reverse('signup'),
+                                    data={'username': 'test_username',
+                                          'email': 'test@test.com',
+                                          'password1': 'Mkonjibhu7!',
+                                          'password2': 'Mkonjibhu7!'
+                                          }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_registration_view_post_failure_password(self):
+        response = self.client.post(reverse('signup'),
+                                    data={'username': 'test_username',
+                                          'email': 'test@test.com',
+                                          'password1': 'pass_to_fail',
+                                          'password2': 'mkonjibhu'
+                                          }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.failIf(response.context['form'].is_valid())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), 0)
+
+    def test_registration_view_post_failure_mail(self):
+        response = self.client.post(reverse('signup'),
+                                    data={'username': 'test_username',
+                                          'email': 'testmail',
+                                          'password1': 'mkonjibhu',
+                                          'password2': 'mkonjibhu'
+                                          }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.failIf(response.context['form'].is_valid())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), 0)
+
+    def test_registration_view_post_failure_username(self):
+        response = self.client.post(reverse('signup'),
+                                    data={'username': '',
+                                          'email': 'test@mail.com',
+                                          'password1': 'mkonjibhu',
+                                          'password2': 'mkonjibhu'
+                                          }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.failIf(response.context['form'].is_valid())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), 0)
 
 
 class ConnectionTest(unittest.TestCase):
@@ -49,18 +102,6 @@ class UserCreationFormTest(unittest.TestCase):
         form = UserAdvancedCreationForm(data={'username': 'test', 'password1': 'mkonjibhu',
                                               'password2': 'mkonjibhu', 'email': 'testermailwithoutat.com'})
         self.assertFalse(form.is_valid())
-
-
-class HiraganaCreateTest(unittest.TestCase):
-
-    def setUp(self):
-        self.sign = Hiragana.objects.create(sign="test", pronunciation="ptest")
-
-    def tearDown(self):
-        self.sign.delete()
-
-    def test_create_hiragana(self):
-        self.assertIsInstance(self.sign, Hiragana)
 
 
 if __name__ == "__main__":
