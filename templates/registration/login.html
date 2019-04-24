@@ -1,7 +1,7 @@
 {% extends 'registration/logbase.html' %}
 {% block login %}
     <h3 class="login-heading mb-4">Welcome back!</h3>
-    <form method="post">
+    <form method="post" class="form-signin">
         {% csrf_token %}
         <div class="form-label-group">
             <input type="text" name="username" id="inputUser" class="form-control"
@@ -19,5 +19,14 @@
         </button>
         <div class="text-center">
             <a class="small" href="{% url 'password_reset' %}">Forgot password?</a></div>
+        <hr class="my-4">
+        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
+                class="fab fa-google mr-2"></i> Login with Google
+        </button>
+        <div class="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="true"
+             data-use-continue-as="false"></div>
+        {#        <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i#}
+        {#                class="fab fa-facebook-f mr-2"></i> Login with Facebook#}
+        {#        </button>#}
     </form>
 {% endblock login %}
