@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'Hiragana',
     'rest_framework',
 ]
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'JapaneseMemo.urls'
@@ -62,11 +64,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'Hiragana.context_processors.global_settings'
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'JapaneseMemo.wsgi.application'
 
@@ -115,8 +123,11 @@ REST_FRAMEWORK = {
     )
 }
 
-LOGOUT_REDIRECT_URL = "landing-page"
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = "home"
+
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = "landing-page"
 
 # ----------------------------------------------------------------------------------
 # LOCAL SETTINGS
@@ -130,8 +141,9 @@ except ModuleNotFoundError:
     print("Fill valid data and try again!")
     exit(0)
 
-from .local_settings import SECRET_KEY
-# from JapaneseMemo.local_settings import email, email_pass
+# from JapaneseMemo.local_settings import email, email_pass, fb_key, fb_pass, SECRET_KEY
+# SOCIAL_AUTH_FACEBOOK_KEY = fb_key
+# SOCIAL_AUTH_FACEBOOK_SECRET = fb_pass
 
 # Email Service:
 # It won't work until you setup your e-mail and password correctly and if user is not in database
@@ -144,10 +156,14 @@ EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = email
 # EMAIL_HOST_PASSWORD = email_pass
 
-
+# ----------------------------------------------------------------
 # My seetings for deployment
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 EMAIL_HOST_USER = os.environ.get('EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+# SOCIAL SETTINGS
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('APP_ID')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('APP_SECRET')
 
 django_heroku.settings(locals())

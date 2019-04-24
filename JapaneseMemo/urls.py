@@ -49,4 +49,5 @@ urlpatterns = [
     path('password/reset/complete',
          PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('oauth/', include('social_django.urls', namespace='social')),
 ]
