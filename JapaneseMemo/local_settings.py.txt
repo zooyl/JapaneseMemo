@@ -28,3 +28,9 @@ SECRET_KEY = 'tsydsp79$3nblzyx3mw($#jxjit88(i%kn0r1c81j2wv5^re4j'
 
 email = "your_mail@service.com"
 email_pass = "email_password"
+
+# ------------------------------------
+# Facebook login - Your site need SSL certificate to work
+
+fb_key = 'key'
+fb_pass = 'secret'
