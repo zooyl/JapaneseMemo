@@ -141,7 +141,7 @@ except ModuleNotFoundError:
     print("Fill valid data and try again!")
     exit(0)
 
-# from JapaneseMemo.local_settings import email, email_pass, fb_key, fb_pass, SECRET_KEY
+from JapaneseMemo.local_settings import email, email_pass, fb_key, fb_pass, SECRET_KEY
 # SOCIAL_AUTH_FACEBOOK_KEY = fb_key
 # SOCIAL_AUTH_FACEBOOK_SECRET = fb_pass
 
@@ -158,7 +158,7 @@ EMAIL_USE_TLS = True
 
 # ----------------------------------------------------------------
 # My seetings for deployment
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 EMAIL_HOST_USER = os.environ.get('EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
