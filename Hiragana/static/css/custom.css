@@ -137,6 +137,34 @@
     padding-top: 3vh;
 }
 
+/* Hiragana Page */
+.hiragana-bg {
+    background-image: url("../img/fuji.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Question/Answer */
+.points {
+    font-size: calc(2vw + 2vh);
+}
+
+.correct {
+    font-size: 20vh;
+}
+
+.sign-bg {
+    background-image: url("../img/jp-wave.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
 /* SignUp */
 :root {
     --input-padding-x: 1.5rem;
