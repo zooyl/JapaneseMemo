@@ -17,6 +17,9 @@ class Stats(models.Model):
     attempts = models.IntegerField(default=0)
     streak = models.IntegerField(default=1)
 
+    def __str__(self):
+        return self.user.username
+
     class Meta:
         permissions = (
             ('medium_level', "Can start medium level"),
@@ -30,7 +33,13 @@ class Hiragana(models.Model):
     sign = models.CharField(max_length=5)
     pronunciation = models.CharField(max_length=5)
 
+    def __str__(self):
+        return self.sign
+
 
 class Levels(models.Model):
     preset = models.IntegerField(choices=level)
     memo = models.ForeignKey(Hiragana, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.preset
