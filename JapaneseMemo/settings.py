@@ -157,7 +157,7 @@ EMAIL_USE_TLS = True
 # EMAIL_HOST_PASSWORD = email_pass
 
 # ----------------------------------------------------------------
-# My seetings for deployment
+# Personal settings for deployment
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 EMAIL_HOST_USER = os.environ.get('EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')

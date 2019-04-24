@@ -1,7 +1,5 @@
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover({placement: 'top'});
-    $(".quest-answer-fade").css({"position": "relative", "opacity": 0});
-    $(".quest-answer-fade").animate({left: 0, opacity: 1}, 2000);
     $('.counter').each(function () {
         var $this = $(this),
             countTo = $this.attr('data-count');
@@ -26,8 +24,15 @@ $(document).ready(function () {
 
 
     });
-    $('.extend').click(function () {
-        $('#levels').slideToggle();
+    var slide = $('.extend');
+    slide.click(function () {
+        $('#levels').slideToggle(function () {
+            if (slide.text() === 'Show') {
+                slide.text('Hide')
+            } else {
+                slide.text('Show')
+            }
+        });
     })
 });
 

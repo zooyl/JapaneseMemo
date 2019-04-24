@@ -1,32 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <div align="center">
-        <div class="card border-danger mb-3" style="max-width: 18rem;">
-            <div class="card-header" align="center" style="font-size: 30px">Level points:</div>
-            <div class="card-body text-danger">
-                <h3 class="card-title" align="center">{{ session }} / 10</h3>
-            </div>
-        </div>
-    </div>
-    <div align="center">
-        <form method="get">
-            <div class="card border-danger mb-3" style="max-width: 18rem;">
-                <div class="card-header" align="center" style="font-size: 200px">{{ sign }}</div>
+    <div class="sign-bg">
+        <div align="center" style="padding-top: 10vh">
+            <div class="card border-danger mb-3" style="max-width: 20rem;">
+                <div class="card-header points" align="center">Points:</div>
                 <div class="card-body text-danger">
-                    <h5 class="card-title" align="center">Correct answer:</h5>
-                    <p class="card-text" align="center">
-                    <p class="btn btn-outline-danger">{{ answer }}</p><br>
-                    <input type="submit" href="{% url 'mixed' %}"
-                           class="btn btn-outline-danger" value="Continue">
+                    {% if session == None %}
+                        <h3 class="card-title" align="center">0 / 10</h3>
+                    {% else %}
+                        <h3 class="card-title" align="center">{{ session }} / 10</h3>
+                    {% endif %}
                 </div>
             </div>
-        </form>
+        </div>
+        <div align="center">
+            <form method="get">
+                <div class="card border-danger mb-3" style="max-width: 20rem;">
+                    <div class="card-header correct" align="center">{{ sign }}</div>
+                    <div class="card-body text-danger">
+                        <h5 class="card-title" align="center">Correct answer:</h5>
+                        <p class="btn btn-outline-danger">{{ answer }}</p><br>
+                        <button type="submit" class="btn btn-outline-danger">Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <br>
-    <br>
-    <br>
 {% endblock %}
