@@ -26,6 +26,9 @@ $(document).ready(function () {
 
 
     });
+    $('.extend').click(function () {
+        $('#levels').slideToggle();
+    })
 });
 
 document.querySelector('.carousel-item').classList.add('active');
