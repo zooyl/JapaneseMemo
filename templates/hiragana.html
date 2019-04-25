@@ -6,16 +6,16 @@
             <p class="try-font-title">List of unlocked levels</p>
             <p class="btn btn-outline-danger extend" style="font-size: calc(1vh + 1vw)">Show</p>
         </div>
-        <div id="levels"class="padd-3" style="display: none">
+        <div id="levels" class="padd-3" style="display: none">
             <div class="extend-content">
                 <a href="{% url 'easy' %}" class="btn btn-outline-danger" data-toggle="popover"
-                   title="Basic" data-trigger="hover" data-content="Every five exercises you unlock new level">Easy
+                   title="Basic" data-trigger="hover" data-content="Basic signs, every five exercises you unlock new level">Easy
                     Level</a>
             </div>
             {% if perms.Hiragana.medium_level %}
                 <div class="padd-3 extend-content">
                     <a href="{% url 'medium' %}" class="btn btn-outline-danger" data-toggle="popover"
-                       title="Advanced" data-trigger="hover" data-content="You are halfway through">Medium Level</a>
+                       title="Advanced" data-trigger="hover" data-content="Advanced signs">Medium Level</a>
                 </div>
             {% endif %}
             {% if perms.Hiragana.hard_level %}
@@ -24,18 +24,19 @@
                        title="Intermediate" data-content="Last pieces of signs" data-trigger="hover">Hard Level</a>
                 </div>
             {% endif %}
+            {% if perms.Hiragana.diacritics %}
+                <div class="padd-3 extend-content">
+                    <a href="{% url 'diacritics' %}" class="btn btn-outline-danger" data-toggle="popover"
+                       title="Diacritics" data-trigger="hover"
+                       data-content="Diacritic signs most often used in the Japanese kana">Diacritics</a>
+                </div>
+            {% endif %}
             {% if perms.Hiragana.mixed_level %}
                 <div class="padd-3 extend-content">
                     <a href="{% url 'mixed' %}" class="btn btn-outline-danger" data-toggle="popover"
                        title="Every single sign of Hiragana" data-trigger="hover"
-                       data-content="More challenging, requires 10 signs to complete">Mixed Level</a>
-                </div>
-            {% endif %}
-            {% if perms.Hiragana.diacritics %}
-                <div class="padd-3 extend-content">
-                    <a href="#" class="btn btn-outline-danger" data-toggle="popover"
-                       title="Diacritics" data-trigger="hover"
-                       data-content="Diacritic signs most often used in the Japanese kana">Diacritics</a>
+                       data-content="More challenging, requires 10 signs to complete. Everything included">Mixed
+                        Level</a>
                 </div>
             {% endif %}
         </div>
