@@ -73,32 +73,36 @@ def add_attempts(request):
     return user
 
 
+def exercise_completed(request):
+    # Function adds completed exercises and reset session
+    user = request.user
+    user.stats.completed += 1
+    user.stats.save()
+    request.session['points'] = 0
+    return
+
+
 class PresetEasy(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'easy'
 
     def get(self, request):
-        points = request.session.get('points', 0)
         easy = Levels.objects.filter(preset=0)
         shuffle = random.sample(list(easy), 5)
         question = random.choice(shuffle)
         return render(request, "question.html", {'shuffle': shuffle, "question": question,
-                                                 'points': points})
+                                                 'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points')
+        session = request.session.get('points', 0)
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         add_attempts(request)
         if pronunciation == answer:
-            points = request.session.get('points', 0)
-            points += 1
-            request.session['points'] = points
-            if points >= 5:
-                user = request.user
-                user.stats.completed += 1
-                user.stats.save()
-                request.session['points'] = 0
+            session += 1
+            request.session['points'] = session
+            if session >= 5:
+                exercise_completed(request)
                 next_level_permission(request)
                 return redirect('hiragana')
             return redirect('easy')
@@ -107,43 +111,27 @@ class PresetEasy(LoginRequiredMixin, View):
                                                'session': session})
 
 
-# def exercise_completed_with_5_points(request):
-#     if points >= 5:
-#         user = request.user
-#         user.stats.completed += 1
-#         user.stats.save()
-#         request.session['points'] = 0
-
-
 class PresetMedium(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'medium'
 
     def get(self, request):
-        user = request.user
-        if user.has_perm('Hiragana.medium_level'):
-            points = request.session.get('points', 0)
-            medium = Levels.objects.filter(preset=1)
-            shuffle = random.sample(list(medium), 5)
-            question = random.choice(shuffle)
-            return render(request, "question.html", {'shuffle': shuffle, "question": question,
-                                                     'points': points})
-        return redirect('hiragana')
+        medium = Levels.objects.filter(preset=1)
+        shuffle = random.sample(list(medium), 5)
+        question = random.choice(shuffle)
+        return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                 'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points')
+        session = request.session.get('points', 0)
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         add_attempts(request)
         if pronunciation == answer:
-            points = request.session.get('points', 0)
-            points += 1
-            request.session['points'] = points
-            if points >= 5:
-                user = request.user
-                user.stats.completed += 1
-                user.stats.save()
-                request.session['points'] = 0
+            session += 1
+            request.session['points'] = session
+            if session >= 5:
+                exercise_completed(request)
                 next_level_permission(request)
                 return redirect('hiragana')
             return redirect('medium')
@@ -157,30 +145,22 @@ class PresetHard(LoginRequiredMixin, View):
     redirect_field_name = 'hard'
 
     def get(self, request):
-        user = request.user
-        if user.has_perm('Hiragana.hard_level'):
-            points = request.session.get('points', 0)
-            hard = Levels.objects.filter(preset=2)
-            shuffle = random.sample(list(hard), 5)
-            question = random.choice(shuffle)
-            return render(request, "question.html", {'shuffle': shuffle, "question": question,
-                                                     'points': points})
-        return redirect('hiragana')
+        hard = Levels.objects.filter(preset=2)
+        shuffle = random.sample(list(hard), 5)
+        question = random.choice(shuffle)
+        return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                 'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points')
+        session = request.session.get('points', 0)
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         add_attempts(request)
         if pronunciation == answer:
-            points = request.session.get('points', 0)
-            points += 1
-            request.session['points'] = points
-            if points >= 5:
-                user = request.user
-                user.stats.completed += 1
-                user.stats.save()
-                request.session['points'] = 0
+            session += 1
+            request.session['points'] = session
+            if session >= 5:
+                exercise_completed(request)
                 next_level_permission(request)
                 return redirect('hiragana')
             return redirect('hard')
@@ -194,30 +174,22 @@ class PresetMixed(LoginRequiredMixin, View):
     redirect_field_name = 'mixed'
 
     def get(self, request):
-        user = request.user
-        if user.has_perm('Hiragana.mixed_level'):
-            points = request.session.get('points', 0)
-            mixed = Levels.objects.all()
-            shuffle = random.sample(list(mixed), 5)
-            question = random.choice(shuffle)
-            return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
-                                                           'points': points})
-        return redirect('hiragana')
+        mixed = Levels.objects.all()
+        shuffle = random.sample(list(mixed), 5)
+        question = random.choice(shuffle)
+        return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
+                                                       'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points')
+        session = request.session.get('points', 0)
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
         add_attempts(request)
         if pronunciation == answer:
-            points = request.session.get('points', 0)
-            points += 1
-            request.session['points'] = points
-            if points >= 10:
-                user = request.user
-                user.stats.completed += 1
-                user.stats.save()
-                request.session['points'] = 0
+            session += 1
+            request.session['points'] = session
+            if session >= 10:
+                exercise_completed(request)
                 next_level_permission(request)
                 return redirect('hiragana')
             return redirect('mixed')
