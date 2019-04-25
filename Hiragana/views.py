@@ -1,15 +1,18 @@
+import random
+
 from django.shortcuts import render, redirect
-from django.views import View
-from .forms import UserAdvancedCreationForm
 from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
+from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
-from Hiragana.models import Levels, level, Hiragana, Stats
-import random
+
 from rest_framework import viewsets
+
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
+from .forms import UserAdvancedCreationForm
+from Hiragana.models import Levels, level, Hiragana, Stats
 
 
 # Create your views here.
@@ -82,6 +85,27 @@ def exercise_completed(request):
     return
 
 
+def check_answer(request):
+    # Function check if the answer is correct (in this case gives user points)
+    # if there is not enough points, then redirect back where user came from
+    # or if it's wrong, display correct answer
+    session = request.session.get('points', 0)
+    pronunciation = request.POST['pronunciation']
+    answer = request.POST['answer']
+    add_attempts(request)
+    if pronunciation == answer:
+        session += 1
+        request.session['points'] = session
+        if session >= 5:
+            exercise_completed(request)
+            next_level_permission(request)
+            return redirect('hiragana')
+        return redirect(request.get_full_path())
+    sign = request.POST['sign']
+    return render(request, 'answer.html', {'sign': sign, 'answer': answer,
+                                           'session': session})
+
+
 class PresetEasy(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'easy'
@@ -94,21 +118,7 @@ class PresetEasy(LoginRequiredMixin, View):
                                                  'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points', 0)
-        pronunciation = request.POST['pronunciation']
-        answer = request.POST['answer']
-        add_attempts(request)
-        if pronunciation == answer:
-            session += 1
-            request.session['points'] = session
-            if session >= 5:
-                exercise_completed(request)
-                next_level_permission(request)
-                return redirect('hiragana')
-            return redirect('easy')
-        sign = request.POST['sign']
-        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
-                                               'session': session})
+        return check_answer(request)
 
 
 class PresetMedium(LoginRequiredMixin, View):
@@ -123,21 +133,7 @@ class PresetMedium(LoginRequiredMixin, View):
                                                  'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points', 0)
-        pronunciation = request.POST['pronunciation']
-        answer = request.POST['answer']
-        add_attempts(request)
-        if pronunciation == answer:
-            session += 1
-            request.session['points'] = session
-            if session >= 5:
-                exercise_completed(request)
-                next_level_permission(request)
-                return redirect('hiragana')
-            return redirect('medium')
-        sign = request.POST['sign']
-        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
-                                               'session': session})
+        return check_answer(request)
 
 
 class PresetHard(LoginRequiredMixin, View):
@@ -152,21 +148,7 @@ class PresetHard(LoginRequiredMixin, View):
                                                  'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points', 0)
-        pronunciation = request.POST['pronunciation']
-        answer = request.POST['answer']
-        add_attempts(request)
-        if pronunciation == answer:
-            session += 1
-            request.session['points'] = session
-            if session >= 5:
-                exercise_completed(request)
-                next_level_permission(request)
-                return redirect('hiragana')
-            return redirect('hard')
-        sign = request.POST['sign']
-        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
-                                               'session': session})
+        return check_answer(request)
 
 
 class PresetDiacritics(LoginRequiredMixin, View):
@@ -181,21 +163,7 @@ class PresetDiacritics(LoginRequiredMixin, View):
                                                  'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points', 0)
-        pronunciation = request.POST['pronunciation']
-        answer = request.POST['answer']
-        add_attempts(request)
-        if pronunciation == answer:
-            session += 1
-            request.session['points'] = session
-            if session >= 5:
-                exercise_completed(request)
-                next_level_permission(request)
-                return redirect('hiragana')
-            return redirect('diacritics')
-        sign = request.POST['sign']
-        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
-                                               'session': session})
+        return check_answer(request)
 
 
 class PresetMixed(LoginRequiredMixin, View):
