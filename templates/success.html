@@ -4,15 +4,15 @@
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Great job</h5>
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center">
+                        <h5 class="heading">Great job</h5>
                     </div>
                     <div class="modal-body">
-                        You have completed this exercise.<br>
-                        Do you want to go to levels list or continue?
+                        <p>You have completed this exercise.</p>
+                        <p>Do you want to go to levels list or continue?</p>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer justify-content-center">
                         <a href="{% url 'hiragana' %}" class="btn btn-outline-danger">Levels</a>
                         <a href="{{ request.get_full_path }}" class="btn btn-outline-danger">Continue</a>
                     </div>
