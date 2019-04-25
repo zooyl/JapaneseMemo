@@ -99,7 +99,7 @@ def check_answer(request):
         if session >= 5:
             exercise_completed(request)
             next_level_permission(request)
-            return redirect('hiragana')
+            return render(request, 'success.html')
         return redirect(request.get_full_path())
     sign = request.POST['sign']
     return render(request, 'answer.html', {'sign': sign, 'answer': answer,

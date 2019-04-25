@@ -33,6 +33,10 @@ $(document).ready(function () {
                 slide.text('Show')
             }
         });
+    });
+    $('#myModal').modal({
+        backdrop: 'static',
+        keyboard: false
     })
 });
 
