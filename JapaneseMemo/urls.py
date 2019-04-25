@@ -38,6 +38,7 @@ urlpatterns = [
     path('home/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
     path('home/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
     path('home/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
+    path('home/diacritics', Hiragana.views.PresetDiacritics.as_view(), name='diacritics'),
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
     path('password/reset/', PasswordResetView.as_view(template_name='registration/password_reset.html'),
          name='password_reset'),

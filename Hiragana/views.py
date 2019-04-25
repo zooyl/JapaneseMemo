@@ -57,10 +57,10 @@ def next_level_permission(request):
         perm = Permission.objects.get(codename='hard_level')
         user.user_permissions.add(perm)
     if user.stats.completed == 15:
-        perm = Permission.objects.get(codename='mixed_level')
+        perm = Permission.objects.get(codename='diacritics')
         user.user_permissions.add(perm)
     if user.stats.completed == 20:
-        perm = Permission.objects.get(codename='diacritics')
+        perm = Permission.objects.get(codename='mixed_level')
         user.user_permissions.add(perm)
     return user
 
@@ -164,6 +164,35 @@ class PresetHard(LoginRequiredMixin, View):
                 next_level_permission(request)
                 return redirect('hiragana')
             return redirect('hard')
+        sign = request.POST['sign']
+        return render(request, 'answer.html', {'sign': sign, 'answer': answer,
+                                               'session': session})
+
+
+class PresetDiacritics(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'diacritics'
+
+    def get(self, request):
+        diacritics = Levels.objects.filter(preset=3)
+        shuffle = random.sample(list(diacritics), 5)
+        question = random.choice(shuffle)
+        return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                 'points': request.session.get('points')})
+
+    def post(self, request):
+        session = request.session.get('points', 0)
+        pronunciation = request.POST['pronunciation']
+        answer = request.POST['answer']
+        add_attempts(request)
+        if pronunciation == answer:
+            session += 1
+            request.session['points'] = session
+            if session >= 5:
+                exercise_completed(request)
+                next_level_permission(request)
+                return redirect('hiragana')
+            return redirect('diacritics')
         sign = request.POST['sign']
         return render(request, 'answer.html', {'sign': sign, 'answer': answer,
                                                'session': session})
