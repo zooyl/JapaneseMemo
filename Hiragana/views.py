@@ -44,11 +44,24 @@ class HiraganaMain(LoginRequiredMixin, View):
     redirect_field_name = 'hiragana'
 
     def get(self, request):
-        user = request.user
-        stats = user.stats
-        users = User.objects.all().order_by('-stats__completed')
-        return render(request, "hiragana.html", {'stats': stats, 'level': level,
-                                                 'users': users})
+        return render(request, "hiragana.html")
+
+
+def next_level_permission(request):
+    user = request.user
+    if user.stats.completed == 5:
+        perm = Permission.objects.get(codename='medium_level')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 10:
+        perm = Permission.objects.get(codename='hard_level')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 15:
+        perm = Permission.objects.get(codename='mixed_level')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 20:
+        perm = Permission.objects.get(codename='diacritics')
+        user.user_permissions.add(perm)
+    return user
 
 
 class PresetEasy(LoginRequiredMixin, View):
@@ -79,9 +92,7 @@ class PresetEasy(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
-                if user.stats.completed == 5:
-                    perm = Permission.objects.get(codename='medium_level')
-                    user.user_permissions.add(perm)
+                next_level_permission(request)
                 return redirect('hiragana')
             return redirect('easy')
         sign = request.POST['sign']
@@ -120,9 +131,7 @@ class PresetMedium(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
-                if user.stats.completed == 10:
-                    perm = Permission.objects.get(codename='hard_level')
-                    user.user_permissions.add(perm)
+                next_level_permission(request)
                 return redirect('hiragana')
             return redirect('medium')
         sign = request.POST['sign']
@@ -161,9 +170,7 @@ class PresetHard(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
-                if user.stats.completed == 15:
-                    perm = Permission.objects.get(codename='mixed_level')
-                    user.user_permissions.add(perm)
+                next_level_permission(request)
                 return redirect('hiragana')
             return redirect('hard')
         sign = request.POST['sign']
@@ -202,9 +209,7 @@ class PresetMixed(LoginRequiredMixin, View):
                 user.stats.completed += 1
                 user.stats.save()
                 request.session['points'] = 0
-                if user.stats.completed == 20:
-                    perm = Permission.objects.get(codename='diacritics')
-                    user.user_permissions.add(perm)
+                next_level_permission(request)
                 return redirect('hiragana')
             return redirect('mixed')
         sign = request.POST['sign']
