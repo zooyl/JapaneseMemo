@@ -48,6 +48,7 @@ class HiraganaMain(LoginRequiredMixin, View):
 
 
 def next_level_permission(request):
+    # Function to unlock next level for user
     user = request.user
     if user.stats.completed == 5:
         perm = Permission.objects.get(codename='medium_level')
@@ -61,6 +62,14 @@ def next_level_permission(request):
     if user.stats.completed == 20:
         perm = Permission.objects.get(codename='diacritics')
         user.user_permissions.add(perm)
+    return user
+
+
+def add_attempts(request):
+    # Function to count user attempts
+    user = request.user
+    user.stats.attempts += 1
+    user.stats.save()
     return user
 
 
@@ -80,9 +89,7 @@ class PresetEasy(LoginRequiredMixin, View):
         session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
-        user = request.user
-        user.stats.attempts += 1
-        user.stats.save()
+        add_attempts(request)
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
@@ -98,6 +105,14 @@ class PresetEasy(LoginRequiredMixin, View):
         sign = request.POST['sign']
         return render(request, 'answer.html', {'sign': sign, 'answer': answer,
                                                'session': session})
+
+
+# def exercise_completed_with_5_points(request):
+#     if points >= 5:
+#         user = request.user
+#         user.stats.completed += 1
+#         user.stats.save()
+#         request.session['points'] = 0
 
 
 class PresetMedium(LoginRequiredMixin, View):
@@ -119,9 +134,7 @@ class PresetMedium(LoginRequiredMixin, View):
         session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
-        user = request.user
-        user.stats.attempts += 1
-        user.stats.save()
+        add_attempts(request)
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
@@ -158,9 +171,7 @@ class PresetHard(LoginRequiredMixin, View):
         session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
-        user = request.user
-        user.stats.attempts += 1
-        user.stats.save()
+        add_attempts(request)
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
@@ -197,9 +208,7 @@ class PresetMixed(LoginRequiredMixin, View):
         session = request.session.get('points')
         pronunciation = request.POST['pronunciation']
         answer = request.POST['answer']
-        user = request.user
-        user.stats.attempts += 1
-        user.stats.save()
+        add_attempts(request)
         if pronunciation == answer:
             points = request.session.get('points', 0)
             points += 1
