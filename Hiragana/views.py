@@ -106,6 +106,27 @@ def check_answer(request):
                                            'session': session})
 
 
+def check_answer_mixed(request):
+    # Function check if the answer is correct (in this case gives user points)
+    # if there is not enough points, then redirect back where user came from
+    # or if it's wrong, display correct answer
+    session = request.session.get('points', 0)
+    pronunciation = request.POST['pronunciation']
+    answer = request.POST['answer']
+    add_attempts(request)
+    if pronunciation == answer:
+        session += 1
+        request.session['points'] = session
+        if session >= 10:
+            exercise_completed(request)
+            next_level_permission(request)
+            return render(request, 'success.html')
+        return redirect('mixed')
+    sign = request.POST['sign']
+    return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
+                                                 'session': session})
+
+
 class PresetEasy(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'easy'
@@ -178,21 +199,7 @@ class PresetMixed(LoginRequiredMixin, View):
                                                        'points': request.session.get('points')})
 
     def post(self, request):
-        session = request.session.get('points', 0)
-        pronunciation = request.POST['pronunciation']
-        answer = request.POST['answer']
-        add_attempts(request)
-        if pronunciation == answer:
-            session += 1
-            request.session['points'] = session
-            if session >= 10:
-                exercise_completed(request)
-                next_level_permission(request)
-                return redirect('hiragana')
-            return redirect('mixed')
-        sign = request.POST['sign']
-        return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
-                                                     'session': session})
+        return check_answer_mixed(request)
 
 
 # API VIEW
