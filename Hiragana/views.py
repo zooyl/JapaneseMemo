@@ -57,7 +57,12 @@ class StatsView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         stats = Stats.objects.get(user=user)
-        return render(request, 'stats.html', {'stats': stats})
+        try:
+            average = stats.attempts / stats.completed
+            rounded = round(average, 2)
+            return render(request, 'stats.html', {'stats': stats, 'average': rounded})
+        except ZeroDivisionError:
+            return render(request, 'stats.html', {'stats': stats})
 
 
 # Functions

@@ -30,11 +30,14 @@ $(document).ready(function () {
     var fade_exercise = $('#exercise');
     var fade_attempts = $('#attempts');
     var fade_streak = $('#streak');
+    var fade_average = $('#average');
     fade_exercise.css({"position": "relative", "opacity": 0, "left": "+=100"});
     fade_exercise.animate({left: 0, opacity: 1}, 3000);
     fade_attempts.css({"position": "relative", "opacity": 0, "right": "+=100"});
-    fade_attempts.animate({left: 0, opacity: 1}, 5000);
-    fade_streak.css({"position": "relative", "opacity": 0, "left": "+=100"});
+    fade_attempts.animate({left: 0, opacity: 1}, 4000);
+    fade_average.css({"position": "relative", "opacity": 0, "left": "+=100"});
+    fade_average.animate({left: 0, opacity: 1}, 6000);
+    fade_streak.css({"position": "relative", "opacity": 0, "right": "+=100"});
     fade_streak.animate({left: 0, opacity: 1}, 7000);
     // levels list
     var slide = $('.extend');

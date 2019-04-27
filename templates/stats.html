@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="lamp-bg stats-font-text">
-        <div class="stats-big" style="padding-top: 20vh; text-align: center">Your stats, {{ request.user }}</div>
+        <div class="stats-big" style="padding-top: 10vh; text-align: center">Your stats, {{ request.user }}</div>
         <div class="container" style="padding-top: 5vh; text-align: center">
             <div class="row align-items-center">
                 <div class="col stats-font-number" id="exercise">
@@ -11,6 +11,11 @@
             <div class="row align-items-center">
                 <div class="col stats-font-number" id="attempts">
                     Attempts: <span class="counter" data-count="{{ stats.attempts }}">0</span>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col stats-font-number" id="average">
+                    Average per exercise: <span class="counter" data-count="{{ average }}">0</span>
                 </div>
             </div>
             <div class="row align-items-center">
