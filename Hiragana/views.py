@@ -15,7 +15,7 @@ from .forms import UserAdvancedCreationForm
 from Hiragana.models import Levels, level, Hiragana, Stats
 
 
-# Create your views here.
+# Views
 
 def landing_page(request):
     users = User.objects.count()
@@ -49,6 +49,18 @@ class HiraganaMain(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "hiragana.html")
 
+
+class StatsView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'stats'
+
+    def get(self, request):
+        user = request.user
+        stats = Stats.objects.get(user=user)
+        return render(request, 'stats.html', {'stats': stats})
+
+
+# Functions
 
 def next_level_permission(request):
     # Function to unlock next level for user
@@ -126,6 +138,8 @@ def check_answer_mixed(request):
     return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
                                                  'session': session})
 
+
+# Levels
 
 class PresetEasy(LoginRequiredMixin, View):
     login_url = 'login'

@@ -33,6 +33,7 @@ urlpatterns = [
     path('signup/', Hiragana.views.SignUp.as_view(), name="signup"),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('stats/', Hiragana.views.StatsView.as_view(), name='stats'),
     path('home/', Hiragana.views.Dashboard.as_view(), name='home'),
     path('home/easy', Hiragana.views.PresetEasy.as_view(), name='easy'),
     path('home/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
