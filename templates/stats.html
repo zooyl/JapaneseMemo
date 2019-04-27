@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="lamp-bg stats-font-text">
-        <div class="container" style="padding-top: 25vh; text-align: center">
+        <div class="stats-big" style="padding-top: 20vh; text-align: center">Your stats, {{ request.user }}</div>
+        <div class="container" style="padding-top: 5vh; text-align: center">
             <div class="row align-items-center">
-                <div class="col stats-font-number">
-                    Exercises completed: <span>{{ stats.completed }}</span>
+                <div class="col stats-font-number" id="exercise">
+                    Exercises completed: <span class="counter" data-count="{{ stats.completed }}">0</span>
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col stats-font-number">
-                    Attempts: <span>{{ stats.attempts }}</span>
+                <div class="col stats-font-number" id="attempts">
+                    Attempts: <span class="counter" data-count="{{ stats.attempts }}">0</span>
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col stats-font-number">
+                <div class="col stats-font-number" id="streak">
                     Day streak: soon
                 </div>
             </div>

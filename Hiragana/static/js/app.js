@@ -1,5 +1,7 @@
 $(document).ready(function () {
+    // levels/alphabet popup
     $('[data-toggle="popover"]').popover({placement: 'top'});
+    // counter function
     $('.counter').each(function () {
         var $this = $(this),
             countTo = $this.attr('data-count');
@@ -10,7 +12,7 @@ $(document).ready(function () {
 
             {
 
-                duration: 8000,
+                duration: 7000,
                 easing: 'linear',
                 step: function () {
                     $this.text(Math.floor(this.countNum));
@@ -24,6 +26,17 @@ $(document).ready(function () {
 
 
     });
+    // stats counter
+    var fade_exercise = $('#exercise');
+    var fade_attempts = $('#attempts');
+    var fade_streak = $('#streak');
+    fade_exercise.css({"position": "relative", "opacity": 0, "left": "+=100"});
+    fade_exercise.animate({left: 0, opacity: 1}, 3000);
+    fade_attempts.css({"position": "relative", "opacity": 0, "right": "+=100"});
+    fade_attempts.animate({left: 0, opacity: 1}, 5000);
+    fade_streak.css({"position": "relative", "opacity": 0, "left": "+=100"});
+    fade_streak.animate({left: 0, opacity: 1}, 7000);
+    // levels list
     var slide = $('.extend');
     slide.click(function () {
         $('#levels').slideToggle(function () {
@@ -34,6 +47,7 @@ $(document).ready(function () {
             }
         });
     });
+    // exercise completed modal
     $('#myModal').modal({
         backdrop: 'static',
         keyboard: false

@@ -72,7 +72,7 @@
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: white;
     font-size: calc(3vw + 3vh);
-    text-shadow: 2px 2px 20px #000000;
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000;
 }
 
 .stats-font-text {
@@ -312,4 +312,7 @@
     background-size: cover;
     width: 100vw;
     height: 100vh;
+}
+.stats-big {
+    font-size: calc(4vw + 4vh);
 }
