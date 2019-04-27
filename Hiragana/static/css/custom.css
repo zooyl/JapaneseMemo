@@ -78,7 +78,7 @@
 .stats-font-text {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     color: white;
-    font-size: calc(1vw + 1vh);
+    font-size: calc(2vw + 2vh);
     text-shadow: 2px 2px 20px #000000;
 }
 
@@ -301,4 +301,15 @@
     letter-spacing: 0.05rem;
     padding: 0.75rem 1rem;
     border-radius: 2rem;
+}
+
+/* Stats Page */
+
+.lamp-bg {
+    background-image: url("../img/lamp.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
 }

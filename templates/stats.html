@@ -1,3 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="lamp-bg stats-font-text">
+        <div class="container" style="padding-top: 25vh; text-align: center">
+            <div class="row align-items-center">
+                <div class="col stats-font-number">
+                    Exercises completed: <span>{{ stats.completed }}</span>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col stats-font-number">
+                    Attempts: <span>{{ stats.attempts }}</span>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col stats-font-number">
+                    Day streak: soon
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
