@@ -1,5 +1,7 @@
 import random
 
+import datetime
+
 from django.shortcuts import render, redirect
 from django.db.models import Sum
 from django.urls import reverse_lazy
@@ -83,6 +85,34 @@ def next_level_permission(request):
         perm = Permission.objects.get(codename='mixed_level')
         user.user_permissions.add(perm)
     return user
+
+
+def streak_count(request):
+    # Function count user day streak
+    user = request.user
+    user.stats.streak += 1
+    user.stats.save()
+    return user
+
+
+def streak_reset(request):
+    # Function reset user day streak
+    user = request.user
+    user.stats.streak = 0
+    user.stats.save()
+    return user
+
+
+def last_login_timedelta(request):
+    # Function to check if user was logged in last 24 hours
+    user = User.objects.get(id=request.user.id)
+    today = datetime.datetime.now(datetime.timezone.utc)
+    time_delta = (today - user.last_login).total_seconds()
+    hours = round(time_delta / 60 / 60, 2)
+    if hours < 24 and hours >= 0:
+        print('streak + 1')
+    else:
+        print("streak reset")
 
 
 def add_attempts(request):
