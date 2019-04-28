@@ -103,20 +103,35 @@ def streak_reset(request):
     return user
 
 
-def last_login_timedelta(request):
-    # Function to check if user was logged in last 24 hours
+flaga = True
+
+def streak_once_a_day(request):
+    """
+    Function is checking if 24 hours has passed before
+    counting streak again
+    """
+    # user = User.objects.get(id=request.user.id)
+    # today = datetime.datetime.now(datetime.timezone.utc)
+    global flaga
+    if flaga is True:
+        streak_count(request)
+        flaga = False
+
+# DZIALA FLAGA TRUE, ZROBIC FALSE DOPOKI NIE MINIE DOBA I NASTAWIC TRUE
+def last_login_in_24_hours(request):
+    # Function checks if user was logged in last 24 hours
     user = User.objects.get(id=request.user.id)
     today = datetime.datetime.now(datetime.timezone.utc)
     time_delta = (today - user.last_login).total_seconds()
     hours = round(time_delta / 60 / 60, 2)
-    if hours < 24 and hours >= 0:
-        print('streak + 1')
+    if 24 > hours >= 0:
+        streak_once_a_day(request)
     else:
-        print("streak reset")
+        streak_reset(request)
 
 
 def add_attempts(request):
-    # Function to count user attempts
+    # Function counts user attempts
     user = request.user
     user.stats.attempts += 1
     user.stats.save()
@@ -146,6 +161,7 @@ def check_answer(request):
         if session >= 5:
             exercise_completed(request)
             next_level_permission(request)
+            last_login_in_24_hours(request)
             return render(request, 'success.html')
         return redirect(request.get_full_path())
     sign = request.POST['sign']
@@ -167,6 +183,7 @@ def check_answer_mixed(request):
         if session >= 10:
             exercise_completed(request)
             next_level_permission(request)
+            last_login_in_24_hours(request)
             return render(request, 'success.html')
         return redirect('mixed')
     sign = request.POST['sign']

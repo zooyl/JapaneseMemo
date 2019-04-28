@@ -26,7 +26,7 @@ router.register('hiragana', Hiragana.views.HiraganaViewSet)
 router.register('levels', Hiragana.views.LevelsViewSet)
 
 urlpatterns = [
-    path('last/', Hiragana.views.last_login_timedelta),
+    path('last/', Hiragana.views.streak_once_a_day),
     path('api/', include(router.urls)),
     path('api-test/', include('rest_framework.urls', namespace="rest_framework")),
     path('admin/', admin.site.urls),

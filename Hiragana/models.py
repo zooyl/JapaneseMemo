@@ -15,7 +15,7 @@ class Stats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     completed = models.IntegerField(default=0)
     attempts = models.IntegerField(default=0)
-    streak = models.IntegerField(default=1)
+    streak = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
