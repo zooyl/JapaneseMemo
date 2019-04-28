@@ -91,6 +91,7 @@ def streak_count(request):
     # Function count user day streak
     user = request.user
     user.stats.streak += 1
+    user.stats.streak_timestamp = datetime.datetime.now(datetime.timezone.utc)
     user.stats.save()
     return user
 
@@ -103,21 +104,30 @@ def streak_reset(request):
     return user
 
 
-flaga = True
+# determine flag to count streak
+flag = True
+
 
 def streak_once_a_day(request):
     """
-    Function is checking if 24 hours has passed before
-    counting streak again
+    Function is checking if 24 hours has passed since last
+    time_stamp before setting flag to true and checking for streak again
     """
-    # user = User.objects.get(id=request.user.id)
-    # today = datetime.datetime.now(datetime.timezone.utc)
-    global flaga
-    if flaga is True:
+    user = User.objects.get(id=request.user.id)
+    today = datetime.datetime.now(datetime.timezone.utc)
+    last_stamp = user.stats.streak_timestamp
+    time_delta = (today - last_stamp).total_seconds()
+    hours = round(time_delta / 60 / 60, 2)
+    global flag
+    if flag is True:
         streak_count(request)
-        flaga = False
+        flag = False
+    elif flag is False:
+        if hours > 24:
+            flag = True
+            streak_once_a_day(request)
 
-# DZIALA FLAGA TRUE, ZROBIC FALSE DOPOKI NIE MINIE DOBA I NASTAWIC TRUE
+
 def last_login_in_24_hours(request):
     # Function checks if user was logged in last 24 hours
     user = User.objects.get(id=request.user.id)
