@@ -3,10 +3,11 @@ import unittest
 import django
 from django.test import Client
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 
 # app imports
 from Hiragana.forms import UserAdvancedCreationForm
+from Hiragana.models import Stats
 
 
 # Create your tests here.
@@ -102,6 +103,42 @@ class UserCreationFormTest(unittest.TestCase):
         form = UserAdvancedCreationForm(data={'username': 'test', 'password1': 'mkonjibhu',
                                               'password2': 'mkonjibhu', 'email': 'testermailwithoutat.com'})
         self.assertFalse(form.is_valid())
+
+
+# class RegisterTest(unittest.TestCase):
+
+
+# from Hiragana.views import next_level_permission
+
+
+class PermissionTest(django.test.TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        # self.st = Stats.objects.create(user=self.user)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_medium_level_permission(self):
+        perm = Permission.objects.get(codename='medium_level')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.medium_level'))
+
+    def test_hard_level_permission(self):
+        perm = Permission.objects.get(codename='hard_level')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.hard_level'))
+
+    def test_mixed_level_permission(self):
+        perm = Permission.objects.get(codename='mixed_level')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.mixed_level'))
+
+    def test_diacritics_permission(self):
+        perm = Permission.objects.get(codename='diacritics')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
 
 
 if __name__ == "__main__":
