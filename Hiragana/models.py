@@ -17,6 +17,7 @@ class Stats(models.Model):
     attempts = models.IntegerField(default=0)
     streak = models.IntegerField(default=0)
     streak_timestamp = models.DateTimeField(auto_now_add=True)
+    streak_flag = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.username

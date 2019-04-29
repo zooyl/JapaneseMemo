@@ -93,6 +93,8 @@ def streak_count(request):
     user.stats.streak += 1
     user.stats.streak_timestamp = datetime.datetime.now(datetime.timezone.utc)
     user.stats.save()
+    print(user.stats.streak)
+    print(user.stats.streak_timestamp)
     return user
 
 
@@ -104,8 +106,18 @@ def streak_reset(request):
     return user
 
 
-# determine flag to count streak
-flag = True
+def flag_false(request):
+    user = request.user
+    user.stats.streak_flag = False
+    user.stats.save()
+    return user
+
+
+def flag_true(request):
+    user = request.user
+    user.stats.streak_flag = True
+    user.stats.save()
+    return user
 
 
 def streak_once_a_day(request):
@@ -118,13 +130,12 @@ def streak_once_a_day(request):
     last_stamp = user.stats.streak_timestamp
     time_delta = (today - last_stamp).total_seconds()
     hours = round(time_delta / 60 / 60, 2)
-    global flag
-    if flag is True:
+    if user.stats.streak_flag is True:
         streak_count(request)
-        flag = False
-    elif flag is False:
+        flag_false(request)
+    elif user.stats.streak_flag is False:
         if hours > 24:
-            flag = True
+            flag_true(request)
             streak_once_a_day(request)
 
 
