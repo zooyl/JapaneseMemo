@@ -8,7 +8,8 @@ from django.contrib.auth.models import User, Permission
 # app imports
 from Hiragana.forms import UserAdvancedCreationForm
 from Hiragana.models import Stats
-from Hiragana.views import next_level_permission, streak_count, streak_reset
+from Hiragana.views import next_level_permission, streak_count, \
+    streak_reset, add_attempts, exercise_completed
 
 # library imports
 import datetime
@@ -246,6 +247,20 @@ class StreakResetFunctionTest(unittest.TestCase):
     def test_streak_reset_function(self):
         streak_reset(self.stats)
         self.assertEqual(self.stats.streak, 0)
+
+
+class AddAttemptsFunctionTest(unittest.TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_add_attempts_function(self):
+        add_attempts(self.stats)
+        self.assertEqual(self.stats.attempts, 1)
 
 
 if __name__ == "__main__":
