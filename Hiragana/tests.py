@@ -9,6 +9,10 @@ from django.contrib.auth.models import User, Permission
 from Hiragana.forms import UserAdvancedCreationForm
 from Hiragana.models import Stats
 from Hiragana.views import next_level_permission
+from Hiragana.views import streak_count
+
+# library imports
+import datetime
 
 
 # Create your tests here.
@@ -106,7 +110,7 @@ class UserCreationFormTest(unittest.TestCase):
         self.assertFalse(form.is_valid())
 
 
-class PermissionTest(django.test.TestCase):
+class PermissionTest(unittest.TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='12345')
@@ -135,7 +139,7 @@ class PermissionTest(django.test.TestCase):
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
 
 
-class NextLevelPermissionFunctionTest(django.test.TestCase):
+class NextLevelPermissionFunctionTest(unittest.TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='12345')
@@ -163,6 +167,22 @@ class NextLevelPermissionFunctionTest(django.test.TestCase):
         self.stats.completed = 15
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
+
+
+class StreakCountFunctionTest(unittest.TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_streak_count_function(self):
+        streak_count(self.stats)
+        self.assertEqual(self.stats.streak, 1)
+        self.assertAlmostEqual(self.stats.streak_timestamp, datetime.datetime.now(datetime.timezone.utc),
+                               delta=datetime.timedelta(seconds=1))
 
 
 if __name__ == "__main__":
