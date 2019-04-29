@@ -153,7 +153,6 @@ def exercise_completed(request):
     user = request.user
     user.stats.completed += 1
     user.stats.save()
-    request.session['points'] = 0
     return
 
 
@@ -170,6 +169,7 @@ def check_answer(request):
         request.session['points'] = session
         if session >= 5:
             exercise_completed(request)
+            request.session['points'] = 0
             next_level_permission(request)
             last_login_in_24_hours(request)
             return render(request, 'success.html')
@@ -192,6 +192,7 @@ def check_answer_mixed(request):
         request.session['points'] = session
         if session >= 10:
             exercise_completed(request)
+            request.session['points'] = 0
             next_level_permission(request)
             last_login_in_24_hours(request)
             return render(request, 'success.html')

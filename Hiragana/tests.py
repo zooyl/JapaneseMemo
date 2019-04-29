@@ -245,6 +245,7 @@ class StreakResetFunctionTest(unittest.TestCase):
         self.user.delete()
 
     def test_streak_reset_function(self):
+        self.stats.streak = 3
         streak_reset(self.stats)
         self.assertEqual(self.stats.streak, 0)
 
@@ -259,8 +260,28 @@ class AddAttemptsFunctionTest(unittest.TestCase):
         self.user.delete()
 
     def test_add_attempts_function(self):
+        self.assertEqual(self.stats.attempts, 0)
         add_attempts(self.stats)
         self.assertEqual(self.stats.attempts, 1)
+        add_attempts(self.stats)
+        self.assertEqual(self.stats.attempts, 2)
+
+
+class ExerciseCompletedFunctionTest(unittest.TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_exercise_completed(self):
+        self.assertEqual(self.stats.attempts, 0)
+        exercise_completed(self.stats)
+        self.assertEqual(self.stats.completed, 1)
+        exercise_completed(self.stats)
+        self.assertEqual(self.stats.completed, 2)
 
 
 if __name__ == "__main__":
