@@ -83,13 +83,63 @@ class ConnectionTest(unittest.TestCase):
         response = self.client.get(reverse("landing-page"))
         self.assertEqual(response.status_code, 200)
 
+    def test_signup(self):
+        response = self.client.get(reverse("signup"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_login(self):
+        response = self.client.get(reverse("login"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_password_reset(self):
+        response = self.client.get(reverse("password_reset"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_password_reset_done(self):
+        response = self.client.get(reverse("password_reset_done"))
+        self.assertEqual(response.status_code, 200)
+
+    def password_reset_complete(self):
+        response = self.client.get(reverse("password_reset_complete"))
+        self.assertEqual(response.status_code, 200)
+
+
+class ConnectionRedirectTest(unittest.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
     def test_home(self):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 302)
 
-    def test_signup(self):
-        response = self.client.get(reverse("signup"))
-        self.assertEqual(response.status_code, 200)
+    def test_logout(self):
+        response = self.client.get(reverse("logout"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_stats(self):
+        response = self.client.get(reverse("stats"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_easy(self):
+        response = self.client.get(reverse("easy"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_medium(self):
+        response = self.client.get(reverse("medium"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_hard(self):
+        response = self.client.get(reverse("hard"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_mixed(self):
+        response = self.client.get(reverse("mixed"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_diacritics(self):
+        response = self.client.get(reverse("diacritics"))
+        self.assertEqual(response.status_code, 302)
 
 
 class UserCreationFormTest(unittest.TestCase):
