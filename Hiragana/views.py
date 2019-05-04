@@ -91,14 +91,13 @@ def streak_count(request):
     # Function count user day streak
     user = request.user
     user.stats.streak += 1
-    user.stats.streak_timestamp = datetime.datetime.now(datetime.timezone.utc)
     return user.stats.save()
 
 
 def streak_reset(request):
     # Function reset user day streak
     user = request.user
-    user.stats.streak = 0
+    user.stats.streak = 1
     return user.stats.save()
 
 
@@ -133,11 +132,12 @@ def streak_once_a_day(request):
             streak_once_a_day(request)
 
 
-def last_login_in_24_hours(request):
-    # Function checks if user was logged in last 24 hours
+def last_stamp_in_24_hours(request):
+    # Function checks if user did exercise in last 24 hours
     user = User.objects.get(id=request.user.id)
     today = datetime.datetime.now(datetime.timezone.utc)
-    time_delta = (today - user.last_login).total_seconds()
+    last_stamp = user.stats.streak_timestamp
+    time_delta = (today - last_stamp).total_seconds()
     hours = round(time_delta / 60 / 60, 2)
     if 24 > hours >= 0:
         streak_once_a_day(request)
@@ -157,6 +157,7 @@ def exercise_completed(request):
     # Function adds completed exercises and reset session
     user = request.user
     user.stats.completed += 1
+    user.stats.streak_timestamp = datetime.datetime.now(datetime.timezone.utc)
     user.stats.save()
     return
 
@@ -176,7 +177,7 @@ def check_answer(request):
             exercise_completed(request)
             request.session['points'] = 0
             next_level_permission(request)
-            last_login_in_24_hours(request)
+            last_stamp_in_24_hours(request)
             return render(request, 'success.html')
         return redirect(request.get_full_path())
     sign = request.POST['sign']
@@ -199,7 +200,7 @@ def check_answer_mixed(request):
             exercise_completed(request)
             request.session['points'] = 0
             next_level_permission(request)
-            last_login_in_24_hours(request)
+            last_stamp_in_24_hours(request)
             return render(request, 'success.html')
         return redirect('mixed')
     sign = request.POST['sign']
