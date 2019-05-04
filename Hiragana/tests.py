@@ -286,11 +286,18 @@ class ExerciseCompletedFunctionTest(unittest.TestCase):
 
 class LastLoginIn24HoursFunctionTest(unittest.TestCase):
 
-    def test_login_in_less_than_24(self):
+    def test_login_in_less_than_24_first_time(self):
         self.user = User.objects.create_user(username='test_less_than_24', password='12345')
         self.stats = Stats.objects.create(user=self.user)
         self.client = Client()
         self.client.force_login(user=self.user)
+        last_login_in_24_hours(self.stats)
+        self.assertEqual(self.stats.streak, 1)
+        self.assertEqual(self.stats.streak_flag, False)
+
+    def test_login_in_less_than_24_second_time(self):
+        self.user = User.objects.get(username="test_less_than_24")
+        self.stats = Stats.objects.get(user=self.user)
         last_login_in_24_hours(self.stats)
         self.assertEqual(self.stats.streak, 1)
         self.assertEqual(self.stats.streak_flag, False)
