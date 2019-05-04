@@ -139,7 +139,7 @@ def last_stamp_in_24_hours(request):
     last_stamp = user.stats.streak_timestamp
     time_delta = (today - last_stamp).total_seconds()
     hours = round(time_delta / 60 / 60, 2)
-    if 24 > hours >= 0:
+    if 48 > hours >= 0:
         streak_once_a_day(request)
     else:
         streak_reset(request)
