@@ -9,7 +9,7 @@ from django.contrib.auth.models import User, Permission
 from Hiragana.forms import UserAdvancedCreationForm
 from Hiragana.models import Stats
 from Hiragana.views import next_level_permission, streak_count, \
-    streak_reset, add_attempts, exercise_completed
+    streak_reset, add_attempts, exercise_completed, last_login_in_24_hours
 
 # library imports
 import datetime
@@ -282,6 +282,27 @@ class ExerciseCompletedFunctionTest(unittest.TestCase):
         self.assertEqual(self.stats.completed, 1)
         exercise_completed(self.stats)
         self.assertEqual(self.stats.completed, 2)
+
+
+class LastLoginIn24HoursFunctionTest(unittest.TestCase):
+
+    def test_login_in_less_than_24(self):
+        self.user = User.objects.create_user(username='test_less_than_24', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+        self.client = Client()
+        self.client.force_login(user=self.user)
+        last_login_in_24_hours(self.stats)
+        self.assertEqual(self.stats.streak, 1)
+        self.assertEqual(self.stats.streak_flag, False)
+
+    def test_login_in_more_than_24(self):
+        self.user = User.objects.create_user(username='test_more_than_24', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+        two_days_ago = datetime.datetime.now() - datetime.timedelta(days=2)
+        self.user.last_login = two_days_ago
+        self.user.save()
+        last_login_in_24_hours(self.stats)
+        self.assertEqual(self.stats.streak, 0)
 
 
 if __name__ == "__main__":
