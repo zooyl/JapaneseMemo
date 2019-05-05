@@ -9,7 +9,8 @@ from django.contrib.auth.models import User, Permission
 from Hiragana.forms import UserAdvancedCreationForm
 from Hiragana.models import Stats
 from Hiragana.views import next_level_permission, streak_count, \
-    streak_reset, add_attempts, exercise_completed, last_stamp_in_48_hours
+    streak_reset, add_attempts, exercise_completed, last_stamp_in_48_hours, \
+    flag_true, flag_false
 
 # library imports
 import datetime
@@ -313,6 +314,28 @@ class LastStampIn24HoursFunctionTest(unittest.TestCase):
         self.stats.save()
         last_stamp_in_48_hours(self.stats)
         self.assertEqual(self.stats.streak, 1)
+
+
+class FlagTrueFunctionTest(unittest.TestCase):
+
+    def test_true(self):
+        self.user = User.objects.create_user(username='test_flag_true', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+        self.stats.streak_flag = False
+        self.stats.save()
+        flag_true(self.stats)
+        self.assertEqual(self.stats.streak_flag, True)
+
+
+class FlagFalseFunctionTest(unittest.TestCase):
+
+    def test_false(self):
+        self.user = User.objects.create_user(username='test_flag_false', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+        self.stats.streak_flag = True
+        self.stats.save()
+        flag_false(self.stats)
+        self.assertEqual(self.stats.streak_flag, False)
 
 
 if __name__ == "__main__":
