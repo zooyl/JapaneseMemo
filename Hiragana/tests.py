@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Permission
 
 # app imports
 from Hiragana.forms import UserAdvancedCreationForm
-from Hiragana.models import Stats
+from Hiragana.models import Stats, Hiragana
 from Hiragana.views import next_level_permission, streak_count, \
     streak_reset, add_attempts, exercise_completed, last_stamp_in_48_hours, \
     flag_true, flag_false
@@ -336,6 +336,26 @@ class FlagFalseFunctionTest(unittest.TestCase):
         self.stats.save()
         flag_false(self.stats)
         self.assertEqual(self.stats.streak_flag, False)
+
+
+class LandingPageTest(unittest.TestCase):
+
+    def test_landing_page(self):
+        client = Client()
+        landing = client.get(reverse('landing-page'))
+        self.assertEqual(landing.context['completed'], 0)
+        self.assertEqual(landing.context['attempts'], 0)
+        self.assertEqual(landing.context['signs'], 0)
+        Hiragana.objects.create(sign="x", pronunciation="iks")
+        self.user = User.objects.create_user(username='test_landing', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+        self.stats.completed = 5
+        self.stats.attempts = 25
+        self.stats.save()
+        refresh = client.get(reverse('landing-page'))
+        self.assertEqual(refresh.context['completed'], 5)
+        self.assertEqual(refresh.context['attempts'], 25)
+        self.assertEqual(refresh.context['signs'], 1)
 
 
 if __name__ == "__main__":
