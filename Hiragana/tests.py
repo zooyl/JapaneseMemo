@@ -9,7 +9,7 @@ from django.contrib.auth.models import User, Permission
 from Hiragana.forms import UserAdvancedCreationForm
 from Hiragana.models import Stats
 from Hiragana.views import next_level_permission, streak_count, \
-    streak_reset, add_attempts, exercise_completed, last_stamp_in_24_hours
+    streak_reset, add_attempts, exercise_completed, last_stamp_in_48_hours
 
 # library imports
 import datetime
@@ -293,14 +293,14 @@ class LastStampIn24HoursFunctionTest(unittest.TestCase):
         self.stats = Stats.objects.create(user=self.user)
         self.client = Client()
         self.client.force_login(user=self.user)
-        last_stamp_in_24_hours(self.stats)
+        last_stamp_in_48_hours(self.stats)
         self.assertEqual(self.stats.streak, 1)
         self.assertEqual(self.stats.streak_flag, False)
 
     def test_stamp_in_less_than_24_second_time(self):
         self.user = User.objects.get(username="test_less_than_24")
         self.stats = Stats.objects.get(user=self.user)
-        last_stamp_in_24_hours(self.stats)
+        last_stamp_in_48_hours(self.stats)
         self.assertEqual(self.stats.streak, 1)
         self.assertEqual(self.stats.streak_flag, False)
 
@@ -311,7 +311,7 @@ class LastStampIn24HoursFunctionTest(unittest.TestCase):
         self.stats.streak_timestamp = two_days_ago
         self.stats.streak = 4
         self.stats.save()
-        last_stamp_in_24_hours(self.stats)
+        last_stamp_in_48_hours(self.stats)
         self.assertEqual(self.stats.streak, 1)
 
 

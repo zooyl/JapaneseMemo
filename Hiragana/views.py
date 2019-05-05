@@ -116,7 +116,7 @@ def flag_true(request):
 def streak_once_a_day(request):
     """
     Function is checking if 24 hours has passed since last
-    time_stamp before setting flag to true and checking for streak again
+    time_stamp before setting flag to true and making streak again
     """
     user = User.objects.get(id=request.user.id)
     today = datetime.datetime.now(datetime.timezone.utc)
@@ -132,8 +132,8 @@ def streak_once_a_day(request):
             streak_once_a_day(request)
 
 
-def last_stamp_in_24_hours(request):
-    # Function checks if user did exercise in last 24 hours
+def last_stamp_in_48_hours(request):
+    # Function checks if user did exercise in last 48 hours
     user = User.objects.get(id=request.user.id)
     today = datetime.datetime.now(datetime.timezone.utc)
     last_stamp = user.stats.streak_timestamp
@@ -177,7 +177,7 @@ def check_answer(request):
             exercise_completed(request)
             request.session['points'] = 0
             next_level_permission(request)
-            last_stamp_in_24_hours(request)
+            last_stamp_in_48_hours(request)
             return render(request, 'success.html')
         return redirect(request.get_full_path())
     sign = request.POST['sign']
@@ -200,7 +200,7 @@ def check_answer_mixed(request):
             exercise_completed(request)
             request.session['points'] = 0
             next_level_permission(request)
-            last_stamp_in_24_hours(request)
+            last_stamp_in_48_hours(request)
             return render(request, 'success.html')
         return redirect('mixed')
     sign = request.POST['sign']
