@@ -10,7 +10,7 @@ from Hiragana.forms import UserAdvancedCreationForm
 from Hiragana.models import Stats, Hiragana
 from Hiragana.views import next_level_permission, streak_count, \
     streak_reset, add_attempts, exercise_completed, last_stamp_in_48_hours, \
-    flag_true, flag_false
+    flag_true, flag_false, streak_once_a_day
 
 # library imports
 import datetime
@@ -300,7 +300,7 @@ class ExerciseCompletedFunctionTest(unittest.TestCase):
 
 class LastStampIn24HoursFunctionTest(unittest.TestCase):
 
-    def test_stamp_in_less_than_24_first_time(self):
+    def test_stamp_in_less_than_48_first_time(self):
         self.user = User.objects.create_user(username='test_less_than_24', password='12345')
         self.stats = Stats.objects.create(user=self.user)
         self.client = Client()
@@ -309,14 +309,14 @@ class LastStampIn24HoursFunctionTest(unittest.TestCase):
         self.assertEqual(self.stats.streak, 1)
         self.assertEqual(self.stats.streak_flag, False)
 
-    def test_stamp_in_less_than_24_second_time(self):
+    def test_stamp_in_less_than_48_second_time(self):
         self.user = User.objects.get(username="test_less_than_24")
         self.stats = Stats.objects.get(user=self.user)
         last_stamp_in_48_hours(self.stats)
         self.assertEqual(self.stats.streak, 1)
         self.assertEqual(self.stats.streak_flag, False)
 
-    def test_stamp_in_more_than_24(self):
+    def test_stamp_in_more_than_48(self):
         self.user = User.objects.create_user(username='test_more_than_24', password='12345')
         self.stats = Stats.objects.create(user=self.user)
         two_days_ago = datetime.datetime.now() - datetime.timedelta(days=2)
@@ -347,6 +347,35 @@ class FlagFalseFunctionTest(unittest.TestCase):
         self.stats.save()
         flag_false(self.stats)
         self.assertEqual(self.stats.streak_flag, False)
+
+
+class StreakOnceADayFunctionTest(unittest.TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='test_streak', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_streak_two_times_same_day(self):
+        streak_once_a_day(self.stats)
+        self.assertEqual(self.stats.streak, 1)
+        self.assertEqual(self.stats.streak_flag, False)
+        streak_once_a_day(self.stats)
+        self.assertEqual(self.stats.streak, 1)
+        self.assertEqual(self.stats.streak_flag, False)
+
+    def test_streak_next_day(self):
+        streak_once_a_day(self.stats)
+        self.assertEqual(self.stats.streak, 1)
+        self.assertEqual(self.stats.streak_flag, False)
+        today = datetime.datetime.now(datetime.timezone.utc)
+        yesterday = today - datetime.timedelta(days=1, hours=1)
+        self.stats.streak_timestamp = yesterday
+        self.stats.save()
+        streak_once_a_day(self.stats)
+        self.assertEqual(self.stats.streak, 2)
 
 
 class LandingPageTest(django.test.TestCase):
