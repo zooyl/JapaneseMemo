@@ -14,7 +14,7 @@ from rest_framework import viewsets
 
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 from .forms import UserAdvancedCreationForm
-from Hiragana.models import Levels, level, Hiragana, Stats
+from Hiragana.models import Levels, Hiragana, Stats
 
 
 # Views
@@ -32,9 +32,7 @@ class Dashboard(LoginRequiredMixin, View):
     redirect_field_name = 'home'
 
     def get(self, request):
-        user = request.user
-        stats = user.stats
-        return render(request, "home.html", {'stats': stats, 'level': level})
+        return render(request, "home.html")
 
 
 class SignUp(CreateView):

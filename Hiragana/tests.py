@@ -338,13 +338,13 @@ class FlagFalseFunctionTest(unittest.TestCase):
         self.assertEqual(self.stats.streak_flag, False)
 
 
-class LandingPageTest(unittest.TestCase):
+class LandingPageTest(django.test.TestCase):
 
     def test_landing_page(self):
         client = Client()
         landing = client.get(reverse('landing-page'))
-        self.assertEqual(landing.context['completed'], 0)
-        self.assertEqual(landing.context['attempts'], 0)
+        self.assertEqual(landing.context['completed'], None)
+        self.assertEqual(landing.context['attempts'], None)
         self.assertEqual(landing.context['signs'], 0)
         Hiragana.objects.create(sign="x", pronunciation="iks")
         self.user = User.objects.create_user(username='test_landing', password='12345')
@@ -356,6 +356,36 @@ class LandingPageTest(unittest.TestCase):
         self.assertEqual(refresh.context['completed'], 5)
         self.assertEqual(refresh.context['attempts'], 25)
         self.assertEqual(refresh.context['signs'], 1)
+        self.assertTemplateUsed(landing, 'landing_page.html')
+
+
+class DashboardPageTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_dashboard', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_logged_in_dashboard(self):
+        self.client.force_login(self.user)
+        dashboard = self.client.get(reverse('home'))
+        self.assertEqual(dashboard.status_code, 200)
+        self.assertTemplateUsed(dashboard, 'home.html')
+        self.assertContains(dashboard, 'Welcome, test_dashboard')
+
+    def test_not_authenticated_in_dashboard(self):
+        dashboard = self.client.get(reverse('home'), follow=True)
+        self.assertTemplateUsed(dashboard, 'registration/login.html')
+
+    def test_not_authenticated_than_redirected(self):
+        dashboard = self.client.get(reverse('home'), follow=True)
+        self.assertTemplateUsed(dashboard, 'registration/login.html')
+        logging_in = self.client.post(reverse('login'),
+                                      data={'username': 'test_dashboard',
+                                            'password': '12345'}, follow=True)
+        self.assertRedirects(logging_in, reverse('home'), status_code=302, target_status_code=200)
+        self.assertTemplateUsed(logging_in, 'home.html')
+        self.assertContains(logging_in, 'Welcome, test_dashboard')
 
 
 if __name__ == "__main__":
