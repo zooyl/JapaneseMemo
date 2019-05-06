@@ -28,6 +28,11 @@ def landing_page(request):
                   {'completed': completed, 'attempts': attempts, 'signs': signs})
 
 
+def leaderboards(request):
+    top = Stats.objects.all().order_by('-completed', 'attempts')[:3]
+    return render(request, 'leaderboards.html', {'top': top})
+
+
 class Dashboard(LoginRequiredMixin, View):
     login_url = 'login'
     redirect_field_name = 'home'

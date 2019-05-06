@@ -519,5 +519,18 @@ class PresetsTests(django.test.TestCase):
         self.assertTemplateUsed('question.html')
 
 
+class LeaderboardPageTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_preset', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_leaderboard(self):
+        self.client.force_login(self.user)
+        self.client.get(reverse('leaderboards'))
+        self.assertTemplateUsed('leaderboards.html')
+
+
 if __name__ == "__main__":
     unittest.main()

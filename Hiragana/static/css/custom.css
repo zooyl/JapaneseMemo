@@ -313,6 +313,19 @@
     width: 100vw;
     height: 100vh;
 }
+
 .stats-big {
     font-size: calc(3vw + 3vh);
+}
+
+/* Leaderboard */
+
+
+.leaderboard-bg {
+    background-image: url("../img/jp-clouds.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
 }
