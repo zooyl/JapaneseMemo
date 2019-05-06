@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
+from django.contrib.auth import login, authenticate
 
 from rest_framework import viewsets
 
@@ -38,7 +39,15 @@ class Dashboard(LoginRequiredMixin, View):
 class SignUp(CreateView):
     form_class = UserAdvancedCreationForm
     template_name = 'auth/user_form.html'
-    success_url = reverse_lazy('landing-page')
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        valid = super(SignUp, self).form_valid(form)
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        new_user = authenticate(username=username, password=password)
+        login(self.request, new_user, backend='django.contrib.auth.backends.ModelBackend')
+        return valid
 
 
 class HiraganaMain(LoginRequiredMixin, View):

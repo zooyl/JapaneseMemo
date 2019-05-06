@@ -38,6 +38,17 @@ class RegistrationViewTestCase(django.test.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(User.objects.count(), 1)
 
+    def test_registration_view_post_success_with_login(self):
+        response = self.client.post(reverse('signup'),
+                                    data={'username': 'test_username',
+                                          'email': 'test@test.com',
+                                          'password1': 'Mkonjibhu7!',
+                                          'password2': 'Mkonjibhu7!'
+                                          }, follow=True)
+        self.assertRedirects(response, reverse('home'), status_code=302, target_status_code=200)
+        self.assertTemplateUsed(response, 'home.html')
+        self.assertContains(response, 'Welcome, test_username')
+
     def test_registration_view_post_failure_password(self):
         response = self.client.post(reverse('signup'),
                                     data={'username': 'test_username',
