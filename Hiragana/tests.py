@@ -485,5 +485,39 @@ class StatsPageTest(django.test.TestCase):
         self.assertContains(response, 'id="test_streak" data-count="3"')
 
 
+class PresetsTests(django.test.TestCase):
+    fixtures = ['Hiragana.json', 'Levels.json']
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_preset', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_preset_easy(self):
+        self.client.force_login(self.user)
+        self.client.get(reverse('easy'))
+        self.assertTemplateUsed('question.html')
+
+    def test_preset_medium(self):
+        self.client.force_login(self.user)
+        self.client.get(reverse('medium'))
+        self.assertTemplateUsed('question.html')
+
+    def test_preset_hard(self):
+        self.client.force_login(self.user)
+        self.client.get(reverse('hard'))
+        self.assertTemplateUsed('question.html')
+
+    def test_preset_diacritics(self):
+        self.client.force_login(self.user)
+        self.client.get(reverse('diacritics'))
+        self.assertTemplateUsed('question.html')
+
+    def test_preset_mixed(self):
+        self.client.force_login(self.user)
+        self.client.get(reverse('mixed'))
+        self.assertTemplateUsed('question.html')
+
+
 if __name__ == "__main__":
     unittest.main()

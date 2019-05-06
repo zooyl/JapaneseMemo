@@ -44,4 +44,4 @@ class Levels(models.Model):
     memo = models.ForeignKey(Hiragana, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.preset
+        return self.get_preset_display()

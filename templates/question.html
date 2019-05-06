@@ -20,7 +20,8 @@
                     <div class="card-header correct" align="center">{{ question.memo.sign }}</div>
                     <div class="card-body text-danger">
                         <h5 class="card-title" align="center">Pronunciation:</h5>
-                        <p class="card-text" align="center">{% for j in shuffle %}
+                        <p class="card-text" align="center">
+                            {% for j in shuffle %}
                             <input class="btn btn-outline-danger" type="submit" name="pronunciation"
                                    value="{{ j.memo.pronunciation }}">
                             <input type="hidden" name="answer" value="{{ question.memo.pronunciation }}">
