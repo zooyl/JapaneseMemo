@@ -5,22 +5,26 @@
         <div class="container" style="padding-top: 5vh; text-align: center">
             <div class="row align-items-center">
                 <div class="col stats-font-number" id="exercise">
-                    Exercises completed: <span class="counter" data-count="{{ stats.completed }}">0</span>
+                    Exercises completed:
+                    <span class="counter" id="test_comp" data-count="{{ stats.completed }}">0</span>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col stats-font-number" id="attempts">
-                    Attempts: <span class="counter" data-count="{{ stats.attempts }}">0</span>
+                    Attempts:
+                    <span class="counter" id="test_attempts" data-count="{{ stats.attempts }}">0</span>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col stats-font-number" id="average">
-                    Average per exercise: <span class="counter" data-count="{{ average }}">0</span>
+                    Average per exercise:
+                    <span class="counter" id="test_average" data-count="{{ average }}">0</span>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col stats-font-number" id="streak">
-                    Day streak: <span class="counter" data-count="{{ stats.streak }}">0</span>
+                    Day streak:
+                    <span class="counter" id="test_streak" data-count="{{ stats.streak }}">0</span>
                 </div>
             </div>
         </div>

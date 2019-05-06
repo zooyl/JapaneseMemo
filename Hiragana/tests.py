@@ -388,7 +388,7 @@ class DashboardPageTest(django.test.TestCase):
         dashboard = self.client.get(reverse('home'), follow=True)
         self.assertTemplateUsed(dashboard, 'registration/login.html')
 
-    def test_not_authenticated_than_redirected(self):
+    def test_not_authenticated_than_redirected_and_logged_in(self):
         dashboard = self.client.get(reverse('home'), follow=True)
         self.assertTemplateUsed(dashboard, 'registration/login.html')
         logging_in = self.client.post(reverse('login'),
@@ -397,6 +397,63 @@ class DashboardPageTest(django.test.TestCase):
         self.assertRedirects(logging_in, reverse('home'), status_code=302, target_status_code=200)
         self.assertTemplateUsed(logging_in, 'home.html')
         self.assertContains(logging_in, 'Welcome, test_dashboard')
+
+
+class HiraganaPageTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_hiragana', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('hiragana'))
+        self.assertRedirects(response, '/login/?hiragana=/home/hiragana', status_code=302, target_status_code=200)
+
+    def test_authenticated_user(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('hiragana'))
+        self.assertTemplateUsed(response, 'hiragana.html')
+        self.assertContains(response, 'List of unlocked levels')
+
+
+class StatsPageTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_stats', password='12345')
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('stats'))
+        self.assertRedirects(response, '/login/?stats=/stats/', status_code=302, target_status_code=200)
+
+    def test_authenticated_user(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('stats'))
+        self.assertTemplateUsed(response, 'stats.html')
+        self.assertContains(response, 'Your stats, test_stats')
+
+    def test_with_0_stats(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('stats'))
+        self.assertContains(response, 'id="test_comp" data-count="0"')
+        self.assertContains(response, 'id="test_attempts" data-count="0"')
+        self.assertContains(response, 'id="test_average" data-count=""')
+        self.assertContains(response, 'id="test_streak" data-count="0"')
+
+    def test_with_stats(self):
+        stats = Stats.objects.get(user=self.user)
+        stats.completed = 10
+        stats.attempts = 52
+        stats.streak = 3
+        stats.save()
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('stats'))
+        self.assertContains(response, 'id="test_comp" data-count="10"')
+        self.assertContains(response, 'id="test_attempts" data-count="52"')
+        self.assertContains(response, 'id="test_average" data-count="5.2"')
+        self.assertContains(response, 'id="test_streak" data-count="3"')
 
 
 if __name__ == "__main__":
