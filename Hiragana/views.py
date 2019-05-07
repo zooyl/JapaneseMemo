@@ -37,8 +37,8 @@ class Leaderboards(LoginRequiredMixin, View):
     redirect_field_name = 'leaderboards'
 
     def get(self, request):
-        objects = Stats.objects.all().order_by('-completed', 'attempts')
-        paginator = Paginator(objects, 10)
+        objects = Stats.objects.all().order_by('-completed', 'attempts', 'user')
+        paginator = Paginator(objects, 8)
         page = request.GET.get('page')
         stat = paginator.get_page(page)
         return render(request, 'leaderboard.html', {'stat': stat})

@@ -22,48 +22,37 @@
                     </tbody>
                 {% endfor %}
             </table>
-            {#            <div class="pagination">#}
-            {#                <span class="step-links">#}
-            {#                            {% if stat.has_previous %}#}
-            {#                        <a href="?page=1">FIRST</a>#}
-            {#                                <a href="?page={{ stat.previous_page_number }}">previous</a>#}
-            {#                    {% endif %}#}
-            {#                            {% for pg in page_range %}#}
-            {#                                {% if stat.number == pg %}#}
-            {#                                    <li><a href="?page={{ pg }}" class="btn btn-default">{{ pg }}</a></li>#}
-            {#                                {% else %}#}
-            {#                                    <li><a href="?page={{ pg }}" class="btn">{{ pg }}</a></li>#}
-            {#                                {% endif %}#}
-            {#                            {% endfor %}#}
-            {##}
-            {#                            {% if stat.has_next %}#}
-            {#                                <a href="?page={{ stat.next_page_number }}">next</a>#}
-            {#                                <a href="?page={{ stat.paginator.num_pages }}">last &raquo;</a>#}
-            {#                    {% endif %}#}
-            {#                </span>#}
-            {#                <span class="current">#}
-            {#                            Page {{ stat.number }} of {{ stat.paginator.num_pages }}.#}
-            {#                </span>#}
-            {#            </div>#}
-            {##}
-            {#            #}
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        {% if stat.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page=1">First</a>
-                            <li class="page-item"><a class="page-link" href="?page={{ stat.previous_page_number }}">Previous</a>
-                            </li>
-                        {% endif %}
-                    <li class="page-item">
-                        {#                        <a class="page-link" href="#">Next</a>#}
-                        {% if stat.has_next %}
-                            <a class="page-link" href="?page={{ stat.next_page_number }}">next &raquo;</a>
-                            <a class="page-link" href="?page={{ stat.paginator.num_pages }}">last</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </nav>
+            <div class="text-center">
+            {% if stat.has_previous %}
+                <a class="btn btn-outline-danger mb-4" href="?page={{ stat.previous_page_number }}">« Previous</a>
+                {% if stat.number > 3 %}
+                    <a class="btn btn-outline-danger mb-4" href="?page=1">1</a>
+                    {% if stat.number > 4 %}
+                        <button class="btn btn-outline-danger mb-4" disabled="">...</button>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            {% for num in stat.paginator.page_range %}
+                {% if stat.number == num %}
+                    <a class="btn btn-danger mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > stat.number|add:'-3' and num < stat.number|add:'3' %}
+                    <a class="btn btn-outline-danger mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if stat.has_next %}
+                {% if stat.number < stat.paginator.num_pages|add:'-3' %}
+                    <button class="btn btn-outline-danger mb-4" disabled="">...</button>
+                    <a class="btn btn-outline-danger mb-4"
+                       href="?page={{ stat.paginator.num_pages }}">{{ stat.paginator.num_pages }}</a>
+
+                {% elif stat.number < stat.paginator.num_pages|add:'-2' %}
+                    <a class="btn btn-outline-danger mb-4"
+                       href="?page={{ stat.paginator.num_pages }}">{{ stat.paginator.num_pages }}</a>
+
+                {% endif %}
+                <a class="btn btn-outline-danger mb-4" href="?page={{ stat.next_page_number }}">Next »</a>
+            {% endif %}
+            </div>
         </div>
     </div>
 {% endblock content %}
