@@ -23,35 +23,35 @@
                 {% endfor %}
             </table>
             <div class="text-center">
-            {% if stat.has_previous %}
-                <a class="btn btn-outline-danger mb-4" href="?page={{ stat.previous_page_number }}">« Previous</a>
-                {% if stat.number > 3 %}
-                    <a class="btn btn-outline-danger mb-4" href="?page=1">1</a>
-                    {% if stat.number > 4 %}
-                        <button class="btn btn-outline-danger mb-4" disabled="">...</button>
+                {% if stat.has_previous %}
+                    <a class="btn btn-outline-danger mb-4" href="?page={{ stat.previous_page_number }}">« Previous</a>
+                    {% if stat.number > 3 %}
+                        <a class="btn btn-outline-danger mb-4" href="?page=1">1</a>
+                        {% if stat.number > 4 %}
+                            <button class="btn btn-outline-danger mb-4" disabled="">...</button>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
-            {% endif %}
-            {% for num in stat.paginator.page_range %}
-                {% if stat.number == num %}
-                    <a class="btn btn-danger mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > stat.number|add:'-3' and num < stat.number|add:'3' %}
-                    <a class="btn btn-outline-danger mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
-            {% if stat.has_next %}
-                {% if stat.number < stat.paginator.num_pages|add:'-3' %}
-                    <button class="btn btn-outline-danger mb-4" disabled="">...</button>
-                    <a class="btn btn-outline-danger mb-4"
-                       href="?page={{ stat.paginator.num_pages }}">{{ stat.paginator.num_pages }}</a>
+                {% for num in stat.paginator.page_range %}
+                    {% if stat.number == num %}
+                        <a class="btn btn-danger mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > stat.number|add:'-3' and num < stat.number|add:'3' %}
+                        <a class="btn btn-outline-danger mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if stat.has_next %}
+                    {% if stat.number < stat.paginator.num_pages|add:'-3' %}
+                        <button class="btn btn-outline-danger mb-4" disabled="">...</button>
+                        <a class="btn btn-outline-danger mb-4"
+                           href="?page={{ stat.paginator.num_pages }}">{{ stat.paginator.num_pages }}</a>
 
-                {% elif stat.number < stat.paginator.num_pages|add:'-2' %}
-                    <a class="btn btn-outline-danger mb-4"
-                       href="?page={{ stat.paginator.num_pages }}">{{ stat.paginator.num_pages }}</a>
+                    {% elif stat.number < stat.paginator.num_pages|add:'-2' %}
+                        <a class="btn btn-outline-danger mb-4"
+                           href="?page={{ stat.paginator.num_pages }}">{{ stat.paginator.num_pages }}</a>
 
+                    {% endif %}
+                    <a class="btn btn-outline-danger mb-4" href="?page={{ stat.next_page_number }}">Next »</a>
                 {% endif %}
-                <a class="btn btn-outline-danger mb-4" href="?page={{ stat.next_page_number }}">Next »</a>
-            {% endif %}
             </div>
         </div>
     </div>

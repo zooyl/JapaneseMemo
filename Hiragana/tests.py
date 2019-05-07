@@ -437,7 +437,7 @@ class HiraganaPageTest(django.test.TestCase):
 
     def test_not_authenticated_user(self):
         response = self.client.get(reverse('hiragana'))
-        self.assertRedirects(response, '/login/?hiragana=/home/hiragana', status_code=302, target_status_code=200)
+        self.assertRedirects(response, '/login/?next=/home/hiragana', status_code=302, target_status_code=200)
 
     def test_authenticated_user(self):
         self.client.force_login(self.user)
@@ -455,7 +455,7 @@ class StatsPageTest(django.test.TestCase):
 
     def test_not_authenticated_user(self):
         response = self.client.get(reverse('stats'))
-        self.assertRedirects(response, '/login/?stats=/stats/', status_code=302, target_status_code=200)
+        self.assertRedirects(response, '/login/?next=/stats/', status_code=302, target_status_code=200)
 
     def test_authenticated_user(self):
         self.client.force_login(self.user)
@@ -523,13 +523,18 @@ class LeaderboardPageTest(django.test.TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='test_preset', password='12345')
+        self.user = User.objects.create_user(username='test_leaderboard', password='12345')
         self.stats = Stats.objects.create(user=self.user)
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('leaderboards'))
+        self.assertRedirects(response, '/login/?next=/leaderboard/', status_code=302, target_status_code=200)
 
     def test_leaderboard(self):
         self.client.force_login(self.user)
-        self.client.get(reverse('leaderboards'))
+        response = self.client.get(reverse('leaderboards'))
         self.assertTemplateUsed('leaderboard.html')
+        self.assertContains(response, "<td>test_leaderboard</td>")
 
 
 if __name__ == "__main__":

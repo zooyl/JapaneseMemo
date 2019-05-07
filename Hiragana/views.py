@@ -33,8 +33,6 @@ def landing_page(request):
 
 
 class Leaderboards(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'leaderboards'
 
     def get(self, request):
         objects = Stats.objects.all().order_by('-completed', 'attempts', 'user')
@@ -45,8 +43,6 @@ class Leaderboards(LoginRequiredMixin, View):
 
 
 class Dashboard(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'home'
 
     def get(self, request):
         return render(request, "home.html")
@@ -67,16 +63,12 @@ class SignUp(CreateView):
 
 
 class HiraganaMain(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'hiragana'
 
     def get(self, request):
         return render(request, "hiragana.html")
 
 
 class StatsView(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'stats'
 
     def get(self, request):
         user = request.user
@@ -234,8 +226,6 @@ def check_answer_mixed(request):
 # Levels
 
 class PresetEasy(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'easy'
 
     def get(self, request):
         easy = Levels.objects.filter(preset=0)
@@ -249,8 +239,6 @@ class PresetEasy(LoginRequiredMixin, View):
 
 
 class PresetMedium(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'medium'
 
     def get(self, request):
         medium = Levels.objects.filter(preset=1)
@@ -264,8 +252,6 @@ class PresetMedium(LoginRequiredMixin, View):
 
 
 class PresetHard(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'hard'
 
     def get(self, request):
         hard = Levels.objects.filter(preset=2)
@@ -279,8 +265,6 @@ class PresetHard(LoginRequiredMixin, View):
 
 
 class PresetDiacritics(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'diacritics'
 
     def get(self, request):
         diacritics = Levels.objects.filter(preset=3)
@@ -294,8 +278,6 @@ class PresetDiacritics(LoginRequiredMixin, View):
 
 
 class PresetMixed(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = 'mixed'
 
     def get(self, request):
         mixed = Levels.objects.all()
