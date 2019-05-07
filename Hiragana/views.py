@@ -1,7 +1,8 @@
+# Lib imports
 import random
-
 import datetime
 
+# Django imports
 from django.shortcuts import render, redirect
 from django.db.models import Sum
 from django.urls import reverse_lazy
@@ -10,9 +11,12 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth import login, authenticate
+from django.core.paginator import Paginator
 
+# REST imports
 from rest_framework import viewsets
 
+# App imports
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 from .forms import UserAdvancedCreationForm
 from Hiragana.models import Levels, Hiragana, Stats
@@ -28,9 +32,16 @@ def landing_page(request):
                   {'completed': completed, 'attempts': attempts, 'signs': signs})
 
 
-def leaderboards(request):
-    top = Stats.objects.all().order_by('-completed', 'attempts')[:3]
-    return render(request, 'leaderboards.html', {'top': top})
+class Leaderboards(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'leaderboards'
+
+    def get(self, request):
+        stats = Stats.objects.all().order_by('-completed', 'attempts')
+        pagination = Paginator(stats, 10)
+        page = request.GET.get('page')
+        user = pagination.get_page(page)
+        return render(request, 'leaderboards.html', {'user': user})
 
 
 class Dashboard(LoginRequiredMixin, View):
@@ -139,6 +150,7 @@ def streak_once_a_day(request):
         flag_false(request)
     elif user.stats.streak_flag is False:
         if hours > 24:
+            "minelo wiecej niz 24h"
             flag_true(request)
             streak_once_a_day(request)
 
@@ -185,10 +197,10 @@ def check_answer(request):
         session += 1
         request.session['points'] = session
         if session >= 5:
+            last_stamp_in_48_hours(request)
             exercise_completed(request)
             request.session['points'] = 0
             next_level_permission(request)
-            last_stamp_in_48_hours(request)
             return render(request, 'success.html')
         return redirect(request.get_full_path())
     sign = request.POST['sign']
@@ -208,10 +220,10 @@ def check_answer_mixed(request):
         session += 1
         request.session['points'] = session
         if session >= 10:
+            last_stamp_in_48_hours(request)
             exercise_completed(request)
             request.session['points'] = 0
             next_level_permission(request)
-            last_stamp_in_48_hours(request)
             return render(request, 'success.html')
         return redirect('mixed')
     sign = request.POST['sign']
