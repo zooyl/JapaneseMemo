@@ -165,5 +165,6 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 # SOCIAL SETTINGS
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('APP_ID')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('APP_SECRET')
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 django_heroku.settings(locals())
