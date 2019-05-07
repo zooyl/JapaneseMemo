@@ -1,44 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="leaderboard-bg">
-        <div class="container" style="padding-top: 20vh; padding-bottom: 20vh">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <h4 class="card-title text-center">
-                                <p>First Place</p>
-                                <p>{{ top.0 }}</p>
-                            </h4>
-                            <p class="card-text">Completed: {{ top.0.completed }}</p>
-                            <p class="card-text">Attempts: {{ top.0.attempts }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <h4 class="card-title text-center">
-                                <p>Second Place</p>
-                                <p>{{ top.1 }}e</p>
-                            </h4>
-                            <p class="card-text">Completed: {{ top.1.completed }}</p>
-                            <p class="card-text">Attempts: {{ top.1.attempts }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <h4 class="card-title text-center">
-                                <p>Third Place</p>
-                                <p>{{ top.2 }}</p>
-                            </h4>
-                            <p class="card-text">Completed: {{ top.2.completed }}</p>
-                            <p class="card-text">Attempts: {{ top.2.attempts }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container" style="padding-top: 15vh; padding-bottom: 20vh">
+            <table class="table table-hover table-dark hov-home">
+                <thead>
+                <tr class="bg-danger">
+                    <th scope="col">Place</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Completed exercises</th>
+                    <th scope="col">Attempts</th>
+                </tr>
+                </thead>
+                <tbody class="bg-danger">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 {% endblock %}
