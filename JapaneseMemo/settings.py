@@ -134,12 +134,12 @@ LOGOUT_REDIRECT_URL = "landing-page"
 # ----------------------------------------------------------------------------------
 # Instructions how to use it are in local_settings.py.txt file.
 # (Comment DB for deployment)
-# try:
-#     from JapaneseMemo.local_settings import DATABASES
-# except ModuleNotFoundError:
-#     print("There is no database configuration in local_settings.py!")
-#     print("Fill valid data and try again!")
-#     exit(0)
+try:
+    from JapaneseMemo.local_settings import DATABASES
+except ModuleNotFoundError:
+    print("There is no database configuration in local_settings.py!")
+    print("Fill valid data and try again!")
+    exit(0)
 
 # from JapaneseMemo.local_settings import email, email_pass, fb_key, fb_pass, SECRET_KEY
 # SOCIAL_AUTH_FACEBOOK_KEY = fb_key
@@ -163,7 +163,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 # SOCIAL SETTINGS
-# SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('APP_ID')
-# SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('APP_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('APP_ID')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('APP_SECRET')
 
 django_heroku.settings(locals())

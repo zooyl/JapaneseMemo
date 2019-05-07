@@ -24,6 +24,9 @@ from Hiragana.models import Levels, Hiragana, Stats
 
 # Views
 
+def fb_try(request):
+    return render(request, 'fb_try.html')
+
 def landing_page(request):
     signs = Hiragana.objects.count()
     completed = list(Stats.objects.aggregate(Sum('completed')).values())[0]

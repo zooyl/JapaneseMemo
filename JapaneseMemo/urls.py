@@ -26,6 +26,7 @@ router.register('hiragana', Hiragana.views.HiraganaViewSet)
 router.register('levels', Hiragana.views.LevelsViewSet)
 
 urlpatterns = [
+    path('fb_try/', Hiragana.views.fb_try),
     path('api/', include(router.urls)),
     path('api-test/', include('rest_framework.urls', namespace="rest_framework")),
     path('admin/', admin.site.urls),
