@@ -37,11 +37,11 @@ class Leaderboards(LoginRequiredMixin, View):
     redirect_field_name = 'leaderboards'
 
     def get(self, request):
-        stats = Stats.objects.all().order_by('-completed', 'attempts')
-        pagination = Paginator(stats, 10)
+        objects = Stats.objects.all().order_by('-completed', 'attempts')
+        paginator = Paginator(objects, 10)
         page = request.GET.get('page')
-        user = pagination.get_page(page)
-        return render(request, 'leaderboards.html', {'user': user})
+        stat = paginator.get_page(page)
+        return render(request, 'leaderboard.html', {'stat': stat})
 
 
 class Dashboard(LoginRequiredMixin, View):

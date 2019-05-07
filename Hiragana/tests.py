@@ -529,7 +529,7 @@ class LeaderboardPageTest(django.test.TestCase):
     def test_leaderboard(self):
         self.client.force_login(self.user)
         self.client.get(reverse('leaderboards'))
-        self.assertTemplateUsed('leaderboards.html')
+        self.assertTemplateUsed('leaderboard.html')
 
 
 if __name__ == "__main__":

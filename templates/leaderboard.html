@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="leaderboard-bg">
+        <div class="container" style="padding-top: 15vh">
+            <table class="table table-hover table-dark hov-home">
+                <thead>
+                <tr class="bg-danger">
+                    <th scope="col">Place</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Completed exercises</th>
+                    <th scope="col">Attempts</th>
+                </tr>
+                </thead>
+                {% for stats in stat %}
+                    <tbody class="bg-danger">
+                    <tr>
+                        <th scope="row">{{ forloop.counter0|add:stat.start_index }}</th>
+                        <td>{{ stats.user.username }}</td>
+                        <td>{{ stats.completed }}</td>
+                        <td>{{ stats.attempts }}</td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+            {#            <div class="pagination">#}
+            {#                <span class="step-links">#}
+            {#                            {% if stat.has_previous %}#}
+            {#                        <a href="?page=1">FIRST</a>#}
+            {#                                <a href="?page={{ stat.previous_page_number }}">previous</a>#}
+            {#                    {% endif %}#}
+            {#                            {% for pg in page_range %}#}
+            {#                                {% if stat.number == pg %}#}
+            {#                                    <li><a href="?page={{ pg }}" class="btn btn-default">{{ pg }}</a></li>#}
+            {#                                {% else %}#}
+            {#                                    <li><a href="?page={{ pg }}" class="btn">{{ pg }}</a></li>#}
+            {#                                {% endif %}#}
+            {#                            {% endfor %}#}
+            {##}
+            {#                            {% if stat.has_next %}#}
+            {#                                <a href="?page={{ stat.next_page_number }}">next</a>#}
+            {#                                <a href="?page={{ stat.paginator.num_pages }}">last &raquo;</a>#}
+            {#                    {% endif %}#}
+            {#                </span>#}
+            {#                <span class="current">#}
+            {#                            Page {{ stat.number }} of {{ stat.paginator.num_pages }}.#}
+            {#                </span>#}
+            {#            </div>#}
+            {##}
+            {#            #}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        {% if stat.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a>
+                            <li class="page-item"><a class="page-link" href="?page={{ stat.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+                    <li class="page-item">
+                        {#                        <a class="page-link" href="#">Next</a>#}
+                        {% if stat.has_next %}
+                            <a class="page-link" href="?page={{ stat.next_page_number }}">next &raquo;</a>
+                            <a class="page-link" href="?page={{ stat.paginator.num_pages }}">last</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock content %}
