@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="bg-danger" style="background: red">
-        <div class="container" style="padding-top: 15vh; padding-bottom: 15vh">
+    <div class="bg-danger" style="width: 100vw; height: 100vh">
+        <div class="container" style="padding-top: 10vh">
             <div class="row">
                 <div class="col-lg-10 col-xl-9 mx-auto">
                     <div class="card card-signin flex-row my-5">
@@ -38,6 +38,10 @@
                                 </div>
                                 <button class="btn btn-lg btn-danger btn-block text-uppercase" type="submit">Register
                                 </button>
+{#                                <a href="{% url 'social:begin' 'facebook' %}"#}
+{#                                   class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">Sign in with#}
+{#                                    Facebook</a>#}
+                                <hr class="my-4">
                                 <a class="d-block text-center mt-2 small" href="{% url 'login' %}">Sign In</a>
                             </form>
                         </div>
