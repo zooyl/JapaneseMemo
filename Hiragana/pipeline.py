@@ -30,4 +30,4 @@ from django.contrib.auth.models import User
 def create_user_stats(*args, **kwargs):
     ''' check that the user have an existing profile '''
     print('check if user profile exists')
-    return Stats.objects.get_or_create(user=kwargs.get('user'))
+    Stats.objects.get_or_create(user=kwargs.get('user'))
