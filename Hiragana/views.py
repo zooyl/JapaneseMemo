@@ -24,8 +24,6 @@ from Hiragana.models import Levels, Hiragana, Stats
 
 # Views
 
-def fb_try(request):
-    return render(request, 'fb_try.html')
 
 def landing_page(request):
     signs = Hiragana.objects.count()
@@ -145,7 +143,6 @@ def streak_once_a_day(request):
         flag_false(request)
     elif user.stats.streak_flag is False:
         if hours > 24:
-            "minelo wiecej niz 24h"
             flag_true(request)
             streak_once_a_day(request)
 
