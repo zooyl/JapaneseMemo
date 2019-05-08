@@ -530,11 +530,35 @@ class LeaderboardPageTest(django.test.TestCase):
         response = self.client.get(reverse('leaderboards'))
         self.assertRedirects(response, '/login/?next=/leaderboard/', status_code=302, target_status_code=200)
 
-    def test_leaderboard(self):
+    def test_leaderboard_page(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('leaderboards'))
         self.assertTemplateUsed('leaderboard.html')
         self.assertContains(response, "<td>test_leaderboard</td>")
+
+
+class DeleteUserViewTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_profile', password='12345', email="profile@mail.com")
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('delete'))
+        self.assertRedirects(response, '/login/?next=/delete/', status_code=302, target_status_code=200)
+
+    def test_delete_get_view(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('delete'))
+        self.assertTemplateUsed('auth/user_confirm_delete.html')
+        self.assertContains(response, '<p>Are you sure you want to delete "test_profile"?</p>')
+
+    def test_delete_post_view(self):
+        self.client.force_login(self.user)
+        self.assertEqual(User.objects.count(), 1)
+        self.client.post(reverse('delete'))
+        self.assertEqual(User.objects.count(), 0)
 
 
 if __name__ == "__main__":

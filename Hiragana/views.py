@@ -6,8 +6,10 @@ import datetime
 from django.shortcuts import render, redirect
 from django.db.models import Sum
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
+from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth import login, authenticate
@@ -63,6 +65,38 @@ class SignUp(CreateView):
         return valid
 
 
+class EditProfile(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = ['email', 'first_name', 'last_name']
+    template_name = "profile.html"
+    success_url = reverse_lazy('home')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class ChangePassword(LoginRequiredMixin, View):
+
+    def get(self, request):
+        form = PasswordChangeForm(request.user)
+        return render(request, 'registration/password_change.html', {'form': form})
+
+    def post(self, request):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        return render(request, 'registration/password_change.html', {'form': form})
+
+
+class DeleteUser(LoginRequiredMixin, DeleteView):
+    model = Stats
+    success_url = reverse_lazy('landing-page')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
 class HiraganaMain(LoginRequiredMixin, View):
 
     def get(self, request):
@@ -83,6 +117,7 @@ class StatsView(LoginRequiredMixin, View):
 
 
 # Functions
+
 
 def next_level_permission(request):
     # Function to unlock next level for user
