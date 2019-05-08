@@ -134,12 +134,12 @@ LOGOUT_REDIRECT_URL = "landing-page"
 # ----------------------------------------------------------------------------------
 # Instructions how to use it are in local_settings.py.txt file.
 # (Comment DB for deployment)
-# try:
-#     from JapaneseMemo.local_settings import DATABASES
-# except ModuleNotFoundError:
-#     print("There is no database configuration in local_settings.py!")
-#     print("Fill valid data and try again!")
-#     exit(0)
+try:
+    from JapaneseMemo.local_settings import DATABASES
+except ModuleNotFoundError:
+    print("There is no database configuration in local_settings.py!")
+    print("Fill valid data and try again!")
+    exit(0)
 
 # from JapaneseMemo.local_settings import email, email_pass, fb_key, fb_pass, SECRET_KEY
 # SOCIAL_AUTH_FACEBOOK_KEY = fb_key
@@ -166,5 +166,19 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('APP_ID')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('APP_SECRET')
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+# Extending default pipeline with custom function to create user stats
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'Hiragana.pipeline.create_user_stats',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
 
 django_heroku.settings(locals())
