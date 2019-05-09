@@ -1,14 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update">
-    </form>
-    <a href="{% url 'password_change' %}">Change password</a><br>
-    <a href="{% url 'stats' %}">Statistics</a><br>
-    <a href="{% url 'delete' %}">Delete account</a>
+    <div class="profile-bg">
+        <div class="container" style="padding-top: 15vh" align="center">
+            <div class="profile card border-danger mb-3" style="max-width: 30rem">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                        <h5 class="card-title">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </h5>
+                    {% endif %}
+                    <div class="form-group" style="padding-top: 2vh">
+                        <label for="id_email">Email address:</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_first_name">First name:</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_last_name">Last name:</label>
+                        {{ form.last_name }}
+                    </div>
+                    <input type="submit" class="btn btn-outline-danger" value="Update">
+                    <hr class="my-4">
+                </form>
+                <div class="container">
+                    <a class="btn btn-outline-danger" href="{% url 'stats' %}">Statistics</a>
+                </div>
+                <div class="container" style="padding-top: 2vh">
+                    <a class="btn btn-outline-danger" href="{% url 'password_change' %}">Change password</a>
+                </div>
+                <div class="container" style="padding-top: 2vh">
+                    <a class="btn btn-outline-danger" href="{% url 'delete' %}">Delete account</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

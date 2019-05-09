@@ -12,6 +12,7 @@
     box-shadow: 1px 1px 30px 0px rgba(255, 0, 0, 1);
 }
 
+
 /* Landing Page 1st slide */
 .carousel-item {
     height: 100vh;
@@ -323,6 +324,23 @@
 
 .leaderboard-bg {
     background-image: url("../img/jp-clouds.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Profile */
+
+.profile {
+    box-shadow: 3px 6px 14px 3px rgba(0, 0, 0, 0.75);
+    padding-bottom: 4vh;
+    padding-top: 4vh;
+}
+
+.profile-bg {
+    background-image: url("../img/jp-flower.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

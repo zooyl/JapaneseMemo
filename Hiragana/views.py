@@ -12,6 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth import login, authenticate
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 
 # REST imports
@@ -64,11 +65,12 @@ class SignUp(CreateView):
         return valid
 
 
-class EditProfile(LoginRequiredMixin, UpdateView):
+class EditProfile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     fields = ['email', 'first_name', 'last_name']
     template_name = "profile.html"
-    success_url = reverse_lazy('home')
+    success_message = "You account has been updated"
+    success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):
         return self.request.user
