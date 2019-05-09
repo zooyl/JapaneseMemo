@@ -642,7 +642,7 @@ class ChangePasswordTest(django.test.TestCase):
                                                                       'new_password2': 'mkonjibhu'}, follow=True)
         self.user = User.objects.get(username='test_update')
         self.assertEqual(self.user.check_password('mkonjibhu'), True)
-        self.assertRedirects(response, '/login/?next=/profile/', status_code=302, target_status_code=200)
+        self.assertRedirects(response, '/login/?next=/home/', status_code=302, target_status_code=200)
 
     def test_change_password_post_invalid_old(self):
         self.client.force_login(self.user)

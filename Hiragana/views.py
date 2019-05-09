@@ -86,7 +86,7 @@ class ChangePassword(LoginRequiredMixin, View):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return redirect('home')
         return render(request, 'registration/password_change.html', {'form': form})
 
 
