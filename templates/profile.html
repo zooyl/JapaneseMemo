@@ -34,7 +34,34 @@
                     <a class="btn btn-outline-danger" href="{% url 'password_change' %}">Change password</a>
                 </div>
                 <div class="container" style="padding-top: 2vh">
-                    <a class="btn btn-outline-danger" href="{% url 'delete' %}">Delete account</a>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#delete_user">
+                        Delete account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# -- delete user modal -- #}
+    <div class="modal fade" id="delete_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'delete' %}">
+                        {% csrf_token %}
+                        <p>Your statistics will also be deleted</p>
+                        <p>You can not undone this action</p>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-outline-danger mr-auto" type="submit" value="Confirm">
+                    </form>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

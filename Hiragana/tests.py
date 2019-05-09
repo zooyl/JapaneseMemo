@@ -549,12 +549,6 @@ class DeleteUserViewTest(django.test.TestCase):
         response = self.client.get(reverse('delete'))
         self.assertRedirects(response, '/login/?next=/delete/', status_code=302, target_status_code=200)
 
-    def test_delete_get_view(self):
-        self.client.force_login(self.user)
-        response = self.client.get(reverse('delete'))
-        self.assertTemplateUsed('auth/user_confirm_delete.html')
-        self.assertContains(response, '<p>Are you sure you want to delete "test_delete"?</p>')
-
     def test_delete_post_view(self):
         self.client.force_login(self.user)
         self.assertEqual(User.objects.count(), 1)
