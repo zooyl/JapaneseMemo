@@ -4,6 +4,7 @@ import django
 from django.test import Client
 from django.urls import reverse
 from django.contrib.auth.models import User, Permission
+from django.contrib.auth.forms import PasswordChangeForm
 
 # app imports
 from Hiragana.forms import UserAdvancedCreationForm
@@ -541,7 +542,7 @@ class DeleteUserViewTest(django.test.TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='test_profile', password='12345', email="profile@mail.com")
+        self.user = User.objects.create_user(username='test_delete', password='12345', email="profile@mail.com")
         self.stats = Stats.objects.create(user=self.user)
 
     def test_not_authenticated_user(self):
@@ -552,13 +553,69 @@ class DeleteUserViewTest(django.test.TestCase):
         self.client.force_login(self.user)
         response = self.client.get(reverse('delete'))
         self.assertTemplateUsed('auth/user_confirm_delete.html')
-        self.assertContains(response, '<p>Are you sure you want to delete "test_profile"?</p>')
+        self.assertContains(response, '<p>Are you sure you want to delete "test_delete"?</p>')
 
     def test_delete_post_view(self):
         self.client.force_login(self.user)
         self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(Stats.objects.count(), 1)
         self.client.post(reverse('delete'))
         self.assertEqual(User.objects.count(), 0)
+        self.assertEqual(Stats.objects.count(), 0)
+
+
+# class EditProfileTest(django.test.TestCase):
+#
+#     def setUp(self):
+#         self.client = Client()
+#         self.user = User.objects.create_user(username='test_update', password='12345', email="profile@mail.com")
+#         self.stats = Stats.objects.create(user=self.user)
+#
+#     def test_not_authenticated_user(self):
+#         response = self.client.get(reverse('profile'))
+#         self.assertRedirects(response, '/login/?next=/profile/', status_code=302, target_status_code=200)
+#
+#     def test_profile_get(self):
+#         response = self.client.get(reverse('profile'))
+
+
+class ChangePasswordTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_update', password='12345', email="update@mail.com")
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('password_change'))
+        self.assertRedirects(response, '/login/?next=/password/change', status_code=302, target_status_code=200)
+
+    def test_change_password_get(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('password_change'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,
+                                'registration/password_change.html')
+        self.failUnless(isinstance(response.context['form'],
+                                   PasswordChangeForm))
+
+    def test_change_password_post_valid(self):
+        self.client.force_login(self.user)
+        response = self.client.post(reverse('password_change'), data={'old_password': '12345',
+                                                                      'new_password1': 'mkonjibhu',
+                                                                      'new_password2': 'mkonjibhu'}, follow=True)
+        self.user = User.objects.get(username='test_update')
+        self.assertEqual(self.user.check_password('mkonjibhu'), True)
+        self.assertRedirects(response, '/login/?next=/profile/', status_code=302, target_status_code=200)
+
+    def test_change_password_post_invalid_old(self):
+        self.client.force_login(self.user)
+        response = self.client.post(reverse('password_change'), data={'old_password': '123455555',
+                                                                      'new_password1': 'mkonjibhu',
+                                                                      'new_password2': 'mkonjibhu'}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.user = User.objects.get(username='test_update')
+        self.assertEqual(self.user.check_password('mkonjibhu'), False)
 
 
 if __name__ == "__main__":
