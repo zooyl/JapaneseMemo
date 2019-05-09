@@ -564,19 +564,55 @@ class DeleteUserViewTest(django.test.TestCase):
         self.assertEqual(Stats.objects.count(), 0)
 
 
-# class EditProfileTest(django.test.TestCase):
-#
-#     def setUp(self):
-#         self.client = Client()
-#         self.user = User.objects.create_user(username='test_update', password='12345', email="profile@mail.com")
-#         self.stats = Stats.objects.create(user=self.user)
-#
-#     def test_not_authenticated_user(self):
-#         response = self.client.get(reverse('profile'))
-#         self.assertRedirects(response, '/login/?next=/profile/', status_code=302, target_status_code=200)
-#
-#     def test_profile_get(self):
-#         response = self.client.get(reverse('profile'))
+class EditProfileTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test_update', password='12345', email="profile@mail.com")
+        self.stats = Stats.objects.create(user=self.user)
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('profile'))
+        self.assertRedirects(response, '/login/?next=/profile/', status_code=302, target_status_code=200)
+
+    def test_profile_get(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('profile'))
+        self.assertContains(response, 'name="email"')
+        self.assertContains(response, 'name="first_name"')
+        self.assertContains(response, 'name="last_name"')
+
+    def test_profile_post_full(self):
+        self.client.force_login(self.user)
+        self.client.post(reverse('profile'), data={'email': 'new_profile@mail.com',
+                                                   'first_name': 'new_first',
+                                                   'last_name': 'new_last'})
+        self.user = User.objects.get(username='test_update')
+        self.assertEqual(self.user.email, 'new_profile@mail.com')
+        self.assertEqual(self.user.first_name, 'new_first')
+        self.assertEqual(self.user.last_name, 'new_last')
+
+    def test_profile_post_mail(self):
+        self.client.force_login(self.user)
+        self.client.post(reverse('profile'), data={'email': 'new_profile@mail.com'})
+        self.user = User.objects.get(username='test_update')
+        self.assertEqual(self.user.email, 'new_profile@mail.com')
+        self.assertEqual(self.user.first_name, '')
+        self.assertEqual(self.user.last_name, '')
+
+    def test_profile_post_first_name(self):
+        self.client.force_login(self.user)
+        self.client.post(reverse('profile'), data={'first_name': 'new_first'})
+        self.user = User.objects.get(username='test_update')
+        self.assertEqual(self.user.first_name, 'new_first')
+        self.assertEqual(self.user.last_name, '')
+
+    def test_profile_post_last_name(self):
+        self.client.force_login(self.user)
+        self.client.post(reverse('profile'), data={'last_name': 'new_last'})
+        self.user = User.objects.get(username='test_update')
+        self.assertEqual(self.user.first_name, '')
+        self.assertEqual(self.user.last_name, 'new_last')
 
 
 class ChangePasswordTest(django.test.TestCase):
