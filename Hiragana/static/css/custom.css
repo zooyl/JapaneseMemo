@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Righteous');
 
 .hov-border {
     padding-top: 3vh;
@@ -346,4 +347,30 @@
     background-size: cover;
     width: 100vw;
     height: 100vh;
+}
+
+/* Custom error backgrounds */
+
+.background-error {
+    background-image: url("../img/kyoto-forest.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.error-font-title {
+    font-family: 'Righteous', cursive;
+    font-size: calc(3rem + 3rem);
+    color: white;
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000;
+}
+
+.error-font-desc {
+    font-family: 'Righteous', cursive;
+    font-size: calc(1rem + 1rem);
+    color: white;
+    text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000;
+    padding-left: 10vw;
 }

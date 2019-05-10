@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memorize Japanese</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body>
+<div class="background-error">
+    <div class="error-font-title container" style="padding-top: 20vh">
+        <p>404</p>
+    </div>
+    <div class="error-font-desc container">
+        <p>Looks like you have lost your way</p>
+        <p>Here is a little <a class="btn btn-success" href="{% url 'landing-page' %}">help</a></p>
+    </div>
+</div>
+</body>
+</html>

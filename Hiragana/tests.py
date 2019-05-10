@@ -668,5 +668,14 @@ class ChangePasswordTest(django.test.TestCase):
         self.assertEqual(self.user.check_password('mkonjibhu'), False)
 
 
+class CustomErrorPage(django.test.TestCase):
+
+    def test_custom_error_page(self):
+        self.client = Client()
+        response = self.client.get('/404/')
+        self.assertTemplateUsed(response, '404.html')
+        self.assertContains(response, '<p>Looks like you have lost your way</p>', status_code=404)
+
+
 if __name__ == "__main__":
     unittest.main()
