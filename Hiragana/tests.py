@@ -598,6 +598,37 @@ class EditProfileTest(django.test.TestCase):
         self.assertEqual(self.user.last_name, 'new_last')
 
 
+class ChangeEmailTest(django.test.TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='first_user', password='12345', email="first@mail.com")
+        self.second_user = User.objects.create_user(username='second_user', password='12345', email="second@mail.com")
+
+    def test_not_authenticated_user(self):
+        response = self.client.get(reverse('email_change'))
+        self.assertRedirects(response, '/login/?next=/email/change', status_code=302, target_status_code=200)
+
+    def test_change_email_get(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('email_change'))
+        self.assertContains(response, 'first@mail.com"')
+
+    def test_change_email_post_valid(self):
+        self.client.force_login(self.user)
+        response = self.client.post(reverse('email_change'), data={"email": "new_email@mail.com"})
+        self.assertRedirects(response, reverse('profile'), status_code=302, target_status_code=200)
+        after_change = User.objects.get(username="first_user")
+        self.assertEqual(after_change.email, "new_email@mail.com")
+
+    def test_change_email_post_already_exist(self):
+        self.client.force_login(self.user)
+        response = self.client.post(reverse('email_change'), data={"email": "second@mail.com"})
+        self.assertContains(response, '* second@mail.com already exists')
+        after_change = User.objects.get(username="first_user")
+        self.assertEqual(after_change.email, "first@mail.com")
+
+
 class ChangePasswordTest(django.test.TestCase):
 
     def setUp(self):
