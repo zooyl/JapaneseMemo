@@ -572,27 +572,16 @@ class EditProfileTest(django.test.TestCase):
     def test_profile_get(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('profile'))
-        self.assertContains(response, 'name="email"')
         self.assertContains(response, 'name="first_name"')
         self.assertContains(response, 'name="last_name"')
 
     def test_profile_post_full(self):
         self.client.force_login(self.user)
-        self.client.post(reverse('profile'), data={'email': 'new_profile@mail.com',
-                                                   'first_name': 'new_first',
+        self.client.post(reverse('profile'), data={'first_name': 'new_first',
                                                    'last_name': 'new_last'})
         self.user = User.objects.get(username='test_update')
-        self.assertEqual(self.user.email, 'new_profile@mail.com')
         self.assertEqual(self.user.first_name, 'new_first')
         self.assertEqual(self.user.last_name, 'new_last')
-
-    def test_profile_post_mail(self):
-        self.client.force_login(self.user)
-        self.client.post(reverse('profile'), data={'email': 'new_profile@mail.com'})
-        self.user = User.objects.get(username='test_update')
-        self.assertEqual(self.user.email, 'new_profile@mail.com')
-        self.assertEqual(self.user.first_name, '')
-        self.assertEqual(self.user.last_name, '')
 
     def test_profile_post_first_name(self):
         self.client.force_login(self.user)

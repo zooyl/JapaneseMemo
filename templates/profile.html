@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="profile-bg">
-        <div class="container" style="padding-top: 15vh" align="center">
+        <div class="container" style="padding-top: 15vh; padding-bottom: 10vh" align="center">
             <div class="profile card border-danger mb-3" style="max-width: 30rem">
+                <div class="container">
+                    <h2>Manage your account</h2>
+                    <a class="btn btn-outline-danger" href="{% url 'stats' %}">Statistics</a>
+                </div>
+                <hr class="my-4">
                 <form method="post">
                     {% csrf_token %}
                     {% if messages %}
@@ -12,10 +17,6 @@
                             {% endfor %}
                         </h5>
                     {% endif %}
-                    <div class="form-group" style="padding-top: 2vh">
-                        <label for="id_email">Email address:</label>
-                        {{ form.email }}
-                    </div>
                     <div class="form-group">
                         <label for="id_first_name">First name:</label>
                         {{ form.first_name }}
@@ -27,8 +28,8 @@
                     <input type="submit" class="btn btn-outline-danger" value="Update">
                     <hr class="my-4">
                 </form>
-                <div class="container">
-                    <a class="btn btn-outline-danger" href="{% url 'stats' %}">Statistics</a>
+                <div class="container" style="padding-top: 2vh">
+                    <a class="btn btn-outline-danger" href="{% url 'email_change' %}">Change e-mail</a>
                 </div>
                 <div class="container" style="padding-top: 2vh">
                     <a class="btn btn-outline-danger" href="{% url 'password_change' %}">Change password</a>

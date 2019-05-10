@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="profile-bg">
+        <div class="container" style="padding-top: 15vh" align="center">
+            <div class="profile card border-danger mb-3" style="max-width: 30rem">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <small align="center">
+                            <p>{{ form.email.errors.as_text }}</p>
+                        </small>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="id_email">New E-mail:</label>
+                        {{ form.email }}
+                    </div>
+                    <hr class="my-4">
+                    <input type="submit" class="btn btn-outline-danger" value="Save">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

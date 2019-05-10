@@ -67,13 +67,32 @@ class SignUp(CreateView):
 
 class EditProfile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
-    fields = ['email', 'first_name', 'last_name']
+    fields = ['first_name', 'last_name']
     template_name = "profile.html"
-    success_message = "You account has been updated"
+    success_message = "Your account has been updated"
     success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class ChangeEmail(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = ['email']
+    template_name = "registration/email_change.html"
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+        except User.DoesNotExist:
+            return super(ChangeEmail, self).form_valid(form)
+        form.add_error('email', f"{email} already exists")
+        return super(ChangeEmail, self).form_invalid(form)
 
 
 class ChangePassword(LoginRequiredMixin, View):

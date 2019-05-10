@@ -44,6 +44,7 @@ urlpatterns = [
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
     path('leaderboard/', Hiragana.views.Leaderboards.as_view(), name='leaderboards'),
     path('delete/', Hiragana.views.DeleteUser.as_view(), name='delete'),
+    path('email/change', Hiragana.views.ChangeEmail.as_view(), name='email_change'),
     path('password/change', Hiragana.views.ChangePassword.as_view(), name='password_change'),
     path('password/reset/', PasswordResetView.as_view(template_name='registration/password_reset.html'),
          name='password_reset'),
