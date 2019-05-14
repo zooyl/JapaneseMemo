@@ -154,6 +154,21 @@ def next_level_permission(request):
     if user.stats.completed == 20:
         perm = Permission.objects.get(codename='mixed_level')
         user.user_permissions.add(perm)
+    if user.stats.completed == 25:
+        perm = Permission.objects.get(codename='easy_katakana')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 30:
+        perm = Permission.objects.get(codename='medium_katakana')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 35:
+        perm = Permission.objects.get(codename='hard_katakana')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 45:
+        perm = Permission.objects.get(codename='mixed_katakana')
+        user.user_permissions.add(perm)
+    if user.stats.completed == 40:
+        perm = Permission.objects.get(codename='diacritics_katakana')
+        user.user_permissions.add(perm)
     return user
 
 

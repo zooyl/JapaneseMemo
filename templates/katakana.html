@@ -12,26 +12,26 @@
                    title="Basic" data-trigger="hover" data-content="First 15 signs">Easy
                     Level</a>
             </div>
-            {% if perms.Hiragana.medium_level %}
+            {% if perms.Hiragana.medium_katakana %}
                 <div class="padd-3 extend-content">
                     <a href="{% url 'medium' %}" class="btn btn-danger" data-toggle="popover"
                        title="Advanced" data-trigger="hover" data-content="Advanced signs">Medium Level</a>
                 </div>
             {% endif %}
-            {% if perms.Hiragana.hard_level %}
+            {% if perms.Hiragana.hard_katakana %}
                 <div class="padd-3 extend-content">
                     <a href="{% url 'hard' %}" class="btn btn-danger" data-toggle="popover"
                        title="Intermediate" data-content="Last pieces of signs" data-trigger="hover">Hard Level</a>
                 </div>
             {% endif %}
-            {% if perms.Hiragana.diacritics %}
+            {% if perms.Hiragana.diacritics_katakana %}
                 <div class="padd-3 extend-content">
                     <a href="{% url 'diacritics' %}" class="btn btn-danger" data-toggle="popover"
                        title="Diacritics" data-trigger="hover"
                        data-content="Diacritic signs most often used in the Japanese kana">Diacritics</a>
                 </div>
             {% endif %}
-            {% if perms.Hiragana.mixed_level %}
+            {% if perms.Hiragana.mixed_katakana %}
                 <div class="padd-3 extend-content">
                     <a href="{% url 'mixed' %}" class="btn btn-danger" data-toggle="popover"
                        title="Every single sign of Katakana" data-trigger="hover"

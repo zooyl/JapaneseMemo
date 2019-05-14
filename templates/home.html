@@ -11,16 +11,26 @@
                 <div class="padd-3" id="hiragana">
                     <a href="{% url 'hiragana' %}" class="btn btn-outline-danger btn-lg">Hiragana</a>
                 </div>
-                <div class="padd-3">
-                    <a href="{% url 'katakana' %}" class="btn btn-outline-danger btn-lg">Katakana</a>
-                </div>
+                {% if perms.Hiragana.easy_katakana %}
+                    <div class="padd-3">
+                        <a href="{% url 'katakana' %}" class="btn btn-outline-danger btn-lg" data-toggle="popover"
+                           data-trigger="hover"
+                           data-content="You unlocked Katakana">Katakana</a>
+                    </div>
+                {% else %}
+                    <div class="text-muted padd-3">
+                    <button class="btn btn-primary btn-outline-danger disabled btn-lg" data-toggle="popover"
+                            data-trigger="hover"
+                            data-content="Unlocks after 25 exercises">Katakana
+                    </button>
+                {% endif %}
                 <div class="text-muted padd-3">
                     <button class="btn btn-primary btn-outline-danger disabled btn-lg" data-toggle="popover"
                             data-trigger="hover"
                             data-content="Coming Soon">Kanji
                     </button>
                 </div>
+                </div>
             </div>
-        </div>
     </section>
 {% endblock content %}

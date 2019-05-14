@@ -27,7 +27,12 @@ class Stats(models.Model):
             ('medium_level', "Can start medium level"),
             ('hard_level', "Can start hard level"),
             ('mixed_level', "Can start mixed level"),
-            ('diacritics', "Can start diacritics level")
+            ('diacritics', "Can start diacritics level"),
+            ('easy_katakana', "Can start easy katakana level"),
+            ('medium_katakana', "Can start medium katakana level"),
+            ('hard_katakana', "Can start hard katakana level"),
+            ('mixed_katakana', "Can start mixed katakana level"),
+            ('diacritics_katakana', "Can start diacritics katakana level"),
         )
 
 

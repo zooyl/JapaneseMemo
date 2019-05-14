@@ -201,6 +201,31 @@ class PermissionTest(unittest.TestCase):
         self.user.user_permissions.add(perm)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
 
+    def test_katakana_easy_permission(self):
+        perm = Permission.objects.get(codename='easy_katakana')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.easy_katakana'))
+
+    def test_katakana_medium_permission(self):
+        perm = Permission.objects.get(codename='medium_katakana')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.medium_katakana'))
+
+    def test_katakana_hard_permission(self):
+        perm = Permission.objects.get(codename='hard_katakana')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.hard_katakana'))
+
+    def test_katakana_diacritics_permission(self):
+        perm = Permission.objects.get(codename='mixed_katakana')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.mixed_katakana'))
+
+    def test_katakana_mixed_permission(self):
+        perm = Permission.objects.get(codename='diacritics_katakana')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.diacritics_katakana'))
+
 
 class NextLevelPermissionFunctionTest(unittest.TestCase):
 
@@ -230,6 +255,31 @@ class NextLevelPermissionFunctionTest(unittest.TestCase):
         self.stats.completed = 15
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
+
+    def test_katakana_easy_function_permission(self):
+        self.stats.completed = 25
+        next_level_permission(self.stats)
+        self.assertTrue(self.user.has_perm('Hiragana.easy_katakana'))
+
+    def test_katakana_medium_function_permission(self):
+        self.stats.completed = 30
+        next_level_permission(self.stats)
+        self.assertTrue(self.user.has_perm('Hiragana.medium_katakana'))
+
+    def test_katakana_hard_function_permission(self):
+        self.stats.completed = 35
+        next_level_permission(self.stats)
+        self.assertTrue(self.user.has_perm('Hiragana.hard_katakana'))
+
+    def test_katakana_mixed_function_permission(self):
+        self.stats.completed = 45
+        next_level_permission(self.stats)
+        self.assertTrue(self.user.has_perm('Hiragana.mixed_katakana'))
+
+    def test_katakana_diacritics_function_permission(self):
+        self.stats.completed = 40
+        next_level_permission(self.stats)
+        self.assertTrue(self.user.has_perm('Hiragana.diacritics_katakana'))
 
 
 class StreakCountFunctionTest(unittest.TestCase):
@@ -427,6 +477,18 @@ class DashboardPageTest(django.test.TestCase):
         self.assertRedirects(logging_in, reverse('home'), status_code=302, target_status_code=200)
         self.assertTemplateUsed(logging_in, 'home.html')
         self.assertContains(logging_in, 'Welcome, test_dashboard')
+
+    def test_katakana_without_permission(self):
+        self.client.force_login(self.user)
+        dashboard = self.client.get(reverse('home'))
+        self.assertContains(dashboard, "Unlocks after 25 exercises")
+
+    def test_katakana_with_permission(self):
+        perm = Permission.objects.get(codename='easy_katakana')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        dashboard = self.client.get(reverse('home'))
+        self.assertContains(dashboard, "You unlocked Katakana")
 
 
 class HiraganaPageTest(django.test.TestCase):
