@@ -8,14 +8,30 @@
                     <div class="modal-header d-flex justify-content-center">
                         <h5 class="heading">Great job</h5>
                     </div>
-                    <div class="modal-body">
-                        <p>You have completed this exercise.</p>
-                        <p>Do you want to go to levels list or continue?</p>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <a href="{% url 'hiragana' %}" class="btn btn-outline-danger">Levels</a>
-                        <a href="{{ request.get_full_path }}" class="btn btn-outline-danger">Continue</a>
-                    </div>
+                    {% if request.user.stats.completed == 25 %}
+                        <div class="modal-body">
+                            <p>You have unlocked Katakana</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <a href="{% url 'katakana' %}" class="btn btn-outline-danger">Katakana</a>
+                        </div>
+                    {% elif request.user.stats.completed|divisibleby:5 %}
+                        <div class="modal-body">
+                            <p>You have unlocked new level</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <a href="{% url 'home' %}" class="btn btn-outline-danger">Exit</a>
+                        </div>
+                    {% else %}
+                        <div class="modal-body">
+                            <p>You have completed this exercise.</p>
+                            <p>Do you want to exit or continue?</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <a href="{% url 'home' %}" class="btn btn-outline-danger">Exit</a>
+                            <a href="{{ request.get_full_path }}" class="btn btn-outline-danger">Continue</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

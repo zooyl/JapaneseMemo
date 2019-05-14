@@ -8,6 +8,7 @@ from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
+from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission, User
@@ -311,11 +312,14 @@ class PresetEasy(LoginRequiredMixin, View):
 class PresetMedium(LoginRequiredMixin, View):
 
     def get(self, request):
-        medium = Levels.objects.filter(preset=1)
-        shuffle = random.sample(list(medium), 5)
-        question = random.choice(shuffle)
-        return render(request, "question.html", {'shuffle': shuffle, "question": question,
-                                                 'points': request.session.get('points')})
+        if request.user.has_perm('Hiragana.medium_level'):
+            medium = Levels.objects.filter(preset=1)
+            shuffle = random.sample(list(medium), 5)
+            question = random.choice(shuffle)
+            return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                     'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
 
     def post(self, request):
         return check_answer(request)
@@ -324,11 +328,14 @@ class PresetMedium(LoginRequiredMixin, View):
 class PresetHard(LoginRequiredMixin, View):
 
     def get(self, request):
-        hard = Levels.objects.filter(preset=2)
-        shuffle = random.sample(list(hard), 5)
-        question = random.choice(shuffle)
-        return render(request, "question.html", {'shuffle': shuffle, "question": question,
-                                                 'points': request.session.get('points')})
+        if request.user.has_perm('Hiragana.hard_level'):
+            hard = Levels.objects.filter(preset=2)
+            shuffle = random.sample(list(hard), 5)
+            question = random.choice(shuffle)
+            return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                     'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
 
     def post(self, request):
         return check_answer(request)
@@ -337,11 +344,14 @@ class PresetHard(LoginRequiredMixin, View):
 class PresetDiacritics(LoginRequiredMixin, View):
 
     def get(self, request):
-        diacritics = Levels.objects.filter(preset=3)
-        shuffle = random.sample(list(diacritics), 5)
-        question = random.choice(shuffle)
-        return render(request, "question.html", {'shuffle': shuffle, "question": question,
-                                                 'points': request.session.get('points')})
+        if request.user.has_perm('Hiragana.diacritics'):
+            diacritics = Levels.objects.filter(preset=3)
+            shuffle = random.sample(list(diacritics), 5)
+            question = random.choice(shuffle)
+            return render(request, "question.html", {'shuffle': shuffle, "question": question,
+                                                     'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
 
     def post(self, request):
         return check_answer(request)
@@ -350,11 +360,14 @@ class PresetDiacritics(LoginRequiredMixin, View):
 class PresetMixed(LoginRequiredMixin, View):
 
     def get(self, request):
-        mixed = Levels.objects.all()
-        shuffle = random.sample(list(mixed), 5)
-        question = random.choice(shuffle)
-        return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
-                                                       'points': request.session.get('points')})
+        if request.user.has_perm('Hiragana.mixed_level'):
+            mixed = Levels.objects.all()
+            shuffle = random.sample(list(mixed), 5)
+            question = random.choice(shuffle)
+            return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
+                                                           'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
 
     def post(self, request):
         return check_answer_mixed(request)
