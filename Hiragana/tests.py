@@ -561,25 +561,70 @@ class PresetsTests(django.test.TestCase):
         self.client.get(reverse('easy'))
         self.assertTemplateUsed('question.html')
 
-    def test_preset_medium(self):
+    def test_preset_medium_without_permission(self):
         self.client.force_login(self.user)
-        self.client.get(reverse('medium'))
-        self.assertTemplateUsed('question.html')
+        response = self.client.get(reverse('medium'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
 
-    def test_preset_hard(self):
+    def test_preset_medium_with_permission(self):
+        perm = Permission.objects.get(codename='medium_level')
+        self.user.user_permissions.add(perm)
         self.client.force_login(self.user)
-        self.client.get(reverse('hard'))
+        response = self.client.get(reverse('medium'))
         self.assertTemplateUsed('question.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Pronunciation:")
 
-    def test_preset_diacritics(self):
-        self.client.force_login(self.user)
-        self.client.get(reverse('diacritics'))
-        self.assertTemplateUsed('question.html')
 
-    def test_preset_mixed(self):
+    def test_preset_hard_without_permission(self):
         self.client.force_login(self.user)
-        self.client.get(reverse('mixed'))
+        response = self.client.get(reverse('hard'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_hard_with_permission(self):
+        perm = Permission.objects.get(codename='hard_level')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('hard'))
         self.assertTemplateUsed('question.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Pronunciation:")
+
+    def test_preset_diacritics_without_permission(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('diacritics'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_diacritics_with_permission(self):
+        perm = Permission.objects.get(codename='diacritics')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('diacritics'))
+        self.assertTemplateUsed('question.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Pronunciation:")
+
+    def test_preset_mixed_without_permission(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('mixed'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_mixed_with_permission(self):
+        perm = Permission.objects.get(codename='mixed_level')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('mixed'))
+        self.assertTemplateUsed('question.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Pronunciation:")
 
 
 class LeaderboardPageTest(django.test.TestCase):
