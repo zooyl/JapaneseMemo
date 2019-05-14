@@ -26,9 +26,10 @@ echo
 response=${response,,} # tolower
 if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
 echo "---------------------------------------------------"
-echo "Making migrations"
+echo "Migrating"
 echo "---------------------------------------------------"
 python manage.py migrate
+python manage.py migrate Katakana
 echo "---------------------------------------------------"
 echo "Collecting static files"
 echo "---------------------------------------------------"
@@ -40,14 +41,15 @@ python manage.py test
 echo "---------------------------------------------------"
 echo "Populating database"
 echo "---------------------------------------------------"
-python manage.py loaddata HiraganaData.json
+python manage.py loaddata Hiragana.json
+python manage.py loaddata Levels.json
+python manage.py loaddata Katakana Katakana.json
+python manage.py loaddata Katakana Katakana_Levels.json
 echo "---------------------------------------------------"
 echo "Please configure e-mail service in settings.py"
 echo "otherwise you wont be able to register new users"
 echo "---------------------------------------------------"
 echo "Running Server"
-echo "By default there is only one user:"
-echo "'super-user' with password 'mkonjibhu'"
 python manage.py runserver
 fi
 if [[ $response =~ ^(no|n| ) ]] || [[ -z $response ]]; then

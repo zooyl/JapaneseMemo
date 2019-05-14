@@ -374,3 +374,14 @@
     text-shadow: 2px 2px 20px #000000, 2px 2px 20px #000000;
     padding-left: 10vw;
 }
+
+/* Katakana Page */
+
+.katakana-bg {
+    background-image: url("../img/nagawa.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}

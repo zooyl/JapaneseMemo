@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import Hiragana.views
+import Katakana.views
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, \
     PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from rest_framework import routers
@@ -42,6 +43,7 @@ urlpatterns = [
     path('home/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
     path('home/diacritics', Hiragana.views.PresetDiacritics.as_view(), name='diacritics'),
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
+    path('home/katakana', Katakana.views.KatakanaMain.as_view(), name='katakana'),
     path('leaderboard/', Hiragana.views.Leaderboards.as_view(), name='leaderboards'),
     path('delete/', Hiragana.views.DeleteUser.as_view(), name='delete'),
     path('email/change', Hiragana.views.ChangeEmail.as_view(), name='email_change'),
