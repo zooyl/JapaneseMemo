@@ -1,6 +1,7 @@
 # JapaneseMemo
-Simple Japanese memory game to learn alphabet.
-Registration and login system with leaderboards.
+Simple Japanese memory game to learn alphabet.  
+Registration and login system with leaderboard and editing your own profile.  
+Function that count your day streak and Facebook API login.  
 Rest API included for future usage.
 Using PostgreSQL
 
@@ -28,7 +29,7 @@ pip install -r requirements.txt
 ```
 
 Open terminal in ```manage.py``` directory and type ```python manage.py migrate```.
-After that, fill database using ```python manage.py loaddata HiraganaData``` .
+After that, fill database using ```python manage.py loaddata Hiragana.json```  and also ```Levels.json```.
 Run tests ```python manage.py test``` and finally start server by ```python manage.py runserver``` command.
 
 ## Built With
