@@ -36,17 +36,25 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('stats/', Hiragana.views.StatsView.as_view(), name='stats'),
     path('profile/', Hiragana.views.EditProfile.as_view(), name='profile'),
+    path('leaderboard/', Hiragana.views.Leaderboards.as_view(), name='leaderboards'),
+    path('delete/', Hiragana.views.DeleteUser.as_view(), name='delete'),
+    path('email/change', Hiragana.views.ChangeEmail.as_view(), name='email_change'),
     path('home/', Hiragana.views.Dashboard.as_view(), name='home'),
+    # Hiragana Urls
     path('home/easy', Hiragana.views.PresetEasy.as_view(), name='easy'),
     path('home/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
     path('home/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
     path('home/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
     path('home/diacritics', Hiragana.views.PresetDiacritics.as_view(), name='diacritics'),
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
+    # Katakana Urls
     path('home/katakana', Katakana.views.KatakanaMain.as_view(), name='katakana'),
-    path('leaderboard/', Hiragana.views.Leaderboards.as_view(), name='leaderboards'),
-    path('delete/', Hiragana.views.DeleteUser.as_view(), name='delete'),
-    path('email/change', Hiragana.views.ChangeEmail.as_view(), name='email_change'),
+    path('home/katakana/easy', Katakana.views.PresetEasy.as_view(), name='kata_easy'),
+    path('home/katakana/medium', Katakana.views.PresetMedium.as_view(), name='kata_medium'),
+    path('home/katakana/hard', Katakana.views.PresetHard.as_view(), name='kata_hard'),
+    path('home/katakana/mixed', Katakana.views.PresetMixed.as_view(), name='kata_mixed'),
+    path('home/katakana/diacritics', Katakana.views.PresetDiacritics.as_view(), name='kata_diacritics'),
+    # Password management
     path('password/change', Hiragana.views.ChangePassword.as_view(), name='password_change'),
     path('password/reset/', PasswordResetView.as_view(template_name='registration/password_reset.html'),
          name='password_reset'),
@@ -58,5 +66,6 @@ urlpatterns = [
     path('password/reset/complete',
          PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'),
          name='password_reset_complete'),
+    # Social_django Urls
     path('oauth/', include('social_django.urls', namespace='social')),
 ]
