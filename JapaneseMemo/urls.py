@@ -41,11 +41,11 @@ urlpatterns = [
     path('email/change', Hiragana.views.ChangeEmail.as_view(), name='email_change'),
     path('home/', Hiragana.views.Dashboard.as_view(), name='home'),
     # Hiragana Urls
-    path('home/easy', Hiragana.views.PresetEasy.as_view(), name='easy'),
-    path('home/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
-    path('home/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
-    path('home/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
-    path('home/diacritics', Hiragana.views.PresetDiacritics.as_view(), name='diacritics'),
+    path('home/hiragana/easy', Hiragana.views.PresetEasy.as_view(), name='easy'),
+    path('home/hiragana/medium', Hiragana.views.PresetMedium.as_view(), name='medium'),
+    path('home/hiragana/hard', Hiragana.views.PresetHard.as_view(), name='hard'),
+    path('home/hiragana/mixed', Hiragana.views.PresetMixed.as_view(), name='mixed'),
+    path('home/hiragana/diacritics', Hiragana.views.PresetDiacritics.as_view(), name='diacritics'),
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
     # Katakana Urls
     path('home/katakana', Katakana.views.KatakanaMain.as_view(), name='katakana'),

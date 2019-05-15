@@ -577,7 +577,6 @@ class PresetsTests(django.test.TestCase):
         self.assertContains(response, "Points:")
         self.assertContains(response, "Pronunciation:")
 
-
     def test_preset_hard_without_permission(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('hard'))
