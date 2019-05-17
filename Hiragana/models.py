@@ -10,6 +10,10 @@ level = (
     (3, 'Diacritics'),
 )
 
+category = (
+    (0, 'Greetings'),
+)
+
 
 class Stats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -44,9 +48,25 @@ class Hiragana(models.Model):
         return self.sign
 
 
+class Words(models.Model):
+    japanese_word = models.CharField(max_length=32)
+    meaning = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.japanese_word
+
+
 class Levels(models.Model):
     preset = models.IntegerField(choices=level)
     memo = models.ForeignKey(Hiragana, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.get_preset_display()
+
+
+class WordsLevels(models.Model):
+    preset = models.IntegerField(choices=category)
+    memo = models.ForeignKey(Words, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.get_preset_display()
