@@ -40,13 +40,23 @@ $(document).ready(function () {
     fade_streak.css({"position": "relative", "opacity": 0, "right": "+=100"});
     fade_streak.animate({left: 0, opacity: 1}, 7000);
     // levels list
-    var slide = $('.extend');
-    slide.click(function () {
-        $('#levels').slideToggle(function () {
-            if (slide.text() === 'Show') {
-                slide.text('Hide')
+    var slide_signs = $('.extend-signs');
+    slide_signs.click(function () {
+        $('#levels-signs').slideToggle(function () {
+            if (slide_signs.text() === 'Signs') {
+                slide_signs.text('Hide')
             } else {
-                slide.text('Show')
+                slide_signs.text('Signs')
+            }
+        });
+    });
+    var slide_words = $('.extend-words');
+    slide_words.click(function () {
+        $('#levels-words').slideToggle(function () {
+            if (slide_words.text() === 'Words') {
+                slide_words.text('Hide')
+            } else {
+                slide_words.text('Words')
             }
         });
     });
