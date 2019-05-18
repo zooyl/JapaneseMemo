@@ -37,6 +37,7 @@ class Stats(models.Model):
             ('hard_katakana', "Can start hard katakana level"),
             ('mixed_katakana', "Can start mixed katakana level"),
             ('diacritics_katakana', "Can start diacritics katakana level"),
+            ('greetings', "Can start greetings"),
         )
 
 

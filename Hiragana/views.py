@@ -22,7 +22,7 @@ from rest_framework import viewsets
 # App imports
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 from .forms import UserAdvancedCreationForm
-from Hiragana.models import Levels, Hiragana, Stats
+from Hiragana.models import Levels, Hiragana, Stats, WordsLevels
 
 
 # Views
@@ -156,8 +156,10 @@ def next_level_permission(request):
         perm = Permission.objects.get(codename='mixed_level')
         user.user_permissions.add(perm)
     if user.stats.completed == 25:
+        words = Permission.objects.get(codename='greetings')
         perm = Permission.objects.get(codename='easy_katakana')
         user.user_permissions.add(perm)
+        user.user_permissions.add(words)
     if user.stats.completed == 30:
         perm = Permission.objects.get(codename='medium_katakana')
         user.user_permissions.add(perm)
@@ -377,16 +379,16 @@ class PresetGreetings(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.has_perm('Hiragana.greetings'):
-            mixed = Levels.objects.all()
-            shuffle = random.sample(list(mixed), 5)
+            greetings = WordsLevels.objects.filter(preset=0)
+            shuffle = random.sample(list(greetings), 5)
             question = random.choice(shuffle)
-            return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
+            return render(request, "question-words.html", {'shuffle': shuffle, "question": question,
                                                            'points': request.session.get('points')})
         messages.error(request, "You don't have permission to visit this page")
         return render(request, 'error.html')
 
     def post(self, request):
-        return check_answer_mixed(request)
+        return check_answer(request)
 
 
 # API VIEW

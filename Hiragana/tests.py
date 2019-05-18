@@ -201,6 +201,11 @@ class PermissionTest(unittest.TestCase):
         self.user.user_permissions.add(perm)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
 
+    def test_greetings_permission(self):
+        perm = Permission.objects.get(codename='greetings')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.greetings'))
+
     def test_katakana_easy_permission(self):
         perm = Permission.objects.get(codename='easy_katakana')
         self.user.user_permissions.add(perm)
@@ -255,6 +260,11 @@ class NextLevelPermissionFunctionTest(unittest.TestCase):
         self.stats.completed = 15
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
+
+    def test_greetings_function_permission(self):
+        self.stats.completed = 25
+        next_level_permission(self.stats)
+        self.assertTrue(self.user.has_perm('Hiragana.greetings'))
 
     def test_katakana_easy_function_permission(self):
         self.stats.completed = 25

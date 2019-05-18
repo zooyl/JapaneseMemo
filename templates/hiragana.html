@@ -2,12 +2,20 @@
 {% load static %}
 {% block content %}
     <div class="text-center hiragana-bg" style="padding-top: 15vh">
-        <div class="card-header">
-            <p class="try-font-title">List of unlocked levels</p>
-            <div class="container">
-                <div class="container row justify-content-around">
-                    <p class="btn btn-outline-danger extend-signs" style="font-size: calc(1vh + 1vw)">Signs</p>
+    <div class="card-header">
+        <p class="try-font-title">List of unlocked levels</p>
+        <div class="container">
+            <div class="container row justify-content-around">
+                <p class="btn btn-outline-danger extend-signs" style="font-size: calc(1vh + 1vw)">Signs</p>
+                {% if perms.Hiragana.greetings %}
                     <p class="btn btn-outline-danger extend-words" style="font-size: calc(1vh + 1vw)">Words</p>
+                {% else %}
+                    <div class="text-muted">
+                    <p class="btn btn-outline-danger disabled" data-toggle="popover"
+                            data-trigger="hover"
+                            data-content="Unlocks after 25 exercises">Words
+                    </p>
+                {% endif %}
                 </div>
             </div>
         </div>
@@ -47,14 +55,15 @@
                                data-content="More challenging, requires 10 signs to complete. Everything included">Mixed
                                 Level</a>
                         </div>
-
                     {% endif %}
                 </div>
-                <div id="levels-words" class="padd-3" style="display: none">
-                    <div class="extend-content">
-                        <a href="{% url 'greetings' %}" class="btn btn-outline-danger">Greetings</a>
+                {% if perms.Hiragana.greetings %}
+                    <div id="levels-words" class="padd-3" style="display: none">
+                        <div class="extend-content">
+                            <a href="{% url 'greetings' %}" class="btn btn-outline-danger">Greetings</a>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>
