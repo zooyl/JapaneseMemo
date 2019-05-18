@@ -22,7 +22,7 @@ from rest_framework import viewsets
 # App imports
 from .serializers import UserSerializer, HiraganaSerializer, LevelsSerializer
 from .forms import UserAdvancedCreationForm
-from Hiragana.models import Levels, Hiragana, Stats, WordsLevels
+from Hiragana.models import Levels, Hiragana, Stats, WordsLevels, Words
 
 
 # Views
@@ -274,9 +274,6 @@ def check_answer(request):
 
 
 def check_answer_mixed(request):
-    # Function check if the answer is correct (in this case gives user points)
-    # if there is not enough points, then redirect back where user came from
-    # or if it's wrong, display correct answer
     session = request.session.get('points', 0)
     pronunciation = request.POST['pronunciation']
     answer = request.POST['answer']
@@ -293,6 +290,26 @@ def check_answer_mixed(request):
         return redirect('mixed')
     sign = request.POST['sign']
     return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
+                                                 'session': session})
+
+
+def check_words(request):
+    session = request.session.get('points', 0)
+    user_answer = request.POST['user_answer']
+    correct_answer = request.POST['correct_answer']
+    add_attempts(request)
+    if user_answer == correct_answer:
+        session += 1
+        request.session['points'] = session
+        if session >= 5:
+            last_stamp_in_48_hours(request)
+            exercise_completed(request)
+            request.session['points'] = 0
+            next_level_permission(request)
+            return render(request, 'success.html')
+        return redirect(request.get_full_path())
+    sign = request.POST['japanese_word']
+    return render(request, 'answer-words.html', {'sign': sign, 'answer': correct_answer,
                                                  'session': session})
 
 
@@ -388,7 +405,7 @@ class PresetGreetings(LoginRequiredMixin, View):
         return render(request, 'error.html')
 
     def post(self, request):
-        return check_answer(request)
+        return check_words(request)
 
 
 # API VIEW

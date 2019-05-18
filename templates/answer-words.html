@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="sign-bg">
+        <div align="center" style="padding-top: 10vh">
+            <div class="card border-danger mb-3" style="max-width: 40rem;">
+                <div class="card-header points" align="center">Points:</div>
+                <div class="card-body text-danger">
+                    {% if session == None %}
+                        <h3 class="card-title" align="center">0 / 5</h3>
+                    {% else %}
+                        <h3 class="card-title" align="center">{{ session }} / 5</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div align="center">
+            <form method="get">
+                <div class="card border-danger mb-3" style="max-width: 40rem;">
+                    <div class="card-header" style="font-size: calc(4vw + 4vh)"
+                         align="center">{{ sign }}</div>
+                    <div class="card-body text-danger">
+                        <h5 class="card-title" align="center">Correct answer:</h5>
+                        <p class="btn btn-outline-danger">{{ answer }}</p><br>
+                        <button type="submit" class="btn btn-outline-danger">Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

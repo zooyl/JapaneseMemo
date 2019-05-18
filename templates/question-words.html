@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>asdasd</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <div class="sign-bg">
+        <div align="center" style="padding-top: 10vh">
+            <div class="card border-danger mb-3" style="max-width: 40rem;">
+                <div class="card-header points" align="center">Points:</div>
+                <div class="card-body text-danger">
+                    {% if points == None %}
+                        <h3 class="card-title" align="center">0 / 5</h3>
+                    {% else %}
+                        <h3 class="card-title" align="center">{{ points }} / 5</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div align="center" style="padding-bottom: 7vh">
+                <div class="card border-danger mb-3" style="max-width: 40rem;">
+                    <div class="card-header" style="font-size: calc(4vw + 4vh)"
+                         align="center">{{ question.memo.japanese_word }}</div>
+                    <div class="card-body text-danger">
+                        <h5 class="card-title" align="center">Meaning:</h5>
+                        <p class="card-text" align="center">
+                            {% for j in shuffle %}
+                                <input style="margin-top: 1vh; margin-right: 1vw" class="btn btn-outline-danger" type="submit"
+                                       name="user_answer"
+                                       value="{{ j.memo.meaning }}">
+                                <input type="hidden" name="correct_answer" value="{{ question.memo.meaning }}">
+                                <input type="hidden" name="japanese_word" value="{{ question.memo.japanese_word }}">
+                            {% endfor %}</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
