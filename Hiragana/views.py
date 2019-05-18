@@ -373,6 +373,22 @@ class PresetMixed(LoginRequiredMixin, View):
         return check_answer_mixed(request)
 
 
+class PresetGreetings(LoginRequiredMixin, View):
+
+    def get(self, request):
+        if request.user.has_perm('Hiragana.greetings'):
+            mixed = Levels.objects.all()
+            shuffle = random.sample(list(mixed), 5)
+            question = random.choice(shuffle)
+            return render(request, "mixed-question.html", {'shuffle': shuffle, "question": question,
+                                                           'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
+
+    def post(self, request):
+        return check_answer_mixed(request)
+
+
 # API VIEW
 
 class UserViewSet(viewsets.ModelViewSet):

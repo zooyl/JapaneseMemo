@@ -52,39 +52,8 @@
                 </div>
                 <div id="levels-words" class="padd-3" style="display: none">
                     <div class="extend-content">
-                        <a href="{% url 'easy' %}" class="btn btn-outline-danger"
-                           data-toggle="popover"
-                           title="#" data-trigger="hover"
-                           data-content="###">Easy
-                            Level</a>
+                        <a href="{% url 'greetings' %}" class="btn btn-outline-danger">Greetings</a>
                     </div>
-                    {% if perms.Hiragana.medium_level %}
-                        <div class="padd-3 extend-content">
-                            <a href="{% url 'medium' %}" class="btn btn-outline-danger" data-toggle="popover"
-                               title="#" data-trigger="hover" data-content="#">Medium Level</a>
-                        </div>
-                    {% endif %}
-                    {% if perms.Hiragana.hard_level %}
-                        <div class="padd-3 extend-content">
-                            <a href="{% url 'hard' %}" class="btn btn-outline-danger" data-toggle="popover"
-                               title="#" data-content="#" data-trigger="hover">Hard
-                                Level</a>
-                        </div>
-                    {% endif %}
-                    {% if perms.Hiragana.diacritics %}
-                        <div class="padd-3 extend-content">
-                            <a href="{% url 'diacritics' %}" class="btn btn-outline-danger" data-toggle="popover"
-                               title="#" data-trigger="hover"
-                               data-content="#">todo</a>
-                        </div>
-                    {% endif %}
-                    {% if perms.Hiragana.mixed_level %}
-                        <div class="padd-3 extend-content">
-                            <a href="{% url 'mixed' %}" class="btn btn-outline-danger" data-toggle="popover"
-                               title="#" data-trigger="hover"
-                               data-content="#">todo</a>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

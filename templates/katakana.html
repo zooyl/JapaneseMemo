@@ -2,11 +2,17 @@
 {% load static %}
 {% block content %}
     <div class="text-center katakana-bg" style="padding-top: 15vh">
-        <div class="card-header">
-            <p class="try-font-title">List of unlocked levels</p>
-            <p class="btn btn-outline-danger extend" style="font-size: calc(1vh + 1vw)">Show</p>
+    <div class="card-header">
+    <p class="try-font-title">List of unlocked levels</p>
+    <div class="container">
+        <div class="container row justify-content-around">
+            <p class="btn btn-outline-danger extend-signs" style="font-size: calc(1vh + 1vw)">Signs</p>
+            <p class="btn btn-outline-danger disabled extend-words" style="font-size: calc(1vh + 1vw)">Words</p>
         </div>
-        <div id="levels" class="padd-3" style="display: none">
+    </div>
+    <div class="container">
+    <div class="container row justify-content-around">
+        <div id="levels-signs" class="padd-3" style="display: none">
             <div class="extend-content">
                 <a href="{% url 'kata_easy' %}" class="btn btn-danger" data-toggle="popover"
                    title="Basic" data-trigger="hover" data-content="First 15 signs">Easy
@@ -37,6 +43,42 @@
                        title="Every single sign of Katakana" data-trigger="hover"
                        data-content="Mix of everything">Mixed
                         Level</a>
+                </div>
+            {% endif %}
+        </div>
+        <div id="levels-words#" class="padd-3" style="display: none">
+            <div class="extend-content">
+                <a href="{% url 'easy' %}" class="btn btn-danger"
+                   data-toggle="popover"
+                   title="#" data-trigger="hover"
+                   data-content="###">Easy
+                    Level</a>
+            </div>
+            {% if perms.Hiragana.medium_level %}
+                <div class="padd-3 extend-content">
+                    <a href="{% url 'medium' %}" class="btn btn-danger" data-toggle="popover"
+                       title="#" data-trigger="hover" data-content="#">Medium Level</a>
+                </div>
+            {% endif %}
+            {% if perms.Hiragana.hard_level %}
+                <div class="padd-3 extend-content">
+                    <a href="{% url 'hard' %}" class="btn btn-danger" data-toggle="popover"
+                       title="#" data-content="#" data-trigger="hover">Hard
+                        Level</a>
+                </div>
+            {% endif %}
+            {% if perms.Hiragana.diacritics %}
+                <div class="padd-3 extend-content">
+                    <a href="{% url 'diacritics' %}" class="btn btn-danger" data-toggle="popover"
+                       title="#" data-trigger="hover"
+                       data-content="#">todo</a>
+                </div>
+            {% endif %}
+            {% if perms.Hiragana.mixed_level %}
+                <div class="padd-3 extend-content">
+                    <a href="{% url 'mixed' %}" class="btn btn-danger" data-toggle="popover"
+                       title="#" data-trigger="hover"
+                       data-content="#">todo</a>
                 </div>
             {% endif %}
         </div>
