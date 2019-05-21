@@ -12,6 +12,9 @@ level = (
 
 category = (
     (0, 'Greetings'),
+    (1, 'Basic'),
+    (2, 'Questions'),
+    (3, 'Other useful'),
 )
 
 
@@ -38,6 +41,9 @@ class Stats(models.Model):
             ('mixed_katakana', "Can start mixed katakana level"),
             ('diacritics_katakana', "Can start diacritics katakana level"),
             ('greetings', "Can start greetings"),
+            ('basic', "Can start basic"),
+            ('questions', "Can start questions"),
+            ('other_useful', "Can start other_useful"),
         )
 
 
