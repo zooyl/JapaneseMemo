@@ -261,35 +261,39 @@ class NextLevelPermissionFunctionTest(unittest.TestCase):
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
 
-    def test_greetings_function_permission(self):
-        self.stats.completed = 25
-        next_level_permission(self.stats)
-        self.assertTrue(self.user.has_perm('Hiragana.greetings'))
+    # def test_greetings_function_permission(self):
+    #     self.stats.completed = 25
+    #     next_level_permission(self.stats)
+    #     self.assertTrue(self.user.has_perm('Hiragana.greetings'))
 
-    def test_katakana_easy_function_permission(self):
+    def test_katakana_easy_with_greetings_function_permission(self):
         self.stats.completed = 25
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.easy_katakana'))
+        self.assertTrue(self.user.has_perm('Hiragana.greetings'))
 
-    def test_katakana_medium_function_permission(self):
+    def test_katakana_medium_with_basic_function_permission(self):
         self.stats.completed = 30
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.medium_katakana'))
+        self.assertTrue(self.user.has_perm('Hiragana.basic'))
 
-    def test_katakana_hard_function_permission(self):
+    def test_katakana_hard_with_questions_function_permission(self):
         self.stats.completed = 35
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.hard_katakana'))
+        self.assertTrue(self.user.has_perm('Hiragana.questions'))
 
     def test_katakana_mixed_function_permission(self):
         self.stats.completed = 45
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.mixed_katakana'))
 
-    def test_katakana_diacritics_function_permission(self):
+    def test_katakana_diacritics_with_other_useful_function_permission(self):
         self.stats.completed = 40
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics_katakana'))
+        self.assertTrue(self.user.has_perm('Hiragana.other_useful'))
 
 
 class StreakCountFunctionTest(unittest.TestCase):
