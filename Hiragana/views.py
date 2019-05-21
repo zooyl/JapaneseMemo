@@ -287,7 +287,7 @@ def check_answer_mixed(request):
             request.session['points'] = 0
             next_level_permission(request)
             return render(request, 'success.html')
-        return redirect('mixed')
+        return redirect(request.get_full_path())
     sign = request.POST['sign']
     return render(request, 'answer-mixed.html', {'sign': sign, 'answer': answer,
                                                  'session': session})

@@ -559,7 +559,7 @@ class StatsPageTest(django.test.TestCase):
 
 
 class PresetsTests(django.test.TestCase):
-    fixtures = ['Hiragana.json', 'Levels.json']
+    fixtures = ['Hiragana.json', 'Levels.json', 'Words.json', 'WordsLevels.json']
 
     def setUp(self):
         self.client = Client()
@@ -634,6 +634,22 @@ class PresetsTests(django.test.TestCase):
         self.assertTemplateUsed('question.html')
         self.assertContains(response, "Points:")
         self.assertContains(response, "Pronunciation:")
+
+    def test_preset_greetings_without_permission(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('greetings'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_greetings_with_permission(self):
+        perm = Permission.objects.get(codename='greetings')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('greetings'))
+        self.assertTemplateUsed('question-words.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Meaning:")
 
 
 class LeaderboardPageTest(django.test.TestCase):
