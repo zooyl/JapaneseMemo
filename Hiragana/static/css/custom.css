@@ -139,6 +139,7 @@
     padding-top: 3vh;
 }
 
+
 /* Hiragana Page */
 .hiragana-bg {
     background-image: url("../img/fuji.jpg");
@@ -155,7 +156,17 @@
 }
 
 .correct {
-    font-size: 20vh;
+    font-size: 15vh;
+}
+
+.megaphone {
+    background-image: url("../img/megaphone.svg");
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    width: 3rem;
+    height: 3rem;
 }
 
 .sign-bg {

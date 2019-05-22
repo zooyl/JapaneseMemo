@@ -263,5 +263,6 @@ fabric.properties
 
 local_settings.py
 TODO
+speech.py
 
 # End of https://www.gitignore.io/api/django,python,pycharm
