@@ -206,6 +206,21 @@ class PermissionTest(unittest.TestCase):
         self.user.user_permissions.add(perm)
         self.assertTrue(self.user.has_perm('Hiragana.greetings'))
 
+    def test_basic_permission(self):
+        perm = Permission.objects.get(codename='basic')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.basic'))
+
+    def test_questions_permission(self):
+        perm = Permission.objects.get(codename='questions')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.questions'))
+
+    def test_other_useful_permission(self):
+        perm = Permission.objects.get(codename='other_useful')
+        self.user.user_permissions.add(perm)
+        self.assertTrue(self.user.has_perm('Hiragana.other_useful'))
+
     def test_katakana_easy_permission(self):
         perm = Permission.objects.get(codename='easy_katakana')
         self.user.user_permissions.add(perm)
@@ -260,11 +275,6 @@ class NextLevelPermissionFunctionTest(unittest.TestCase):
         self.stats.completed = 15
         next_level_permission(self.stats)
         self.assertTrue(self.user.has_perm('Hiragana.diacritics'))
-
-    # def test_greetings_function_permission(self):
-    #     self.stats.completed = 25
-    #     next_level_permission(self.stats)
-    #     self.assertTrue(self.user.has_perm('Hiragana.greetings'))
 
     def test_katakana_easy_with_greetings_function_permission(self):
         self.stats.completed = 25
@@ -651,6 +661,54 @@ class PresetsTests(django.test.TestCase):
         self.user.user_permissions.add(perm)
         self.client.force_login(self.user)
         response = self.client.get(reverse('greetings'))
+        self.assertTemplateUsed('question-words.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Meaning:")
+
+    def test_preset_basic_without_permission(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('basic'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_basic_with_permission(self):
+        perm = Permission.objects.get(codename='basic')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('basic'))
+        self.assertTemplateUsed('question-words.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Meaning:")
+
+    def test_preset_questions_without_permission(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('questions'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_questions_with_permission(self):
+        perm = Permission.objects.get(codename='questions')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('questions'))
+        self.assertTemplateUsed('question-words.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Meaning:")
+
+    def test_preset_other_useful_without_permission(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('other-useful'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_other_useful_with_permission(self):
+        perm = Permission.objects.get(codename='other_useful')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('other-useful'))
         self.assertTemplateUsed('question-words.html')
         self.assertContains(response, "Points:")
         self.assertContains(response, "Meaning:")

@@ -18,10 +18,21 @@ class PresetsTests(django.test.TestCase):
         self.user = User.objects.create_user(username='test_preset', password='12345')
         self.stats = Stats.objects.create(user=self.user)
 
-    def test_preset_easy(self):
+    def test_preset_easy_without_permission(self):
         self.client.force_login(self.user)
-        self.client.get(reverse('kata_easy'))
+        response = self.client.get(reverse('kata_easy'))
+        self.assertTemplateUsed('error.html')
+        self.assertContains(response, "<p>Not so fast</p>")
+        self.assertContains(response, "You don&#39;t have permission to visit this page")
+
+    def test_preset_easy_with_permission(self):
+        perm = Permission.objects.get(codename='easy_katakana')
+        self.user.user_permissions.add(perm)
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('kata_easy'))
         self.assertTemplateUsed('question.html')
+        self.assertContains(response, "Points:")
+        self.assertContains(response, "Pronunciation:")
 
     def test_preset_medium_without_permission(self):
         self.client.force_login(self.user)
