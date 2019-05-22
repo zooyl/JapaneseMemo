@@ -43,11 +43,13 @@ echo "Populating database"
 echo "---------------------------------------------------"
 python manage.py loaddata Hiragana.json
 python manage.py loaddata Levels.json
+python manage.py loaddata Words.json
+python manage.py loaddata WordsLevels.json
 python manage.py loaddata Katakana Katakana.json
 python manage.py loaddata Katakana Katakana_Levels.json
 echo "---------------------------------------------------"
 echo "Please configure e-mail service in settings.py"
-echo "otherwise you wont be able to register new users"
+echo "otherwise they wont be able to reset their password"
 echo "---------------------------------------------------"
 echo "Running Server"
 python manage.py runserver

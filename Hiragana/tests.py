@@ -8,7 +8,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 # app imports
 from Hiragana.forms import UserAdvancedCreationForm
-from Hiragana.models import Stats, Hiragana
+from Hiragana.models import Stats, Hiragana, Words
 from Hiragana.views import next_level_permission, streak_count, \
     streak_reset, add_attempts, exercise_completed, last_stamp_in_48_hours, \
     flag_true, flag_false, streak_once_a_day
@@ -461,7 +461,9 @@ class LandingPageTest(django.test.TestCase):
         self.assertEqual(landing.context['completed'], None)
         self.assertEqual(landing.context['attempts'], None)
         self.assertEqual(landing.context['signs'], 0)
+        self.assertEqual(landing.context['words'], 0)
         Hiragana.objects.create(sign="x", pronunciation="iks")
+        Words.objects.create(japanese_word='arigatou', meaning='thank you')
         self.user = User.objects.create_user(username='test_landing', password='12345')
         self.stats = Stats.objects.create(user=self.user)
         self.stats.completed = 5
@@ -471,6 +473,7 @@ class LandingPageTest(django.test.TestCase):
         self.assertEqual(refresh.context['completed'], 5)
         self.assertEqual(refresh.context['attempts'], 25)
         self.assertEqual(refresh.context['signs'], 1)
+        self.assertEqual(refresh.context['words'], 1)
         self.assertTemplateUsed(landing, 'landing_page.html')
 
 
