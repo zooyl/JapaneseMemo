@@ -59,11 +59,26 @@
                     </div>
                     {% if perms.Hiragana.greetings %}
                         <div id="levels-words" class="padd-3" style="display: none">
-                            <div class="extend-content">
-                                <a href="{% url 'greetings' %}" class="btn btn-outline-danger">Greetings</a>
-                            </div>
+                        <div class="extend-content">
+                            <a href="{% url 'greetings' %}" class="btn btn-outline-danger">Greetings</a>
                         </div>
                     {% endif %}
+                    {% if perms.Hiragana.basic %}
+                        <div class="padd-3 extend-content">
+                            <a href="{% url 'basic' %}" class="btn btn-outline-danger">Basic</a>
+                        </div>
+                    {% endif %}
+                    {% if perms.Hiragana.questions %}
+                        <div class="padd-3 extend-content">
+                            <a href="{% url 'questions' %}" class="btn btn-outline-danger">Questions</a>
+                        </div>
+                    {% endif %}
+                    {% if perms.Hiragana.other_useful %}
+                        <div class="padd-3 extend-content">
+                            <a href="{% url 'other-useful' %}" class="btn btn-outline-danger">Other Useful</a>
+                        </div>
+                    {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

@@ -48,6 +48,9 @@ urlpatterns = [
     path('home/hiragana/diacritics', Hiragana.views.PresetDiacritics.as_view(), name='diacritics'),
     path('home/hiragana', Hiragana.views.HiraganaMain.as_view(), name='hiragana'),
     path('home/hiragana/greetings', Hiragana.views.PresetGreetings.as_view(), name='greetings'),
+    path('home/hiragana/basic', Hiragana.views.PresetBasic.as_view(), name='basic'),
+    path('home/hiragana/questions', Hiragana.views.PresetQuestions.as_view(), name='questions'),
+    path('home/hiragana/other-useful', Hiragana.views.PresetOtherUseful.as_view(), name='other-useful'),
     # Katakana Urls
     path('home/katakana', Katakana.views.KatakanaMain.as_view(), name='katakana'),
     path('home/katakana/easy', Katakana.views.PresetEasy.as_view(), name='kata_easy'),

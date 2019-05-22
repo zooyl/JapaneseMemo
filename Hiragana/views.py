@@ -414,6 +414,54 @@ class PresetGreetings(LoginRequiredMixin, View):
         return check_words(request)
 
 
+class PresetBasic(LoginRequiredMixin, View):
+
+    def get(self, request):
+        if request.user.has_perm('Hiragana.basic'):
+            greetings = WordsLevels.objects.filter(preset=1)
+            shuffle = random.sample(list(greetings), 5)
+            question = random.choice(shuffle)
+            return render(request, "question-words.html", {'shuffle': shuffle, "question": question,
+                                                           'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
+
+    def post(self, request):
+        return check_words(request)
+
+
+class PresetQuestions(LoginRequiredMixin, View):
+
+    def get(self, request):
+        if request.user.has_perm('Hiragana.questions'):
+            greetings = WordsLevels.objects.filter(preset=2)
+            shuffle = random.sample(list(greetings), 5)
+            question = random.choice(shuffle)
+            return render(request, "question-words.html", {'shuffle': shuffle, "question": question,
+                                                           'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
+
+    def post(self, request):
+        return check_words(request)
+
+
+class PresetOtherUseful(LoginRequiredMixin, View):
+
+    def get(self, request):
+        if request.user.has_perm('Hiragana.other_useful'):
+            greetings = WordsLevels.objects.filter(preset=3)
+            shuffle = random.sample(list(greetings), 5)
+            question = random.choice(shuffle)
+            return render(request, "question-words.html", {'shuffle': shuffle, "question": question,
+                                                           'points': request.session.get('points')})
+        messages.error(request, "You don't have permission to visit this page")
+        return render(request, 'error.html')
+
+    def post(self, request):
+        return check_words(request)
+
+
 # API VIEW
 
 class UserViewSet(viewsets.ModelViewSet):
