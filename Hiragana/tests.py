@@ -514,8 +514,9 @@ class DashboardPageTest(django.test.TestCase):
         perm = Permission.objects.get(codename='easy_katakana')
         self.user.user_permissions.add(perm)
         self.client.force_login(self.user)
-        dashboard = self.client.get(reverse('home'))
-        self.assertContains(dashboard, "You unlocked Katakana")
+        dashboard = self.client.get(reverse('katakana'))
+        self.assertContains(dashboard, "List of unlocked levels")
+        self.assertEqual(dashboard.status_code, 200)
 
 
 class HiraganaPageTest(django.test.TestCase):
