@@ -158,6 +158,9 @@
 .correct {
     font-size: 15vh;
 }
+.correct-word {
+    font-size: 4rem;
+}
 
 .megaphone {
     background-image: url("../img/megaphone.svg");
