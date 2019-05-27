@@ -50,6 +50,7 @@ class Stats(models.Model):
 class Hiragana(models.Model):
     sign = models.CharField(max_length=5)
     pronunciation = models.CharField(max_length=5)
+    listen = models.FileField(upload_to='hiragana/', blank=True)
 
     def __str__(self):
         return self.sign
@@ -58,6 +59,7 @@ class Hiragana(models.Model):
 class Words(models.Model):
     japanese_word = models.CharField(max_length=32)
     meaning = models.CharField(max_length=64)
+    listen = models.FileField(upload_to='hiragana/words/', blank=True)
 
     def __str__(self):
         return self.japanese_word

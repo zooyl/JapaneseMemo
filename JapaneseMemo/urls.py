@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import Hiragana.views
-import Katakana.views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, \
     PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+
 from rest_framework import routers
+
+import Hiragana.views
+import Katakana.views
 
 router = routers.DefaultRouter()
 router.register('users', Hiragana.views.UserViewSet)
@@ -72,4 +76,4 @@ urlpatterns = [
          name='password_reset_complete'),
     # Social_django Urls
     path('oauth/', include('social_django.urls', namespace='social')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

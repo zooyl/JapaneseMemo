@@ -64,6 +64,10 @@ $(document).ready(function () {
     $('#myModal').modal({
         backdrop: 'static',
         keyboard: false
+    });
+    // reading japanese
+    $('#megaphone').click(function () {
+        $('#listen').get(0).play()
     })
 });
 

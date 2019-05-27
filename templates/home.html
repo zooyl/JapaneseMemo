@@ -13,9 +13,7 @@
                 </div>
                 {% if perms.Hiragana.easy_katakana %}
                     <div class="padd-3">
-                        <a href="{% url 'katakana' %}" class="btn btn-outline-danger btn-lg" data-toggle="popover"
-                           data-trigger="hover"
-                           data-content="You unlocked Katakana">Katakana</a>
+                        <a href="{% url 'katakana' %}" class="btn btn-outline-danger btn-lg">Katakana</a>
                     </div>
                 {% else %}
                     <div class="text-muted padd-3">
@@ -32,5 +30,6 @@
                 </div>
                 </div>
             </div>
+        </div>
     </section>
 {% endblock content %}

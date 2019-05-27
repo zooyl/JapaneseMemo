@@ -277,6 +277,7 @@ def check_answer(request):
             return render(request, 'success.html')
         return redirect(request.get_full_path())
     sign = request.POST['sign']
+    print(answer)
     return render(request, 'answer.html', {'sign': sign, 'answer': answer,
                                            'session': session})
 

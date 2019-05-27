@@ -17,21 +17,32 @@
             {% csrf_token %}
             <div align="center" style="padding-bottom: 7vh">
                 <div class="card border-danger mb-3" style="max-width: 40rem;">
-                    <div class="card-header" style="font-size: calc(3vw + 3vh)"
-                         align="center">{{ question.memo.japanese_word }}</div>
-                    <div class="card-body text-danger">
-                        <h5 class="card-title" align="center">Meaning:</h5>
-                        <p class="card-text" align="center">
-                            {% for j in shuffle %}
-                                <input style="margin-top: 1vh; margin-right: 1vw" class="btn btn-outline-danger" type="submit"
-                                       name="user_answer"
-                                       value="{{ j.memo.meaning }}">
-                                <input type="hidden" name="correct_answer" value="{{ question.memo.meaning }}">
-                                <input type="hidden" name="japanese_word" value="{{ question.memo.japanese_word }}">
-                            {% endfor %}</p>
+                    <div class="card-header">
+                        <div>
+                            {% if question.memo.listen %}
+                                <audio id="listen">
+                                    <source src="{{ question.memo.listen.url }}" type="audio/mpeg">
+                                </audio>
+                                <div align="left" style="padding-top: 1vh">
+                                    <button id="megaphone" class="megaphone" type="button"></button>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="correct-word" align="center">{{ question.memo.japanese_word }}</div>
+                        <div class="card-body text-danger">
+                            <h5 class="card-title" align="center">Meaning:</h5>
+                            <p class="card-text" align="center">
+                                {% for j in shuffle %}
+                                    <input style="margin-top: 1vh; margin-right: 1vw" class="btn btn-outline-danger"
+                                           type="submit"
+                                           name="user_answer"
+                                           value="{{ j.memo.meaning }}">
+                                    <input type="hidden" name="correct_answer" value="{{ question.memo.meaning }}">
+                                    <input type="hidden" name="japanese_word" value="{{ question.memo.japanese_word }}">
+                                {% endfor %}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
         </form>
     </div>
 {% endblock %}

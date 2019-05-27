@@ -8,6 +8,7 @@ from Hiragana.models import level
 class Katakana(models.Model):
     sign = models.CharField(max_length=5)
     pronunciation = models.CharField(max_length=5)
+    listen = models.FileField(upload_to='katakana/', blank=True)
 
     def __str__(self):
         return self.sign
