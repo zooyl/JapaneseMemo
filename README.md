@@ -5,8 +5,6 @@ Function that count your day streak and Facebook API login.
 Rest API included for future usage.
 Using PostgreSQL
 
-# It's Live!
-You can check it by yourself at https://japanese-memo.herokuapp.com/
 
 
 ### Automatic installation
