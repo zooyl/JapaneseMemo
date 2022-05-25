@@ -24,7 +24,7 @@ optional-django==0.1.0
 psycopg2==2.7.7
 psycopg2-binary==2.7.7
 pycparser==2.19
-PyJWT==1.7.1
+PyJWT==2.4.0
 python3-openid==3.1.0
 pytz==2018.9
 requests==2.21.0
